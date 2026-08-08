@@ -1,44 +1,33 @@
 /* ============================================================
    APPLIED DEEP LEARNING — STYLE SHEET (PRO MAX)
-   خلفية احترافية متحركة + تأثيرات زجاجية
+   خلفية متحركة + تأثيرات زجاجية + تصميم عصري
    ============================================================ */
 
 /* ============================================================
    ROOT VARIABLES
    ============================================================ */
 :root {
-    /* ===== الألوان ===== */
-    --bg-primary: rgba(15, 23, 42, 0.85);
-    --bg-card: rgba(255, 255, 255, 0.08);
-    --bg-card-hover: rgba(255, 255, 255, 0.15);
+    --bg-primary: #0f172a;
+    --bg-card: rgba(255, 255, 255, 0.06);
+    --bg-card-hover: rgba(255, 255, 255, 0.12);
     --text-primary: #f1f5f9;
     --text-secondary: #cbd5e1;
     --text-muted: #94a3b8;
-    --border-light: rgba(255, 255, 255, 0.10);
-
-    /* ===== الظلال ===== */
+    --border-light: rgba(255, 255, 255, 0.08);
     --shadow-sm: 0 4px 20px rgba(0, 0, 0, 0.3);
     --shadow-md: 0 10px 40px rgba(0, 0, 0, 0.4);
-    --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.5);
-    --shadow-glow: 0 0 60px rgba(99, 102, 241, 0.2);
-
-    /* ===== الزوايا ===== */
+    --shadow-glow: 0 0 60px rgba(99, 102, 241, 0.15);
     --radius-md: 16px;
     --radius-sm: 10px;
-
-    /* ===== الانتقالات ===== */
     --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-
-    /* ===== التدرجات ===== */
     --gradient-accent: linear-gradient(135deg, #818cf8, #8b5cf6);
     --gradient-accent-hover: linear-gradient(135deg, #6366f1, #7c3aed);
     --gradient-success: linear-gradient(135deg, #34d399, #10b981);
     --gradient-danger: linear-gradient(135deg, #f87171, #ef4444);
-    --gradient-hero: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 27, 75, 0.95));
 }
 
 /* ============================================================
-   RESET & BASE
+   RESET & BASE - الخلفية هنا
    ============================================================ */
 *,
 *::before,
@@ -59,7 +48,7 @@ body {
     position: relative;
     overflow-x: hidden;
 
-    /* --- الخلفية الرئيسية (Graident متحرك) --- */
+    /* ===== الخلفية الرئيسية (Graident متحرك) ===== */
     background: linear-gradient(-45deg, #0f172a, #1e1b4b, #111827, #1e293b);
     background-size: 400% 400%;
     animation: gradientMove 20s ease infinite;
@@ -82,7 +71,7 @@ body {
 }
 
 /* ============================================================
-   شبكة الخلفية (Dots Grid) - عشان تحس بالعمق
+   شبكة خلفية (Dots)
    ============================================================ */
 body::before {
     content: '';
@@ -93,22 +82,22 @@ body::before {
     bottom: 0;
     z-index: 0;
     background-image:
-        radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.05) 1px, transparent 0);
+        radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.06) 1px, transparent 0);
     background-size: 40px 40px;
     pointer-events: none;
 }
 
 /* ============================================================
-   توهج كروي خلفي (Orbs)
+   توهج كروي (Orb)
    ============================================================ */
 body::after {
     content: '';
     position: fixed;
-    top: -30%;
-    right: -20%;
-    width: 600px;
-    height: 600px;
-    background: radial-gradient(circle, rgba(99, 102, 241, 0.15), transparent 70%);
+    top: -20%;
+    right: -10%;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(99, 102, 241, 0.12), transparent 70%);
     border-radius: 50%;
     z-index: 0;
     pointer-events: none;
@@ -120,7 +109,7 @@ body::after {
         transform: translate(0, 0) scale(1);
     }
     100% {
-        transform: translate(-80px, 60px) scale(1.2);
+        transform: translate(-60px, 40px) scale(1.2);
     }
 }
 
@@ -153,7 +142,7 @@ body::after {
    HERO (زجاجي)
    ============================================================ */
 .hero {
-    background: var(--gradient-hero);
+    background: rgba(15, 23, 42, 0.7);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border: 1px solid rgba(255, 255, 255, 0.06);
@@ -162,7 +151,7 @@ body::after {
     margin: 0 -24px 48px;
     position: relative;
     overflow: hidden;
-    box-shadow: var(--shadow-lg);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
 }
 
 .hero-content {
@@ -424,7 +413,7 @@ body::after {
 }
 
 /* ============================================================
-   QUIZZES PAGE (تنسيقات إضافية للصفحة الداخلية)
+   QUIZZES PAGE (تنسيقات إضافية)
    ============================================================ */
 .hero .back-btn {
     background: rgba(255, 255, 255, 0.06);
@@ -584,6 +573,11 @@ body::after {
 .nav-btn.danger {
     background: var(--gradient-danger);
     color: #ffffff;
+}
+
+.nav-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
 }
 
 /* ============================================================
