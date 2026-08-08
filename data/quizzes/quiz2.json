@@ -1,1 +1,249 @@
-
+{
+  "quiz": 2,
+  "title": "Quiz 2 — Preventing Overfitting (Week 3)",
+  "covers": "Week 3",
+  "total_questions": 20,
+  "type": "theoretical",
+  "questions": [
+    {
+      "id": 1,
+      "question": "Why does dropout help prevent overfitting?",
+      "options": [
+        "It prevents neurons from co-adapting too much and forces the network to learn more robust, redundant features.",
+        "It permanently removes neurons, making the network smaller.",
+        "It increases the learning rate.",
+        "It adds noise to the labels."
+      ],
+      "answer": 0,
+      "explanation": "Dropout prevents co-adaptation by randomly deactivating neurons, forcing the network to learn robust and redundant features."
+    },
+    {
+      "id": 2,
+      "question": "L2 regularization is also known as:",
+      "options": [
+        "Weight decay or Ridge regularization",
+        "Lasso regularization",
+        "Dropout regularization",
+        "Early stopping"
+      ],
+      "answer": 0,
+      "explanation": "L2 regularization is also called Weight Decay or Ridge Regression, penalizing large weights by adding squared sum to the loss."
+    },
+    {
+      "id": 3,
+      "question": "What is a typical dropout rate mentioned in the material (e.g., probability of dropping a neuron)?",
+      "options": [
+        "0.5 (50%)",
+        "0.1 (10%)",
+        "0.9 (90%)",
+        "0.0 (0%)"
+      ],
+      "answer": 0,
+      "explanation": "A dropout rate of 50% (p=0.5) is commonly recommended for hidden layers as a good balance."
+    },
+    {
+      "id": 4,
+      "question": "Which regularization technique reduces model complexity by shrinking weights but typically does not set them to zero?",
+      "options": [
+        "L2 regularization (Ridge)",
+        "L1 regularization (Lasso)",
+        "Dropout",
+        "Data augmentation"
+      ],
+      "answer": 0,
+      "explanation": "L2 regularization shrinks weights toward zero but rarely makes them exactly zero, unlike L1 which drives some weights to zero."
+    },
+    {
+      "id": 5,
+      "question": "Which metric is commonly monitored to decide when to apply early stopping?",
+      "options": [
+        "Validation loss (or another chosen metric) at the end of every epoch.",
+        "Training accuracy at the beginning of each epoch.",
+        "Number of parameters in the model.",
+        "The learning rate value."
+      ],
+      "answer": 0,
+      "explanation": "Validation loss is commonly monitored for early stopping as it indicates generalization performance."
+    },
+    {
+      "id": 6,
+      "question": "What is the primary goal of regularization?",
+      "options": [
+        "To improve generalization of the model on unseen data by preventing overfitting.",
+        "To achieve zero training loss at all costs.",
+        "To increase the model's variance.",
+        "To make the model more complex and capture noise."
+      ],
+      "answer": 0,
+      "explanation": "Regularization aims to improve generalization by preventing overfitting, even if it slightly increases training error."
+    },
+    {
+      "id": 7,
+      "question": "What is underfitting in the context of model fitting?",
+      "options": [
+        "The model is not complex enough to explain the data well, resulting in poor predictive performance.",
+        "The model is too complex and describes noise instead of the underlying relationship.",
+        "The model perfectly memorizes the training data but fails on new data.",
+        "The model has high variance and low bias."
+      ],
+      "answer": 0,
+      "explanation": "Underfitting means the model is too simple to capture the underlying pattern, resulting in poor predictive performance."
+    },
+    {
+      "id": 8,
+      "question": "Which of the following are examples of data augmentation for image classification mentioned in the material?",
+      "options": [
+        "Translation, rotation, scaling, or deformation of images.",
+        "Adding random noise to labels.",
+        "Removing all color channels.",
+        "Doubling the image resolution."
+      ],
+      "answer": 0,
+      "explanation": "Common image augmentations include translation, rotation, scaling, flipping, and deformation."
+    },
+    {
+      "id": 9,
+      "question": "What does L2 regularization prefer in terms of weight distribution?",
+      "options": [
+        "It prefers to 'spread out' the weights (lower sum of squares).",
+        "It prefers many weights to be exactly zero.",
+        "It prefers one weight to be very large and others zero.",
+        "It has no preference on weight distribution."
+      ],
+      "answer": 0,
+      "explanation": "L2 regularization spreads weights evenly with smaller magnitudes because it penalizes the sum of squared weights."
+    },
+    {
+      "id": 10,
+      "question": "Why is L1 regularization useful for feature selection?",
+      "options": [
+        "It nullifies the contribution of less important features by setting their weights to zero, leading to a sparse model.",
+        "It spreads weights evenly across all features.",
+        "It increases all weights to the same value.",
+        "It removes features with high variance."
+      ],
+      "answer": 0,
+      "explanation": "L1 regularization drives weights to zero, effectively performing feature selection by removing less important features."
+    },
+    {
+      "id": 11,
+      "question": "What is regularization in machine learning?",
+      "options": [
+        "A technique that constrains the optimization problem to discourage complex models, limiting the capacity of a model to avoid overfitting.",
+        "A method to increase model complexity to better fit training data.",
+        "A process of adding more layers to a neural network.",
+        "A way to increase the learning rate during training."
+      ],
+      "answer": 0,
+      "explanation": "Regularization adds constraints that penalize complexity, encouraging simpler models that generalize better."
+    },
+    {
+      "id": 12,
+      "question": "According to the material, regularization works by either:",
+      "options": [
+        "Adding a penalty to the loss function or modifying the network's architecture during training.",
+        "Increasing the number of epochs or decreasing the batch size.",
+        "Using a larger learning rate or more training data.",
+        "Removing all bias terms or increasing the number of layers."
+      ],
+      "answer": 0,
+      "explanation": "Regularization can be applied as a penalty term in the loss function (e.g., L1/L2) or through architectural modifications (e.g., Dropout)."
+    },
+    {
+      "id": 13,
+      "question": "Which statement best describes the performance of an underfitted model?",
+      "options": [
+        "Poor predictive performance due to the model not being complex enough to explain the data.",
+        "Excellent performance on training data but poor on test data.",
+        "Perfect generalization to unseen data.",
+        "High variance and low bias."
+      ],
+      "answer": 0,
+      "explanation": "Underfitting results in poor predictive performance because the model is too simple to capture the underlying data patterns."
+    },
+    {
+      "id": 14,
+      "question": "Which regularization technique encourages many weights to become exactly zero, leading to a sparse model?",
+      "options": [
+        "L1 regularization (Lasso)",
+        "L2 regularization (Ridge)",
+        "Dropout",
+        "Early stopping"
+      ],
+      "answer": 0,
+      "explanation": "L1 regularization (Lasso) drives weights to exactly zero, making it useful for feature selection and sparse models."
+    },
+    {
+      "id": 15,
+      "question": "The regularization strength λ (lambda) is a:",
+      "options": [
+        "Hyperparameter that must be tuned.",
+        "Parameter learned during training.",
+        "Fixed constant always set to 1.",
+        "Derivative of the loss function."
+      ],
+      "answer": 0,
+      "explanation": "λ controls the strength of regularization and is a hyperparameter that must be tuned for optimal performance."
+    },
+    {
+      "id": 16,
+      "question": "What is the penalty term added to the loss function for L2 (Ridge) regularization?",
+      "options": [
+        "λ ∑ w_i²",
+        "λ ∑ |w_i|",
+        "λ ∑ w_i",
+        "λ ∑ (w_i)^3"
+      ],
+      "answer": 0,
+      "explanation": "L2 penalty is the sum of squared weights (Σ w_i²) multiplied by the regularization strength λ."
+    },
+    {
+      "id": 17,
+      "question": "In TensorFlow/Keras, which layer is used to implement dropout?",
+      "options": [
+        "tf.keras.layers.Dropout(p=0.5)",
+        "tf.keras.layers.Regularizer()",
+        "tf.keras.layers.L1()",
+        "tf.keras.layers.L2()"
+      ],
+      "answer": 0,
+      "explanation": "Dropout is implemented using tf.keras.layers.Dropout with the probability parameter p."
+    },
+    {
+      "id": 18,
+      "question": "L1 regularization is also known as:",
+      "options": [
+        "Lasso regularization",
+        "Ridge regularization",
+        "Weight decay",
+        "Dropout"
+      ],
+      "answer": 0,
+      "explanation": "L1 regularization is called Lasso (Least Absolute Shrinkage and Selection Operator) regularization."
+    },
+    {
+      "id": 19,
+      "question": "When is dropout regularization applied?",
+      "options": [
+        "Only during training. The full intact network is used for prediction on validation/test sets.",
+        "Only during testing. Training uses the full network.",
+        "Both during training and testing with the same dropout rate.",
+        "Only during the first epoch."
+      ],
+      "answer": 0,
+      "explanation": "Dropout is applied only during training. During inference, all neurons are active and weights are scaled."
+    },
+    {
+      "id": 20,
+      "question": "What is the main purpose of data augmentation as a regularization technique?",
+      "options": [
+        "To create additional synthetic data by perturbing existing training instances, thereby training with more data to improve generalization.",
+        "To reduce the number of training samples to speed up training.",
+        "To remove noise from the dataset.",
+        "To increase model complexity."
+      ],
+      "answer": 0,
+      "explanation": "Data augmentation generates new training samples through transformations to improve generalization."
+    }
+  ]
+}
