@@ -1,1 +1,173 @@
-
+{
+  "quiz": 6,
+  "title": "Quiz 6 — Recurrent Neural Networks (Week 7)",
+  "covers": "Week 7",
+  "total_questions": 17,
+  "type": "theoretical",
+  "questions": [
+    {
+      "id": 1,
+      "question": "In an RNN, the transition weight matrix used to update the hidden state from step t=1 to step t=2 is identical to the one used from step t=9 to step t=10.",
+      "options": ["True", "False"],
+      "answer": 0,
+      "explanation": "True. RNNs share the same weight matrices (W_hh) across all time steps."
+    },
+    {
+      "id": 2,
+      "question": "What is a major limitation of using One-Hot Encoding for word representation in large vocabularies?",
+      "options": [
+        "It results in high-dimensional, sparse vectors and fails to capture semantic relationships between words.",
+        "It creates dense vectors that cause immediate gradient explosion.",
+        "It forces all words to have the exact same learned floating-point values.",
+        "It automatically drops words that appear less than ten times."
+      ],
+      "answer": 0,
+      "explanation": "One-hot vectors are high-dimensional, sparse, and have no notion of similarity between words."
+    },
+    {
+      "id": 3,
+      "question": "What is the direct consequence of the vanishing gradient problem on a vanilla RNN's performance?",
+      "options": [
+        "The model weights update too quickly, leading to divergent training behavior.",
+        "The network struggles to learn long-term dependencies and forgets information from earlier time steps.",
+        "The network automatically overfits on structural data borders.",
+        "The activation maps double in size at every recurrent layer."
+      ],
+      "answer": 1,
+      "explanation": "Vanishing gradients cause the network to forget information from earlier time steps, making it struggle with long-term dependencies."
+    },
+    {
+      "id": 4,
+      "question": "DNA sequencing is an example of sequential data because the specific ordering of base pairs determines genetic meaning.",
+      "options": ["True", "False"],
+      "answer": 0,
+      "explanation": "True. DNA data is sequential because the order of base pairs determines the genetic information."
+    },
+    {
+      "id": 5,
+      "question": "Which Keras API class represents the standard implementation of the LSTM architecture cell?",
+      "options": [
+        "layers.LSTM",
+        "layers.Conv1D",
+        "layers.DenseRNN",
+        "layers.EmbeddingSequence"
+      ],
+      "answer": 0,
+      "explanation": "layers.LSTM is the Keras class that implements the LSTM architecture cell."
+    },
+    {
+      "id": 6,
+      "question": "Speech Recognition involves converting continuous sequential audio signals into structured text sequences.",
+      "options": ["True", "False"],
+      "answer": 0,
+      "explanation": "True. Speech recognition processes sequential audio signals to produce structured text output."
+    },
+    {
+      "id": 7,
+      "question": "Which parameter weights are shared across all time steps in a vanilla Recurrent Neural Network?",
+      "options": [
+        "Only the output transformation weights (W_hy)",
+        "Only the input-to-hidden layer transition weights (W_xh)",
+        "All key transition matrices (W_xh, W_hh, W_hy), meaning the exact same parameters are applied at every time step.",
+        "None; each time step has its own unique, independent set of weight matrices."
+      ],
+      "answer": 2,
+      "explanation": "RNNs share all key transition matrices (W_xh, W_hh, W_hy) across all time steps."
+    },
+    {
+      "id": 8,
+      "question": "Which technique is commonly used to mitigate the exploding gradient problem in recurrent networks by capping gradients at a maximum threshold?",
+      "options": [
+        "One-Hot Scaling",
+        "Embedding Initialization",
+        "Gradient Clipping",
+        "Identity Mapping"
+      ],
+      "answer": 2,
+      "explanation": "Gradient clipping rescales gradients if their norm exceeds a threshold, preventing exploding gradients."
+    },
+    {
+      "id": 9,
+      "question": "A standard LSTM cell contains exactly two gates: an input gate and a sorting gate.",
+      "options": ["True", "False"],
+      "answer": 1,
+      "explanation": "False. A standard LSTM cell contains three gates: forget gate, input gate, and output gate."
+    },
+    {
+      "id": 10,
+      "question": "If a vocabulary contains exactly 10,000 unique words, what is the length of the one-hot encoded vector representing an individual word?",
+      "options": [
+        "300",
+        "1",
+        "10,000",
+        "100"
+      ],
+      "answer": 2,
+      "explanation": "One-hot vector length equals the vocabulary size. With 10,000 unique words, each vector has length 10,000."
+    },
+    {
+      "id": 11,
+      "question": "Recurrent Neural Networks and LSTMs serve as standard foundational architectures for modern Natural Language Processing (NLP) applications like sentiment analysis and chatbots.",
+      "options": ["True", "False"],
+      "answer": 0,
+      "explanation": "True. RNNs and LSTMs are foundational architectures for many NLP applications including sentiment analysis and chatbots."
+    },
+    {
+      "id": 12,
+      "question": "Gradient clipping modifies the architecture of an RNN by converting all hidden states into convolutional pooling nodes.",
+      "options": ["True", "False"],
+      "answer": 1,
+      "explanation": "False. Gradient clipping is a training technique that scales gradients; it does not modify the network architecture."
+    },
+    {
+      "id": 13,
+      "question": "The exploding gradient problem occurs when repeated multiplications cause gradients to grow excessively large, destabilizing model training.",
+      "options": ["True", "False"],
+      "answer": 0,
+      "explanation": "True. Exploding gradients occur when repeated multiplications during backpropagation cause gradients to grow excessively large."
+    },
+    {
+      "id": 14,
+      "question": "Which of the following falls under the category of sequential time-series data suitable for RNN analysis?",
+      "options": [
+        "Stock market prices, weather patterns, and sensor telemetry tracked over time",
+        "A collection of individual unlinked profile pictures",
+        "A table containing stationary house sizes and city zip codes",
+        "The discrete hyperparameter pairs for grid optimization"
+      ],
+      "answer": 0,
+      "explanation": "Stock market prices, weather patterns, and sensor telemetry are sequential time-series data suitable for RNN analysis."
+    },
+    {
+      "id": 15,
+      "question": "What is the primary responsibility of the Forget Gate within an LSTM cell?",
+      "options": [
+        "To decide what information from the previous cell state should be discarded or removed from memory.",
+        "To select which parts of the current cell state will be exposed as the final output.",
+        "To transform text tokens into dense embeddings automatically.",
+        "To force the learning rate parameter to reset to zero."
+      ],
+      "answer": 0,
+      "explanation": "The Forget Gate decides what information from the previous cell state should be discarded or removed from memory."
+    },
+    {
+      "id": 16,
+      "question": "To use layers.LSTM in Keras, you must always flatten your sequences into a single global 1D vector before passing them into the recurrent cell structure.",
+      "options": ["True", "False"],
+      "answer": 1,
+      "explanation": "False. LSTM layers in Keras accept 3D inputs (batch_size, timesteps, features) directly without flattening."
+    },
+    {
+      "id": 17,
+      "question": "Why are standard Feed-Forward Neural Networks (FFNNs) unsuited for handling sequential data like text or speech?",
+      "options": [
+        "They have too many parallel processing streams.",
+        "They inherently share weights across temporal dimensions automatically.",
+        "They process inputs independently and lack a mechanism to retain past temporal context or memory.",
+        "They require the input vector to be 3D at all times."
+      ],
+      "answer": 2,
+      "explanation": "FFNNs process inputs independently without any mechanism to retain past temporal context or memory."
+    }
+  ]
+}
