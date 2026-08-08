@@ -1,1 +1,286 @@
-
+{
+  "week": 2,
+  "title": "Week 2 — From Single Neurons to Feed-Forward Networks",
+  "questions": [
+    {
+      "id": 1,
+      "question": "What is the core algorithm used to minimize the loss function by iteratively updating parameters (weights and bias)?",
+      "options": ["Newton's Method", "Gradient Descent", "Adam Optimizer", "Stochastic Sampling"],
+      "answer": 1,
+      "explanation": "Gradient Descent is the core optimization algorithm — it iteratively updates parameters in the direction that reduces the loss."
+    },
+    {
+      "id": 2,
+      "question": "Which hyperparameter controls the step size of each update in gradient descent?",
+      "options": ["Batch size", "Learning rate (α)", "Number of epochs", "Momentum"],
+      "answer": 1,
+      "explanation": "The learning rate α controls how large each parameter update step is during gradient descent."
+    },
+    {
+      "id": 3,
+      "question": "Mini-Batch Gradient Descent is the practical approach because it:",
+      "options": ["Uses the entire dataset for each update", "Uses small subsets (batches) balancing speed and stability", "Updates only one weight at a time", "Does not require a loss function"],
+      "answer": 1,
+      "explanation": "Mini-Batch GD splits the dataset into small batches — faster than full-batch GD and more stable than pure SGD."
+    },
+    {
+      "id": 4,
+      "question": "A perceptron performs two main operations: linear combination and:",
+      "options": ["Normalization", "Regularization", "Activation (non-linear function)", "Pooling"],
+      "answer": 2,
+      "explanation": "A perceptron first computes a weighted sum (linear combination), then passes it through an activation function to introduce non-linearity."
+    },
+    {
+      "id": 5,
+      "question": "What is the main purpose of a non-linear activation function in a neural network?",
+      "options": ["To reduce the number of parameters", "To introduce non-linearities, allowing the network to learn complex functions", "To accelerate matrix multiplication", "To convert outputs to probabilities"],
+      "answer": 1,
+      "explanation": "Without non-linear activations, stacking layers is equivalent to a single linear model. Non-linearity enables learning complex patterns."
+    },
+    {
+      "id": 6,
+      "question": "Which activation function is defined as σ(z) = 1 / (1 + e⁻ᶻ) and was shown as an example in the perceptron slides?",
+      "options": ["ReLU", "Tanh", "Sigmoid", "Leaky ReLU"],
+      "answer": 2,
+      "explanation": "The Sigmoid function maps any input to a value between 0 and 1, making it useful for binary classification output."
+    },
+    {
+      "id": 7,
+      "question": "If we use only linear activation functions throughout a deep network, the overall model remains:",
+      "options": ["Highly non-linear", "Linear, regardless of depth", "Exponentially expressive", "Equivalent to a decision tree"],
+      "answer": 1,
+      "explanation": "A composition of linear functions is still linear — depth alone without non-linear activations adds no expressive power."
+    },
+    {
+      "id": 8,
+      "question": "A single neuron (without stacking) is essentially a linear model and cannot:",
+      "options": ["Handle binary classification", "Learn non-linear decision boundaries", "Use a bias term", "Output probabilities"],
+      "answer": 1,
+      "explanation": "A single neuron with linear or sigmoid activation can only create linear decision boundaries — it fails on non-linearly separable data."
+    },
+    {
+      "id": 9,
+      "question": "How do we handle classification tasks with more than two classes (e.g., Fashion-MNIST with 10 classes)?",
+      "options": ["Use one sigmoid neuron", "Use an output layer with one neuron per class plus a special activation (Softmax)", "Use linear regression", "Stack multiple binary classifiers without output layer"],
+      "answer": 1,
+      "explanation": "Multiclass classification needs one output neuron per class, with Softmax converting logits to a probability distribution."
+    },
+    {
+      "id": 10,
+      "question": "The Softmax function converts raw scores (logits) into:",
+      "options": ["Binary outputs", "A probability distribution (all values between 0 and 1, sum = 1)", "Sparse feature vectors", "Gradient magnitudes"],
+      "answer": 1,
+      "explanation": "Softmax normalizes logits into probabilities that sum to 1, representing the model's confidence for each class."
+    },
+    {
+      "id": 11,
+      "question": "Softmax formula for class i is: σ(z_i) = e^{z_i} / Σⱼ e^{zⱼ}. What does the denominator do?",
+      "options": ["It clips negative values", "It normalizes the values so they sum to 1", "It applies a sigmoid transformation", "It computes the gradient"],
+      "answer": 1,
+      "explanation": "The denominator sums all exponentiated logits, normalizing each output so the entire probability distribution sums to 1."
+    },
+    {
+      "id": 12,
+      "question": "What is One-Hot Encoding used for in multiclass classification?",
+      "options": ["To reduce overfitting", "To convert integer labels into a vector representation matching Softmax output", "To standardize input features", "To initialize weights"],
+      "answer": 1,
+      "explanation": "One-hot encoding converts a class label (e.g., 3) into a vector (e.g., [0,0,0,1,0,...]) that can be directly compared with Softmax output."
+    },
+    {
+      "id": 13,
+      "question": "Overfitting occurs when a model:",
+      "options": ["Is too simple and underfits the data", "Learns training data too well, including noise, and fails to generalize", "Has high bias", "Has too few parameters"],
+      "answer": 1,
+      "explanation": "Overfitting = memorizing the training data including its noise. The model performs well on training but poorly on unseen data."
+    },
+    {
+      "id": 14,
+      "question": "In the bias-variance tradeoff, a model with high variance typically:",
+      "options": ["Underfits the data", "Is too complex and overfits, being sensitive to training fluctuations", "Has strong assumptions", "Performs equally on train and test"],
+      "answer": 1,
+      "explanation": "High variance models are overly complex — they fit the training data very well but are sensitive to small changes, leading to poor generalization."
+    },
+    {
+      "id": 15,
+      "question": "Which loss function is suitable for binary classification when the model outputs a probability between 0 and 1?",
+      "options": ["Mean Squared Error (MSE)", "Binary Cross-Entropy Loss", "Hinge Loss", "KL Divergence"],
+      "answer": 1,
+      "explanation": "Binary Cross-Entropy is specifically designed for binary classification, penalizing confident wrong predictions heavily."
+    },
+    {
+      "id": 16,
+      "question": "For regression tasks that output continuous real numbers, which loss is commonly used?",
+      "options": ["Binary Cross-Entropy", "Categorical Cross-Entropy", "Mean Squared Error (MSE)", "Softmax Loss"],
+      "answer": 2,
+      "explanation": "MSE measures the average squared difference between predictions and true values — ideal for regression tasks."
+    },
+    {
+      "id": 17,
+      "question": "What new hyperparameters are introduced when moving to deeper feed-forward networks?",
+      "options": ["Number of hidden layers and activation functions per layer", "Initial learning rate only", "Batch size and epochs", "Dropout rate and L2 regularization"],
+      "answer": 0,
+      "explanation": "Deeper networks require choosing the number of hidden layers and the activation function for each layer — key architectural hyperparameters."
+    },
+    {
+      "id": 18,
+      "question": "A Feed-Forward Neural Network (FFNN) / MLP is characterized by:",
+      "options": ["Information flows only from input to output without loops (no cycles)", "Recurrent connections", "Weight sharing across time", "No hidden layers"],
+      "answer": 0,
+      "explanation": "FFNNs are acyclic — data flows strictly forward from input through hidden layers to output, with no feedback loops."
+    },
+    {
+      "id": 19,
+      "question": "In a Multi-Layer Perceptron, what does 'Fully Connected' mean?",
+      "options": ["Every neuron in a layer connects to every neuron in the previous layer", "Only adjacent neurons are connected", "No connections between layers", "Sparse random connectivity"],
+      "answer": 0,
+      "explanation": "Fully Connected (Dense) layers connect every neuron in one layer to every neuron in the next layer."
+    },
+    {
+      "id": 20,
+      "question": "Why is the ability to stack neurons (hidden layers) important for real-world tasks like image classification?",
+      "options": ["It reduces the number of parameters", "It allows learning of hierarchical non-linear features", "It forces linear decision boundaries", "It removes the need for activation functions"],
+      "answer": 1,
+      "explanation": "Hidden layers learn progressively more abstract features — edges → shapes → objects — enabling powerful representations for complex tasks."
+    },
+    {
+      "id": 21,
+      "question": "What is the empirical loss (J(W)) also known as?",
+      "options": ["Activation map", "Objective function / Cost function / Empirical Risk", "Gradient vector", "Regularization term"],
+      "answer": 1,
+      "explanation": "The empirical loss J(W) is also called the cost function, objective function, or empirical risk — they all refer to what we're minimizing."
+    },
+    {
+      "id": 22,
+      "question": "In the 'Will I pass this class?' example, what two input features were used?",
+      "options": ["Hours of sleep & motivation", "Number of lectures attended & hours spent on final project", "Midterm grade & attendance rate", "Previous GPA & study group"],
+      "answer": 1,
+      "explanation": "The example used 'number of lectures attended' and 'hours spent on final project' as the two input features to predict pass/fail."
+    },
+    {
+      "id": 23,
+      "question": "If we have a multi-output perceptron for 10 classes, the output layer must contain:",
+      "options": ["1 neuron with sigmoid", "10 neurons, each producing logits, then Softmax", "5 hidden neurons", "10 neurons with linear activation only"],
+      "answer": 1,
+      "explanation": "10-class classification requires 10 output neurons (one per class), with Softmax converting their logits to probabilities."
+    },
+    {
+      "id": 24,
+      "question": "Which property is true for Softmax outputs?",
+      "options": ["All outputs are negative", "The sum of all outputs equals exactly 1", "Only the maximum logit is non-zero", "Outputs correspond to binary decisions"],
+      "answer": 1,
+      "explanation": "Softmax always produces a valid probability distribution — all outputs are positive and they sum to exactly 1."
+    },
+    {
+      "id": 25,
+      "question": "What does the notation W* = argmin_W J(W) represent?",
+      "options": ["The optimal weights that minimize the loss function", "The gradient update step", "The learning rate schedule", "The activation output"],
+      "answer": 0,
+      "explanation": "W* is the set of weights that achieves the minimum value of the cost function J(W) — the goal of training."
+    },
+    {
+      "id": 26,
+      "question": "Large learning rates in gradient descent can cause:",
+      "options": ["Faster convergence with no risk", "Overshooting, instability and divergence", "Vanishing gradients", "Increased bias"],
+      "answer": 1,
+      "explanation": "Too large a learning rate causes updates to overshoot the minimum, making the loss oscillate or diverge instead of converging."
+    },
+    {
+      "id": 27,
+      "question": "In the perceptron example with weights w₀=1, w=[3, -2], the decision boundary is a:",
+      "options": ["Circle", "Line in 2D", "Complex parabola", "Hyperbola"],
+      "answer": 1,
+      "explanation": "A single perceptron with two inputs creates a linear decision boundary — a straight line in 2D space."
+    },
+    {
+      "id": 28,
+      "question": "What is the output of the perceptron example for input X = [-1, 2] using sigmoid activation?",
+      "options": ["~0.002 (near 0)", "0.5", "0.998", "1.0"],
+      "answer": 0,
+      "explanation": "z = 1 + 3(-1) + (-2)(2) = 1 - 3 - 4 = -6. Sigmoid(-6) ≈ 0.002 — very close to 0, predicting class 0."
+    },
+    {
+      "id": 29,
+      "question": "Why can a single logistic regression neuron not separate the green vs red points that are arranged in a non-linear pattern?",
+      "options": ["It only produces probabilities", "It can only learn linear decision boundaries", "It cannot use bias", "It requires multiple outputs"],
+      "answer": 1,
+      "explanation": "Logistic regression creates only linear decision boundaries — it fundamentally cannot separate non-linearly distributed classes."
+    },
+    {
+      "id": 30,
+      "question": "What is the role of activation functions like ReLU or Tanh in hidden layers compared to the output layer?",
+      "options": ["They make the network entirely linear", "They introduce non-linearity, allowing the network to approximate complex functions", "They only affect the final probability", "They reduce the depth of the network"],
+      "answer": 1,
+      "explanation": "Hidden layer activations (ReLU, Tanh) introduce non-linearity for complex feature learning, while the output layer activation (Sigmoid/Softmax) produces final predictions."
+    },
+    {
+      "id": 31,
+      "question": "In the context of the Fashion-MNIST lab, what is the main goal of building a Feed-Forward Network?",
+      "options": ["To perform regression on pixel values", "Multiclass classification of clothing items (10 categories)", "To compress images", "Unsupervised clustering"],
+      "answer": 1,
+      "explanation": "Fashion-MNIST has 10 clothing categories — the FFNN learns to classify each image into one of these 10 classes."
+    },
+    {
+      "id": 32,
+      "question": "During training, if a model has extremely high accuracy on training data but poor on validation, this is a sign of:",
+      "options": ["Underfitting", "Overfitting", "Proper generalization", "Data leakage"],
+      "answer": 1,
+      "explanation": "High train accuracy + low validation accuracy = overfitting. The model memorized training data but can't generalize to new examples."
+    },
+    {
+      "id": 33,
+      "question": "The fundamental tradeoff in machine learning states we must balance:",
+      "options": ["Precision and recall", "Bias and variance", "Depth and width", "Gradient and learning rate"],
+      "answer": 1,
+      "explanation": "The bias-variance tradeoff: simple models have high bias (underfit), complex models have high variance (overfit). We seek the sweet spot."
+    },
+    {
+      "id": 34,
+      "question": "What is the formula for binary cross-entropy loss (single sample) as presented in the slides?",
+      "options": ["y log(ŷ) + (1-y) log(1-ŷ)", "(y - ŷ)²", "max(0,1-yŷ)", "|y-ŷ|"],
+      "answer": 0,
+      "explanation": "Binary cross-entropy: -[y·log(ŷ) + (1-y)·log(1-ŷ)]. It heavily penalizes confident wrong predictions."
+    },
+    {
+      "id": 35,
+      "question": "One major limitation of a single neuron model (e.g., logistic regression) is that it cannot:",
+      "options": ["Learn with gradient descent", "Handle more than 2 features", "Model XOR or non-linear patterns without feature engineering", "Use a bias term"],
+      "answer": 2,
+      "explanation": "A single neuron cannot solve XOR or any non-linearly separable problem without manual feature engineering — this motivates MLPs."
+    },
+    {
+      "id": 36,
+      "question": "In the single-layer neural network diagram (input, hidden, output), the hidden layer's outputs (zⱼ) are computed using:",
+      "options": ["Only linear combination, no activation", "Linear combination followed by an activation function", "Softmax directly", "Max pooling"],
+      "answer": 1,
+      "explanation": "Hidden neurons compute a weighted sum of inputs (linear combination) then apply an activation function to produce their output."
+    },
+    {
+      "id": 37,
+      "question": "When preparing labels for Softmax output, we convert integer labels (e.g., 2) into:",
+      "options": ["Single probability value", "One-hot encoded vector", "Normalized integer", "Logit score"],
+      "answer": 1,
+      "explanation": "Label 2 becomes [0,0,1,0,...,0] — a one-hot vector that matches the shape of the Softmax output for loss computation."
+    },
+    {
+      "id": 38,
+      "question": "What practical insight does the lab overview from Week 2 provide?",
+      "options": ["Implement single-neuron models and build a multiclass FFNN on Fashion-MNIST using Keras", "Only use CNNs", "Only regression analysis", "Hyperparameter tuning is unnecessary"],
+      "answer": 0,
+      "explanation": "Week 2 lab covers implementing single-neuron models from scratch and then building a full multiclass FFNN on Fashion-MNIST using Keras."
+    },
+    {
+      "id": 39,
+      "question": "The 'limits of a single neuron' slide concludes that real-world data often requires:",
+      "options": ["Deeper networks with non-linear activations (MLP)", "Linear models", "No hidden layers", "Only sigmoid activations"],
+      "answer": 0,
+      "explanation": "Real-world data is rarely linearly separable — MLPs with multiple hidden layers and non-linear activations are needed to model complex patterns."
+    },
+    {
+      "id": 40,
+      "question": "Which statement about Feed-Forward Neural Networks is correct according to the lecture?",
+      "options": ["They allow feedback loops", "They consist of input, hidden, output layers, and information moves forward", "They cannot have more than 2 hidden layers", "They require convolutional layers"],
+      "answer": 1,
+      "explanation": "FFNNs have input, hidden, and output layers with information flowing strictly forward — no recurrent or feedback connections."
+    }
+  ]
+}
