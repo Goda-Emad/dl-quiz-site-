@@ -1,1 +1,69 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الاختبار - Week 3</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container quiz-container">
+        <!-- Header -->
+        <header class="quiz-header">
+            <button class="back-btn" onclick="goHome()">← العودة</button>
+            <div class="quiz-title">
+                <h1 id="quizTitle">🧠 Preventing Overfitting</h1>
+                <p id="quizSubtopics">Regularization · L1 / L2 · Dropout · Early Stopping · Data Augmentation</p>
+            </div>
+            <div class="score-display">
+                <span id="scoreDisplay">🎯 0 / 40 (0%)</span>
+                <span id="answeredDisplay">0 answered, 40 unanswered</span>
+            </div>
+        </header>
 
+        <!-- Progress Bar -->
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar" style="width: 0%"></div>
+        </div>
+
+        <!-- Question Area -->
+        <div class="question-area" id="questionArea">
+            <div class="question-number" id="questionNumber">سؤال 1 من 40</div>
+            <h2 class="question-text" id="questionText">Loading question...</h2>
+            
+            <div class="options-container" id="optionsContainer">
+                <!-- Options will be inserted here -->
+            </div>
+
+            <div class="explanation-box" id="explanationBox" style="display: none;">
+                <div class="explanation-content" id="explanationContent"></div>
+            </div>
+
+            <div class="navigation">
+                <button class="nav-btn" id="prevBtn" onclick="prevQuestion()">← السابق</button>
+                <span class="question-counter" id="questionCounter">1 / 40</span>
+                <button class="nav-btn" id="nextBtn" onclick="nextQuestion()">التالي →</button>
+            </div>
+
+            <div class="action-buttons">
+                <button class="submit-btn" onclick="getFinalScore()">✨ Get Final Score & Feedback</button>
+            </div>
+        </div>
+
+        <!-- Results Area (hidden initially) -->
+        <div class="results-area" id="resultsArea" style="display: none;">
+            <h2>📊 النتائج النهائية</h2>
+            <div class="final-score" id="finalScore">🎯 35 / 40 (87.5%)</div>
+            <div class="stats">
+                <span id="correctCount">✅ 35 صحيح</span>
+                <span id="wrongCount">❌ 5 خطأ</span>
+                <span id="unansweredCount">⚠️ 0 غير مجاب</span>
+            </div>
+            <button class="review-btn" onclick="reviewAnswers()">🔄 مراجعة الإجابات</button>
+            <button class="home-btn" onclick="goHome()">🏠 العودة للرئيسية</button>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>
