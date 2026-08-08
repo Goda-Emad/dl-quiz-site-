@@ -1,1 +1,486 @@
-
+{
+  "week": 1,
+  "title": "Week 1 — Foundations of Deep Learning",
+  "questions": [
+    {
+      "id": 1,
+      "question": "Which statement best defines Artificial Intelligence (AI) according to the lecture notes?",
+      "options": [
+        "Algorithms that learn without being explicitly programmed",
+        "Programs with ability to learn and reason like humans",
+        "A subset of machine learning using deep neural networks",
+        "Systems that only follow hard-coded rules"
+      ],
+      "answer": 1,
+      "explanation": "AI refers to programs with the ability to learn and reason like humans — it's the broadest category encompassing ML and DL."
+    },
+    {
+      "id": 2,
+      "question": "What is the key characteristic of Machine Learning (ML)?",
+      "options": [
+        "Relies only on symbolic logic",
+        "Requires explicit programming for every rule",
+        "Algorithms learn from data without explicit programming",
+        "Cannot handle unstructured data"
+      ],
+      "answer": 2,
+      "explanation": "ML algorithms learn patterns from data automatically without needing explicit rules programmed for every situation."
+    },
+    {
+      "id": 3,
+      "question": "Deep Learning (DL) is a subset of machine learning that:",
+      "options": [
+        "Uses handcrafted features",
+        "Requires small datasets to perform well",
+        "Adapts artificial neural networks to learn from vast data",
+        "Is always interpretable by design"
+      ],
+      "answer": 2,
+      "explanation": "DL uses multi-layered artificial neural networks that automatically learn hierarchical representations from large amounts of data."
+    },
+    {
+      "id": 4,
+      "question": "In the neural network function ŷ = f(x, θ), what does θ (theta) represent?",
+      "options": [
+        "The input data vector",
+        "The predicted output",
+        "The tunable parameters (weights and biases)",
+        "The loss value"
+      ],
+      "answer": 2,
+      "explanation": "θ represents all the tunable parameters of the network (weights and biases) that are adjusted during training."
+    },
+    {
+      "id": 5,
+      "question": "What is the role of a loss function L(y, ŷ) in training a neural network?",
+      "options": [
+        "To measure how close the prediction ŷ is to the true value y",
+        "To generate new training examples",
+        "To initialize the network parameters",
+        "To compute the gradient of the input"
+      ],
+      "answer": 0,
+      "explanation": "The loss function measures the error between the model's prediction ŷ and the true label y — we minimize it during training."
+    },
+    {
+      "id": 6,
+      "question": "In the context of learning for neural networks, 'optimization' refers to:",
+      "options": [
+        "Increasing the model complexity",
+        "Minimizing the loss function by adjusting parameters",
+        "Maximizing the number of epochs",
+        "Fixing the learning rate permanently"
+      ],
+      "answer": 1,
+      "explanation": "Optimization is the process of adjusting the parameters θ to minimize the loss function over the training data."
+    },
+    {
+      "id": 7,
+      "question": "Gradient Descent's core intuition is analogous to:",
+      "options": [
+        "Climbing a hill in the direction of steepest ascent",
+        "Taking a random step in any direction",
+        "Walking downhill by moving opposite to the gradient",
+        "Holding the learning rate constant forever"
+      ],
+      "answer": 2,
+      "explanation": "Gradient Descent moves parameters in the direction opposite to the gradient — like walking downhill to find the lowest point (minimum loss)."
+    },
+    {
+      "id": 8,
+      "question": "What does the gradient vector ∇L(θ) represent?",
+      "options": [
+        "The exact minimum of the loss",
+        "Direction of steepest ascent of the loss function",
+        "The total loss after one epoch",
+        "The learning rate schedule"
+      ],
+      "answer": 1,
+      "explanation": "The gradient ∇L(θ) points in the direction of steepest increase of the loss, so we move opposite to it to decrease the loss."
+    },
+    {
+      "id": 9,
+      "question": "Which is the correct parameter update rule for Gradient Descent?",
+      "options": [
+        "θ_new = θ_old + α * ∇L(θ_old)",
+        "θ_new = θ_old - α * ∇L(θ_old)",
+        "θ_new = α * θ_old - ∇L(θ_old)",
+        "θ_new = ∇L(θ_old) - α * θ_old"
+      ],
+      "answer": 1,
+      "explanation": "We subtract α * gradient from the current parameters — moving in the direction that reduces the loss."
+    },
+    {
+      "id": 10,
+      "question": "What hyperparameter controls the step size in Gradient Descent?",
+      "options": [
+        "Batch size",
+        "Number of epochs",
+        "Learning rate (α)",
+        "Number of neurons"
+      ],
+      "answer": 2,
+      "explanation": "The learning rate α controls how large each step is during gradient descent. Too small = slow; too large = diverge."
+    },
+    {
+      "id": 11,
+      "question": "If the learning rate α is too small during training, what typically happens?",
+      "options": [
+        "The model converges very slowly or may get stuck",
+        "The loss diverges immediately",
+        "The model reaches optimum in one step",
+        "The gradients vanish completely"
+      ],
+      "answer": 0,
+      "explanation": "A very small learning rate means tiny steps — convergence becomes extremely slow and the model may get stuck in local minima."
+    },
+    {
+      "id": 12,
+      "question": "If the learning rate α is too large, Gradient Descent can:",
+      "options": [
+        "Overshoot the minimum and diverge",
+        "Converge faster with no risk",
+        "Reduce memory usage",
+        "Automatically tune itself"
+      ],
+      "answer": 0,
+      "explanation": "A large learning rate causes the updates to overshoot the minimum, potentially causing the loss to oscillate or diverge."
+    },
+    {
+      "id": 13,
+      "question": "What is the main disadvantage of Batch Gradient Descent (using full dataset per update)?",
+      "options": [
+        "Very accurate gradient but slow and memory intensive for large datasets",
+        "Noisy gradient estimates",
+        "Cannot reach the global minimum",
+        "Does not work with convex functions"
+      ],
+      "answer": 0,
+      "explanation": "Batch GD computes gradients over the entire dataset, giving accurate estimates but requiring enormous memory and computation for large datasets."
+    },
+    {
+      "id": 14,
+      "question": "Stochastic Gradient Descent (SGD) updates parameters using:",
+      "options": [
+        "The entire dataset",
+        "A random subset (mini-batch)",
+        "A single training example at a time",
+        "Only the validation set"
+      ],
+      "answer": 2,
+      "explanation": "SGD updates parameters after each single training example, making it fast but noisy in its gradient estimates."
+    },
+    {
+      "id": 15,
+      "question": "Which Gradient Descent variant is most commonly used in practice for deep learning?",
+      "options": [
+        "Batch GD",
+        "Stochastic GD (pure)",
+        "Mini-Batch Gradient Descent",
+        "Newton's Method"
+      ],
+      "answer": 2,
+      "explanation": "Mini-Batch GD is the practical standard — it balances computational efficiency with stable gradient estimates."
+    },
+    {
+      "id": 16,
+      "question": "Define an 'epoch' in the context of neural network training.",
+      "options": [
+        "One forward pass through a single example",
+        "One update of parameters using a mini-batch",
+        "One complete pass through the entire training dataset",
+        "The time taken to compute the loss"
+      ],
+      "answer": 2,
+      "explanation": "An epoch = one full pass through the entire training dataset. Models typically train for many epochs."
+    },
+    {
+      "id": 17,
+      "question": "What is an 'iteration' (or step) in Mini-Batch Gradient Descent?",
+      "options": [
+        "One full pass over all data",
+        "A single parameter update using one mini-batch",
+        "The total number of epochs",
+        "The validation accuracy cycle"
+      ],
+      "answer": 1,
+      "explanation": "One iteration = one mini-batch forward pass + backward pass + parameter update."
+    },
+    {
+      "id": 18,
+      "question": "If a dataset has 10,000 examples and batch size = 200, how many iterations complete one epoch?",
+      "options": [
+        "10",
+        "20",
+        "50",
+        "100"
+      ],
+      "answer": 2,
+      "explanation": "10,000 ÷ 200 = 50 iterations per epoch."
+    },
+    {
+      "id": 19,
+      "question": "In the lab example where L(w) = w², what is the gradient ∇L(w)?",
+      "options": [
+        "w",
+        "2w",
+        "w²",
+        "2w²"
+      ],
+      "answer": 1,
+      "explanation": "The derivative of w² with respect to w is 2w — this is the gradient used in the update rule."
+    },
+    {
+      "id": 20,
+      "question": "Traditional Machine Learning typically requires feature engineering, while Deep Learning:",
+      "options": [
+        "Also relies heavily on hand-crafted features",
+        "Learns hierarchical representations directly from raw data",
+        "Cannot process unstructured data",
+        "Uses only linear models"
+      ],
+      "answer": 1,
+      "explanation": "DL automatically learns feature representations from raw data through its layered architecture, eliminating manual feature engineering."
+    },
+    {
+      "id": 21,
+      "question": "Which of the following is true regarding data needed for ML vs DL?",
+      "options": [
+        "DL often needs very large datasets to perform well",
+        "ML always needs millions of samples",
+        "DL works best with small tabular datasets",
+        "Both require equal data volume"
+      ],
+      "answer": 0,
+      "explanation": "Deep Learning models have many parameters and typically require large datasets to train effectively without overfitting."
+    },
+    {
+      "id": 22,
+      "question": "How does the interpretability of typical Deep Learning models compare to traditional ML?",
+      "options": [
+        "DL models are often considered 'black boxes' while traditional ML can be more transparent",
+        "DL is always more interpretable",
+        "Both are equally transparent",
+        "Only DL provides feature importance"
+      ],
+      "answer": 0,
+      "explanation": "DL models with millions of parameters are hard to interpret, while simpler ML models like decision trees offer clear reasoning."
+    },
+    {
+      "id": 23,
+      "question": "GPU (Graphics Processing Unit) is characterized as:",
+      "options": [
+        "Specialized only for Google Cloud",
+        "General-purpose, flexible, available on-prem and cloud",
+        "Designed only for inference",
+        "Slower than CPUs for matrix operations"
+      ],
+      "answer": 1,
+      "explanation": "GPUs are general-purpose parallel processors available from multiple vendors, usable on-premises or in the cloud for DL training."
+    },
+    {
+      "id": 24,
+      "question": "Which statement accurately describes TPU (Tensor Processing Unit)?",
+      "options": [
+        "Created by NVIDIA for gaming",
+        "Google's custom ASIC specialized for deep learning workloads",
+        "A general purpose CPU for hospitals",
+        "Only used for data storage"
+      ],
+      "answer": 1,
+      "explanation": "TPUs are Google's custom Application-Specific Integrated Circuits (ASICs) designed specifically to accelerate tensor operations in deep learning."
+    },
+    {
+      "id": 25,
+      "question": "In terms of large-scale foundational model training, which hardware accelerator excels with throughput and cost-efficiency on Google Cloud?",
+      "options": [
+        "Standard CPU clusters",
+        "GPU clusters (any vendor)",
+        "TPU pods",
+        "FPGAs"
+      ],
+      "answer": 2,
+      "explanation": "TPU pods are optimized for large-scale DL training on Google Cloud, offering high throughput and cost-efficiency for foundation models."
+    },
+    {
+      "id": 26,
+      "question": "Which of the following is an example of structured data format?",
+      "options": [
+        "DICOM pixel data",
+        "JSON with flexible schema",
+        "CSV / SQL database tables",
+        "Free-text clinical notes"
+      ],
+      "answer": 2,
+      "explanation": "Structured data has a fixed schema with rows and columns — CSV files and SQL tables are classic examples."
+    },
+    {
+      "id": 27,
+      "question": "Semi-structured data (e.g., JSON, FHIR resources) offers:",
+      "options": [
+        "Rigid schema that never changes",
+        "Balance between structure and flexibility, self-describing tags",
+        "Cannot be parsed by any tool",
+        "Only usable for images"
+      ],
+      "answer": 1,
+      "explanation": "Semi-structured data like JSON uses self-describing tags/keys, offering flexibility while still being machine-parseable."
+    },
+    {
+      "id": 28,
+      "question": "Typical unstructured data includes:",
+      "options": [
+        "Excel spreadsheets",
+        "SQL relational tables",
+        "Raw images, audio files, free text documents",
+        "XML files with tags"
+      ],
+      "answer": 2,
+      "explanation": "Unstructured data has no predefined schema — images, audio, video, and free text are all classic examples."
+    },
+    {
+      "id": 29,
+      "question": "Which data type is most challenging to query without preprocessing (requires AI/NLP/CV)?",
+      "options": [
+        "Structured data",
+        "Semi-structured data",
+        "Unstructured data",
+        "Relational data"
+      ],
+      "answer": 2,
+      "explanation": "Unstructured data requires AI tools (NLP for text, CV for images) to extract meaning — it can't be queried with simple SQL."
+    },
+    {
+      "id": 30,
+      "question": "What is the main advantage of unstructured data for modern AI?",
+      "options": [
+        "Easy to query with SQL",
+        "Preserves rich, detailed information essential for deep learning (images, raw text)",
+        "Always small in size",
+        "Does not require storage"
+      ],
+      "answer": 1,
+      "explanation": "Unstructured data contains rich real-world information (pixels, waveforms, words) that DL models can learn powerful representations from."
+    },
+    {
+      "id": 31,
+      "question": "According to the slides, what is the goal of a neural network?",
+      "options": [
+        "To hardcode rules manually",
+        "To learn patterns from data without explicit programming",
+        "To increase model complexity infinitely",
+        "To store data efficiently"
+      ],
+      "answer": 1,
+      "explanation": "Neural networks learn to map inputs to outputs by discovering patterns in data, without needing manually programmed rules."
+    },
+    {
+      "id": 32,
+      "question": "Learning in neural networks is formalized as:",
+      "options": [
+        "Finding parameters θ that minimize total loss over the dataset",
+        "Maximizing prediction randomness",
+        "Increasing the number of neurons",
+        "Fixing all weights to zero"
+      ],
+      "answer": 0,
+      "explanation": "Training = finding the optimal θ* that minimizes the total loss L across all training examples."
+    },
+    {
+      "id": 33,
+      "question": "The loss function outputs a single number representing:",
+      "options": [
+        "The accuracy of the model",
+        "The error or 'badness' of predictions",
+        "The size of the model",
+        "The learning rate value"
+      ],
+      "answer": 1,
+      "explanation": "The loss is a scalar that quantifies how wrong the model's predictions are — lower is better."
+    },
+    {
+      "id": 34,
+      "question": "Which of the following is a key advantage of Mini-Batch GD over SGD?",
+      "options": [
+        "More stable gradient estimates and efficient hardware utilization",
+        "Always uses the entire dataset",
+        "No need to choose learning rate",
+        "Avoids any randomness"
+      ],
+      "answer": 0,
+      "explanation": "Mini-batches give more stable gradient estimates than single samples (SGD) while being much faster than full-batch GD, and leverage GPU parallelism."
+    },
+    {
+      "id": 35,
+      "question": "If the loss is very high, it indicates:",
+      "options": [
+        "Predictions are close to true labels",
+        "The learning rate is perfect",
+        "Predictions are far from true values",
+        "The model has converged"
+      ],
+      "answer": 2,
+      "explanation": "High loss = large error = the model's predictions are far from the ground truth. Training aims to reduce this."
+    },
+    {
+      "id": 36,
+      "question": "In the neural network context, what does 'ŷ' (y-hat) represent?",
+      "options": [
+        "The true label",
+        "The network's prediction",
+        "The loss gradient",
+        "The input feature"
+      ],
+      "answer": 1,
+      "explanation": "ŷ (y-hat) is the model's predicted output, which is compared to the true label y to compute the loss."
+    },
+    {
+      "id": 37,
+      "question": "Why does Batch Gradient Descent become impractical for very large datasets?",
+      "options": [
+        "It only uses random samples",
+        "The entire dataset might not fit in memory and computation is extremely slow",
+        "It never converges",
+        "It requires a specific loss function"
+      ],
+      "answer": 1,
+      "explanation": "With millions of examples, loading and computing gradients over the full dataset is memory-prohibitive and computationally extremely slow."
+    },
+    {
+      "id": 38,
+      "question": "Which term describes the process of finding the set of parameters that minimizes the loss?",
+      "options": [
+        "Regularization",
+        "Optimization",
+        "Overfitting",
+        "Normalization"
+      ],
+      "answer": 1,
+      "explanation": "Optimization is the process of searching for parameters θ that minimize the loss function — gradient descent is one optimization method."
+    },
+    {
+      "id": 39,
+      "question": "The slide 'A Crucial Hyperparameter' refers to:",
+      "options": [
+        "Number of hidden layers",
+        "Learning rate (α)",
+        "Batch size only",
+        "Activation function"
+      ],
+      "answer": 1,
+      "explanation": "The learning rate α is highlighted as a crucial hyperparameter because it directly controls how well and how fast the model learns."
+    },
+    {
+      "id": 40,
+      "question": "According to the lecture, the initial parameters θ in a neural network are typically:",
+      "options": [
+        "All set to zero",
+        "Randomly initialized before gradient descent",
+        "Copied from a textbook",
+        "Determined by the loss function"
+      ],
+      "answer": 1,
+      "explanation": "Parameters are randomly initialized before training begins — setting them all to zero causes symmetry problems where all neurons learn the same thing."
+    }
+  ]
+}
