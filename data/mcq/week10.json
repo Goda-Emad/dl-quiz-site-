@@ -1,1 +1,456 @@
-
+{
+  "week": 10,
+  "title": "Variational Autoencoders",
+  "questions": [
+    {
+      "id": 1,
+      "question": "What type of learning task are standard Autoencoders and VAEs fundamentally trained for?",
+      "options": [
+        "Supervised Learning",
+        "Unsupervised Learning",
+        "Reinforcement Learning",
+        "Semi-supervised Classification"
+      ],
+      "answer": 1,
+      "explanation": "Autoencoders learn compressed representations of input data without requiring explicit data labels, making them unsupervised models."
+    },
+    {
+      "id": 2,
+      "question": "In a standard Autoencoder, what is the role of the Encoder?",
+      "options": [
+        "Maps latent representation back to the original input size",
+        "Maps input data to a lower-dimensional latent space representation",
+        "Generates entirely new synthetic data points",
+        "Calculates classification probability across targets"
+      ],
+      "answer": 1,
+      "explanation": "The encoder takes input data and compresses it into a lower-dimensional latent space representation (code vector)."
+    },
+    {
+      "id": 3,
+      "question": "What is the primary function of the Decoder component?",
+      "options": [
+        "Compresses high-dimensional data into a vector",
+        "Generates reconstructed output matching the original input",
+        "Enforces a standard normal distribution on latent variables",
+        "Calculates the reparameterization trick"
+      ],
+      "answer": 1,
+      "explanation": "The decoder takes encoded representations and generates a reconstructed output that closely matches the original input."
+    },
+    {
+      "id": 4,
+      "question": "Which of the following is NOT listed as a key limitation of standard Autoencoders?",
+      "options": [
+        "Limited control over latent space representation",
+        "Inability to perform standard backpropagation",
+        "High susceptibility to overfitting",
+        "Inability to perform data generation"
+      ],
+      "answer": 1,
+      "explanation": "Standard Autoencoders can perform backpropagation easily; their primary limitations are limited latent space control, overfitting, and inability to generate data."
+    },
+    {
+      "id": 5,
+      "question": "What fundamental property distinguishes VAEs from standard Autoencoders?",
+      "options": [
+        "VAEs do not use neural network layers in the decoder",
+        "VAEs output probabilistic distributions (mean and standard deviation) instead of discrete vectors",
+        "VAEs only work on 1D tabular datasets",
+        "VAEs do not require a loss function"
+      ],
+      "answer": 1,
+      "explanation": "Standard AEs output deterministic code vectors, whereas VAEs output probability distribution parameters (mean μ and standard deviation σ)."
+    },
+    {
+      "id": 6,
+      "question": "What is the main objective of Variational Autoencoders?",
+      "options": [
+        "To maximize classification precision",
+        "To learn the underlying data distribution of the input data",
+        "To eliminate all hidden layers",
+        "To perform deterministic feature scaling"
+      ],
+      "answer": 1,
+      "explanation": "VAEs aim to learn the underlying probability distribution of the input data to enable generation, compression, and anomaly detection."
+    },
+    {
+      "id": 7,
+      "question": "Which of the following application areas is explicitly enabled by VAEs due to their continuous latent distribution?",
+      "options": [
+        "Data and Image Generation",
+        "Gradient Descent Acceleration",
+        "Label Supervised Fine-tuning",
+        "Database Querying"
+      ],
+      "answer": 0,
+      "explanation": "Key VAE applications include Data/Image Generation, Data Compression, and Anomaly Detection."
+    },
+    {
+      "id": 8,
+      "question": "The objective function of a VAE maximizes the Evidence Lower Bound (ELBO). This is equivalent to minimizing what?",
+      "options": [
+        "Reconstruction error only",
+        "Reconstruction loss + Regularization term",
+        "Classification cross-entropy + Weight decay",
+        "Mean absolute error exclusively"
+      ],
+      "answer": 1,
+      "explanation": "Minimizing the VAE loss consists of minimizing reconstruction loss (negative log-likelihood) while keeping latent distribution regularized."
+    },
+    {
+      "id": 9,
+      "question": "What does the reconstruction loss term in the VAE loss function measure?",
+      "options": [
+        "How closely the output matching the original input",
+        "How far the latent distribution deviates from a normal distribution",
+        "The total parameter count in the neural network",
+        "The standard deviation of random noise"
+      ],
+      "answer": 0,
+      "explanation": "Reconstruction loss (e.g., ||x - x_hat||²) measures the discrepancy between the original input x and reconstructed output x_hat."
+    },
+    {
+      "id": 10,
+      "question": "Which mathematical metric is commonly used as the regularization term in VAEs?",
+      "options": [
+        "Euclidean Distance",
+        "KL-Divergence",
+        "Cosine Similarity",
+        "Manhattan Distance"
+      ],
+      "answer": 1,
+      "explanation": "KL-Divergence measures the difference between the inferred latent distribution p_phi(z|x) and the fixed prior p(z)."
+    },
+    {
+      "id": 11,
+      "question": "What is the standard choice for the fixed prior distribution p(z) in VAEs?",
+      "options": [
+        "Standard Uniform Distribution U(0, 1)",
+        "Standard Normal Distribution N(μ=0, σ²=1)",
+        "Bernoulli Distribution",
+        "Exponential Distribution"
+      ],
+      "answer": 1,
+      "explanation": "The prior p(z) is typically chosen as a standard Gaussian distribution with mean 0 and variance 1."
+    },
+    {
+      "id": 12,
+      "question": "What is the purpose of applying the KL-divergence regularization term in VAE training?",
+      "options": [
+        "To force output pixels to be strictly binary",
+        "To encourage encodings to distribute evenly around the latent center and prevent memorization",
+        "To remove the decoder network completely",
+        "To accelerate standard backpropagation on output layers"
+      ],
+      "answer": 1,
+      "explanation": "KL-divergence penalizes the network when clustering points in specific regions, preventing data memorization and ensuring a continuous space."
+    },
+    {
+      "id": 13,
+      "question": "Why can't standard backpropagation be applied directly through a traditional random sampling layer?",
+      "options": [
+        "Random sampling nodes are stochastic, so gradients cannot be calculated through them",
+        "Sampling operations take too much memory",
+        "The decoder cannot accept sampled vectors",
+        "Sampling forces the weights to zero"
+      ],
+      "answer": 0,
+      "explanation": "Stochastic nodes do not have deterministic derivatives, preventing error gradients from propagating back to encoder parameters."
+    },
+    {
+      "id": 14,
+      "question": "How does the Reparameterization Trick resolve the sampling backpropagation problem?",
+      "options": [
+        "By replacing all random sampling with constant zeros",
+        "By expressing the sampled variable as a deterministic function of parameters plus independent noise: z = μ + σ ⊙ ε",
+        "By computing gradients only for the decoder network",
+        "By using supervised labels during sampling"
+      ],
+      "answer": 1,
+      "explanation": "By formulating z = μ + σ ⊙ ε where ε ~ N(0,1), stochasticity is isolated into ε, making the path through μ and σ deterministic and differentiable."
+    },
+    {
+      "id": 15,
+      "question": "In the reparameterization formula z = μ + σ ⊙ ε, what is ε?",
+      "options": [
+        "A learned weight vector",
+        "Random noise drawn from a standard normal distribution N(0, 1)",
+        "The reconstruction error vector",
+        "The learning rate hyperparameter"
+      ],
+      "answer": 1,
+      "explanation": "ε represents independent random constants drawn from the prior standard normal distribution N(0, 1)."
+    },
+    {
+      "id": 16,
+      "question": "How does a trained VAE generate brand new synthetic data samples?",
+      "options": [
+        "By feeding random vectors sampled from standard normal distribution directly into the decoder",
+        "By passing an empty array to the encoder",
+        "By disabling the decoder and using the encoder output directly",
+        "By setting standard deviation σ to infinity"
+      ],
+      "answer": 0,
+      "explanation": "Since the latent space is regularized to N(0, 1), new data is generated by feeding a normally sampled random vector into the decoder."
+    },
+    {
+      "id": 17,
+      "question": "What parameter does the symbol μ (mu) represent in a VAE encoder output?",
+      "options": [
+        "Mean vector of the latent distribution",
+        "Standard deviation vector",
+        "Reconstruction loss value",
+        "Learning rate"
+      ],
+      "answer": 0,
+      "explanation": "The encoder computes parameters μ (mean vector) and σ (standard deviation vector) for the inferred distribution."
+    },
+    {
+      "id": 18,
+      "question": "What parameter does the symbol σ (sigma) represent in a VAE encoder output?",
+      "options": [
+        "Mean vector of the latent distribution",
+        "Standard deviation vector",
+        "Classification error",
+        "Weight bias"
+      ],
+      "answer": 1,
+      "explanation": "σ represents the standard deviation vector associated with latent space encodings."
+    },
+    {
+      "id": 19,
+      "question": "In the VAE loss equation formula, what does D_KL(p_phi(z|x) || p(z)) measure?",
+      "options": [
+        "Difference between input image and reconstructed image",
+        "Divergence between the inferred latent distribution and the prior distribution",
+        "Number of hidden layers in the network",
+        "The exact accuracy percentage of generation"
+      ],
+      "answer": 1,
+      "explanation": "This KL-divergence term measures how far the inferred distribution p_phi(z|x) differs from the prior p(z)."
+    },
+    {
+      "id": 20,
+      "question": "How does mapping the latent space to a Normal distribution solve the overfitting problem of standard Autoencoders?",
+      "options": [
+        "By forcing the latent space to be infinite in dimension",
+        "By restricting freedom and penalizing isolated point clustering",
+        "By removing all activation functions",
+        "By memorizing exact training vectors"
+      ],
+      "answer": 1,
+      "explanation": "Restricting encodings to follow a continuous normal distribution prevents the network from assigning points to isolated locations to memorize data."
+    },
+    {
+      "id": 21,
+      "question": "Which network component computes p_phi(z|x) in a VAE framework?",
+      "options": [
+        "Decoder",
+        "Encoder",
+        "Bottleneck output directly",
+        "Discriminator"
+      ],
+      "answer": 1,
+      "explanation": "The encoder parameterized by phi computes the conditional distribution p_phi(z|x) given input x."
+    },
+    {
+      "id": 22,
+      "question": "Which network component computes q_theta(x|z) in a VAE framework?",
+      "options": [
+        "Encoder",
+        "Decoder",
+        "Prior Distribution",
+        "Loss Evaluator"
+      ],
+      "answer": 1,
+      "explanation": "The decoder parameterized by theta models q_theta(x|z) to generate reconstructed x given latent vector z."
+    },
+    {
+      "id": 23,
+      "question": "What analytical technique can be used on hidden latent variables in VAEs to interpret their meaning?",
+      "options": [
+        "Latent variable perturbation",
+        "Label classification",
+        "Gradient clipping",
+        "Pruning hidden weights"
+      ],
+      "answer": 0,
+      "explanation": "Key takeaways note that latent variables can be interpreted using perturbation (slightly modifying z values to observe output changes)."
+    },
+    {
+      "id": 24,
+      "question": "If an input image has 784 features, an AE encoder compresses it to 100 units, then 20 units. What is the dimension of the code vector?",
+      "options": [
+        "784",
+        "100",
+        "20",
+        "904"
+      ],
+      "answer": 2,
+      "explanation": "As shown in the architecture recap, the central bottleneck code vector consists of 20 units."
+    },
+    {
+      "id": 25,
+      "question": "In the reparameterization diagram, what type of node is z = g(phi, x, ε)?",
+      "options": [
+        "Stochastic node",
+        "Deterministic node",
+        "Non-differentiable node",
+        "Loss node"
+      ],
+      "answer": 1,
+      "explanation": "In the reparameterized form, node z becomes a deterministic node function g(phi, x, ε), allowing backpropagation."
+    },
+    {
+      "id": 26,
+      "question": "Standard Autoencoders require labeled target datasets to learn feature representations.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 1,
+      "explanation": "False. Standard Autoencoders use unsupervised learning and do not require labels."
+    },
+    {
+      "id": 27,
+      "question": "Standard Autoencoders allow effortless generation of new, realistic synthetic data.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 1,
+      "explanation": "False. Data generation is not possible with standard AEs because their latent space is unstructured and unregularized."
+    },
+    {
+      "id": 28,
+      "question": "A VAE outputs single fixed vectors for each input instead of probability distributions.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 1,
+      "explanation": "False. A VAE outputs distribution parameters (mean μ and standard deviation σ)."
+    },
+    {
+      "id": 29,
+      "question": "Maximizing ELBO (Evidence Lower Bound) is a fundamental optimization goal in training VAEs.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 0,
+      "explanation": "True. VAEs are probabilistic models optimized by maximizing the Evidence Lower Bound."
+    },
+    {
+      "id": 30,
+      "question": "Mean Squared Error ||x - x_hat||² can be used as a reconstruction loss term in VAEs.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 0,
+      "explanation": "True. MSE between original input x and reconstruction x_hat is a common choice for reconstruction loss."
+    },
+    {
+      "id": 31,
+      "question": "The KL-divergence term penalizes the network if encodings are not distributed around the prior distribution.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 0,
+      "explanation": "True. KL-divergence measures deviation from the prior and penalizes uneven or uncentered clusterings."
+    },
+    {
+      "id": 32,
+      "question": "Standard backpropagation works effortlessly through stochastic/random sampling layers.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 1,
+      "explanation": "False. Standard backpropagation cannot compute gradients through stochastic sampling nodes directly."
+    },
+    {
+      "id": 33,
+      "question": "The Reparameterization Trick shifts randomness to an independent variable ε ~ N(0, 1).",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 0,
+      "explanation": "True. It isolates stochasticity into an independent parameter ε, keeping paths through μ and σ deterministic."
+    },
+    {
+      "id": 34,
+      "question": "In VAEs, the latent space is structured and continuous.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 0,
+      "explanation": "True. Normal distribution regularization forces the latent space to be structured and continuous."
+    },
+    {
+      "id": 35,
+      "question": "Anomaly detection is a valid application of Variational Autoencoders.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 0,
+      "explanation": "True. VAEs can be used for anomaly detection because anomalous data will yield high reconstruction errors."
+    },
+    {
+      "id": 36,
+      "question": "Standard Autoencoders tend to overfit easily due to unconstrained latent representations.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 0,
+      "explanation": "True. Unconstrained latent spaces allow standard AEs to memorize inputs, leading to overfitting."
+    },
+    {
+      "id": 37,
+      "question": "In the equation z = μ + σ ⊙ ε, the symbol ⊙ represents element-wise multiplication.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 0,
+      "explanation": "True. The standard deviation σ is element-wise multiplied with noise vector ε."
+    },
+    {
+      "id": 38,
+      "question": "After training a VAE, the encoder is strictly required to generate brand new data samples.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 1,
+      "explanation": "False. For generating new data, random samples are drawn directly from N(0,1) and passed to the decoder without using the encoder."
+    },
+    {
+      "id": 39,
+      "question": "The KL divergence formula used in VAEs includes a log(σ_j) term.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 0,
+      "explanation": "True. The formula is -0.5 * sum(σ_j + μ_j² - 1 - log(σ_j))."
+    },
+    {
+      "id": 40,
+      "question": "VAEs compress the representation of the world into latent formats useful for downstream tasks.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 0,
+      "explanation": "True. One of the main takeaways is learning useful compressed representations of input data."
+    }
+  ]
+}
