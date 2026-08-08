@@ -1,467 +1,555 @@
 /**
  * ============================================================
- * APPLIED DEEP LEARNING — MAIN.JS
- * الملف الرئيسي المسؤول عن كل المنطق في الموقع
+ * APPLIED DEEP LEARNING — MAIN.JS  (Enhanced v2)
+ * Handles: quizzes.html (quiz page)
+ * Features: jump panel, keyboard shortcuts, smooth UX
  * ============================================================
  */
 
-(function() {
+(function () {
     'use strict';
 
     // ============================================================
-    // 1. CONFIGURATION
+    // CONFIG
     // ============================================================
     const CONFIG = {
         MCQ_FOLDER: 'data/mcq/',
         QUIZ_FOLDER: 'data/quizzes/',
-        DEFAULT_QUESTIONS_PER_PAGE: 1, // عرض سؤال واحد في كل صفحة
-        ANIMATION_DELAY: 300,
     };
 
     // ============================================================
-    // 2. STATE
+    // STATE
     // ============================================================
     let state = {
-        // البيانات
-        quizData: null,           // الكائن الكامل للأسئلة
-        questions: [],            // مصفوفة الأسئلة
-        totalQuestions: 0,        // عدد الأسئلة الكلي
-
-        // تقدم المستخدم
-        currentIndex: 0,          // السؤال الحالي (index)
-        userAnswers: [],          // إجابات المستخدم (null = لم يجب)
-        answeredCount: 0,         // عدد الأسئلة المجاب عنها
-
-        // حالة الاختبار
-        quizCompleted: false,     // هل انتهى الاختبار؟
-        isReviewMode: false,      // هل في وضع المراجعة؟
-        isSubmitting: false,      // منع الضغط المتكرر
-
-        // النتائج
+        quizData: null,
+        questions: [],
+        totalQuestions: 0,
+        currentIndex: 0,
+        userAnswers: [],      // null = unanswered
+        quizCompleted: false,
+        isReviewMode: false,
+        isSubmitting: false,
         score: 0,
         correctCount: 0,
         wrongCount: 0,
         unansweredCount: 0,
-        results: [],
     };
 
     // ============================================================
-    // 3. DOM REFS (يتم تعبئتها في init)
+    // DOM REFS
     // ============================================================
-    let DOM = {};
+    let D = {};
 
-    // ============================================================
-    // 4. HELPERS
-    // ============================================================
+    function cacheDom() {
+        D = {
+            // Hero
+            quizTitle:      document.getElementById('quizTitle'),
+            quizSubtitle:   document.getElementById('quizSubtitle'),
+            scoreDisplay:   document.getElementById('scoreDisplay'),
+            answeredDisplay:document.getElementById('answeredDisplay'),
+            totalDisplay:   document.getElementById('totalDisplay'),
 
-    /** استخراج البارامتر من الرابط */
-    function getParam(name) {
-        const url = new URL(window.location.href);
-        return url.searchParams.get(name);
+            // States
+            loadingState:   document.getElementById('loadingState'),
+            errorState:     document.getElementById('errorState'),
+            errorMessage:   document.getElementById('errorMessage'),
+            quizContent:    document.getElementById('quizContent'),
+
+            // Progress
+            progressLabel:  document.getElementById('progressLabel'),
+            progressPercent:document.getElementById('progressPercent'),
+            progressFill:   document.getElementById('progressFill'),
+
+            // Question
+            qNumber:        document.getElementById('qNumber'),
+            qStatus:        document.getElementById('qStatus'),
+            questionText:   document.getElementById('questionText'),
+            optionsContainer: document.getElementById('optionsContainer'),
+            explanationBox: document.getElementById('explanationBox'),
+            expTitle:       document.getElementById('expTitle'),
+            expBody:        document.getElementById('expBody'),
+
+            // Nav
+            prevBtn:        document.getElementById('prevBtn'),
+            nextBtn:        document.getElementById('nextBtn'),
+            navCounter:     document.getElementById('navCounter'),
+            submitBtn:      document.getElementById('submitBtn'),
+            resetBtn:       document.getElementById('resetBtn'),
+
+            // Results
+            resultsContainer: document.getElementById('resultsContainer'),
+            finalScoreNum:  document.getElementById('finalScoreNum'),
+            finalScoreTotal:document.getElementById('finalScoreTotal'),
+            finalScorePercent: document.getElementById('finalScorePercent'),
+            finalCorrect:   document.getElementById('finalCorrect'),
+            finalWrong:     document.getElementById('finalWrong'),
+            finalUnanswered:document.getElementById('finalUnanswered'),
+            reviewBtn:      document.getElementById('reviewBtn'),
+            resultsResetBtn:document.getElementById('resultsResetBtn'),
+
+            // Container (for scroll)
+            quizContainer:  document.querySelector('.quiz-container'),
+        };
     }
 
-    /** الحصول على مسار الملف المناسب */
+    // ============================================================
+    // HELPERS
+    // ============================================================
+
+    function getParam(name) {
+        return new URL(window.location.href).searchParams.get(name);
+    }
+
     function getFilePath(type, fileName) {
         const folder = type === 'week' ? CONFIG.MCQ_FOLDER : CONFIG.QUIZ_FOLDER;
         return `${folder}${fileName}.json`;
     }
 
-    /** عرض رسالة خطأ */
-    function showError(message) {
-        if (DOM.errorState) {
-            DOM.errorState.style.display = 'block';
-            DOM.errorMessage.textContent = message || 'حدث خطأ غير متوقع.';
-        }
-        if (DOM.loadingState) DOM.loadingState.style.display = 'none';
-        if (DOM.quizContent) DOM.quizContent.style.display = 'none';
+    function show(el)  { if (el) el.style.display = 'block'; }
+    function hide(el)  { if (el) el.style.display = 'none'; }
+    function set(el, v){ if (el) el.textContent = v; }
+
+    function showError(msg) {
+        hide(D.loadingState);
+        hide(D.quizContent);
+        if (D.errorState) D.errorState.style.display = 'block';
+        set(D.errorMessage, msg || 'An unexpected error occurred.');
     }
 
-    /** إخفاء رسالة الخطأ */
-    function hideError() {
-        if (DOM.errorState) DOM.errorState.style.display = 'none';
+    // ============================================================
+    // STATS & PROGRESS
+    // ============================================================
+
+    function countAnswered() {
+        return state.userAnswers.filter(a => a !== null && a !== undefined).length;
     }
 
-    /** تحديث الإحصائيات في الهيدر */
-    function updateHeroStats() {
-        if (!state.questions || state.questions.length === 0) return;
-
-        const answered = state.userAnswers.filter(a => a !== null && a !== undefined).length;
-        const correct = state.userAnswers.reduce((acc, ans, idx) => {
-            if (ans === null || ans === undefined) return acc;
+    function countCorrect() {
+        return state.userAnswers.reduce((acc, ans, idx) => {
+            if (ans == null) return acc;
             return acc + (ans === state.questions[idx].answer ? 1 : 0);
         }, 0);
+    }
 
-        if (DOM.scoreDisplay) DOM.scoreDisplay.textContent = correct;
-        if (DOM.answeredDisplay) DOM.answeredDisplay.textContent = answered;
-        if (DOM.totalDisplay) DOM.totalDisplay.textContent = state.totalQuestions;
-
-        state.answeredCount = answered;
+    function updateHeroStats() {
+        const answered = countAnswered();
+        const correct  = countCorrect();
+        set(D.scoreDisplay,    correct);
+        set(D.answeredDisplay, answered);
+        set(D.totalDisplay,    state.totalQuestions);
         state.score = correct;
     }
 
-    /** تحديث شريط التقدم */
     function updateProgress() {
-        const answered = state.userAnswers.filter(a => a !== null && a !== undefined).length;
-        const pct = state.totalQuestions > 0 ? Math.round((answered / state.totalQuestions) * 100) : 0;
+        const answered = countAnswered();
+        const pct = state.totalQuestions > 0
+            ? Math.round((answered / state.totalQuestions) * 100) : 0;
+        if (D.progressFill)    D.progressFill.style.width = pct + '%';
+        set(D.progressPercent, pct + '%');
+        set(D.progressLabel,   `Question ${state.currentIndex + 1} of ${state.totalQuestions}`);
+    }
 
-        if (DOM.progressFill) DOM.progressFill.style.width = pct + '%';
-        if (DOM.progressPercent) DOM.progressPercent.textContent = pct + '%';
-        if (DOM.progressLabel) {
-            DOM.progressLabel.textContent = `سؤال ${state.currentIndex + 1} من ${state.totalQuestions}`;
+    function updateNavButtons() {
+        if (D.prevBtn) D.prevBtn.disabled = state.currentIndex === 0;
+        if (D.nextBtn) D.nextBtn.disabled = state.currentIndex === state.totalQuestions - 1;
+        set(D.navCounter, `${state.currentIndex + 1} / ${state.totalQuestions}`);
+    }
+
+    // ============================================================
+    // JUMP PANEL (dot navigator)
+    // ============================================================
+
+    function buildJumpPanel() {
+        // Insert jump panel above quiz container if not already there
+        let panel = document.getElementById('jumpPanel');
+        if (!panel) {
+            panel = document.createElement('div');
+            panel.id = 'jumpPanel';
+            panel.className = 'jump-panel';
+            D.quizContainer && D.quizContainer.before(panel);
+        }
+        renderJumpPanel(panel);
+    }
+
+    function renderJumpPanel(panel) {
+        if (!panel) panel = document.getElementById('jumpPanel');
+        if (!panel) return;
+
+        const isCompleted = state.quizCompleted || state.isReviewMode;
+
+        panel.innerHTML = '';
+        for (let i = 0; i < state.totalQuestions; i++) {
+            const dot = document.createElement('button');
+            dot.className = 'jump-dot';
+            dot.textContent = i + 1;
+            dot.title = `Question ${i + 1}`;
+            dot.setAttribute('aria-label', `Go to question ${i + 1}`);
+
+            const ans = state.userAnswers[i];
+            const q = state.questions[i];
+
+            if (i === state.currentIndex) {
+                dot.classList.add('current');
+            } else if (isCompleted && ans != null) {
+                dot.classList.add(ans === q.answer ? 'correct' : 'wrong');
+            } else if (!isCompleted && ans != null) {
+                dot.classList.add('done');
+            }
+
+            dot.addEventListener('click', () => goToQuestion(i));
+            panel.appendChild(dot);
         }
     }
 
-    /** تحديث أزرار التنقل */
-    function updateNavButtons() {
-        if (DOM.prevBtn) DOM.prevBtn.disabled = state.currentIndex === 0;
-        if (DOM.nextBtn) DOM.nextBtn.disabled = state.currentIndex === state.totalQuestions - 1;
-        if (DOM.navCounter) DOM.navCounter.textContent = `${state.currentIndex + 1} / ${state.totalQuestions}`;
-    }
+    // ============================================================
+    // KEYBOARD HINT
+    // ============================================================
 
-    /** الحصول على إجابة السؤال الحالي */
-    function getCurrentAnswer() {
-        return state.userAnswers[state.currentIndex];
-    }
-
-    /** هل السؤال الحالي تمت الإجابة عليه؟ */
-    function isCurrentAnswered() {
-        return getCurrentAnswer() !== null && getCurrentAnswer() !== undefined;
-    }
-
-    /** هل السؤال الحالي صحيح؟ */
-    function isCurrentCorrect() {
-        const ans = getCurrentAnswer();
-        if (ans === null || ans === undefined) return false;
-        return ans === state.questions[state.currentIndex].answer;
+    function buildKbdHint() {
+        let hint = document.getElementById('kbdHint');
+        if (!hint && D.quizContainer) {
+            hint = document.createElement('div');
+            hint.id = 'kbdHint';
+            hint.className = 'kbd-hint';
+            hint.innerHTML = `
+                <span class="kbd">←</span> Prev &nbsp;
+                <span class="kbd">→</span> Next &nbsp;
+                <span class="kbd">1</span><span class="kbd">2</span><span class="kbd">3</span><span class="kbd">4</span> Choose &nbsp;
+                <span class="kbd">Enter</span> Submit
+            `;
+            D.quizContainer.after(hint);
+        }
     }
 
     // ============================================================
-    // 5. RENDER FUNCTIONS
+    // RENDER QUESTION
     // ============================================================
 
-    /** عرض السؤال الحالي */
     function renderQuestion() {
-        if (!state.questions || state.questions.length === 0) return;
-        const q = state.questions[state.currentIndex];
+        if (!state.questions.length) return;
+        const q   = state.questions[state.currentIndex];
         if (!q) return;
 
         const isCompleted = state.quizCompleted || state.isReviewMode;
-        const userAns = state.userAnswers[state.currentIndex];
-        const isAnswered = userAns !== null && userAns !== undefined;
-        const isCorrect = isAnswered && userAns === q.answer;
+        const userAns     = state.userAnswers[state.currentIndex];
+        const isAnswered  = userAns != null;
+        const isCorrect   = isAnswered && userAns === q.answer;
 
-        // ===== رقم السؤال =====
-        if (DOM.qNumber) {
-            DOM.qNumber.textContent = `Q${q.id || state.currentIndex + 1}`;
-        }
+        // ── Q Number ──
+        set(D.qNumber, `Q${q.id || state.currentIndex + 1}`);
 
-        // ===== حالة السؤال =====
-        if (DOM.qStatus) {
+        // ── Status badge ──
+        if (D.qStatus) {
             if (isCompleted) {
                 if (!isAnswered) {
-                    DOM.qStatus.textContent = '⚠️ لم يتم الإجابة';
-                    DOM.qStatus.className = 'q-status';
+                    D.qStatus.textContent = '⚠️ Unanswered';
+                    D.qStatus.className = 'q-status';
                 } else if (isCorrect) {
-                    DOM.qStatus.textContent = '✅ إجابة صحيحة';
-                    DOM.qStatus.className = 'q-status answered';
+                    D.qStatus.textContent = '✅ Correct';
+                    D.qStatus.className = 'q-status answered';
                 } else {
-                    DOM.qStatus.textContent = '❌ إجابة خاطئة';
-                    DOM.qStatus.className = 'q-status';
+                    D.qStatus.textContent = '❌ Incorrect';
+                    D.qStatus.className = 'q-status';
                 }
             } else {
-                DOM.qStatus.textContent = isAnswered ? '✅ تم الإجابة' : '⬜ لم يتم الإجابة';
-                DOM.qStatus.className = isAnswered ? 'q-status answered' : 'q-status';
+                D.qStatus.textContent = isAnswered ? '✅ Answered' : '⬜ Not answered';
+                D.qStatus.className   = isAnswered ? 'q-status answered' : 'q-status';
             }
         }
 
-        // ===== نص السؤال =====
-        if (DOM.questionText) {
-            DOM.questionText.textContent = q.question;
-        }
+        // ── Question text ──
+        set(D.questionText, q.question);
 
-        // ===== الخيارات =====
-        if (DOM.optionsContainer) {
+        // ── Options ──
+        if (D.optionsContainer) {
             const labels = ['A', 'B', 'C', 'D'];
-            DOM.optionsContainer.innerHTML = '';
+            D.optionsContainer.innerHTML = '';
 
             q.options.forEach((opt, i) => {
                 const btn = document.createElement('button');
                 btn.className = 'option-btn';
-                btn.setAttribute('data-option-index', i);
+                btn.dataset.optionIndex = i;
 
                 const isSelected = userAns === i;
 
-                // الحرف
+                // Letter badge
                 const letter = document.createElement('span');
                 letter.className = 'letter';
                 letter.textContent = labels[i];
                 btn.appendChild(letter);
 
-                // النص
+                // Text
                 const text = document.createElement('span');
                 text.textContent = opt;
                 btn.appendChild(text);
 
-                // تحديد إذا كان مختاراً
-                if (isSelected) {
-                    btn.classList.add('selected');
-                }
+                if (isSelected) btn.classList.add('selected');
 
-                // في حالة الانتهاء أو المراجعة
                 if (isCompleted) {
                     btn.classList.add('disabled');
+                    btn.disabled = true;
 
                     if (i === q.answer) {
                         btn.classList.add('correct');
-                        const mark = document.createElement('span');
-                        mark.className = 'check-mark correct';
-                        mark.textContent = '✓';
-                        btn.appendChild(mark);
-                    } else if (isSelected && i !== q.answer) {
-                        btn.classList.add('wrong');
-                        const mark = document.createElement('span');
-                        mark.className = 'check-mark wrong';
-                        mark.textContent = '✗';
-                        btn.appendChild(mark);
+                        btn.classList.remove('selected');
+                        appendMark(btn, '✓', 'correct');
                     } else if (isSelected) {
-                        const mark = document.createElement('span');
-                        mark.className = 'check-mark correct';
-                        mark.textContent = '✓';
-                        btn.appendChild(mark);
+                        btn.classList.add('wrong');
+                        btn.classList.remove('selected');
+                        appendMark(btn, '✗', 'wrong');
                     }
                 } else {
-                    // وضع تفاعلي
-                    btn.addEventListener('click', function() {
-                        if (state.quizCompleted || state.isReviewMode) return;
-                        selectOption(state.currentIndex, i);
-                    });
-
-                    if (isSelected) {
-                        const mark = document.createElement('span');
-                        mark.className = 'check-mark correct';
-                        mark.textContent = '✓';
-                        btn.appendChild(mark);
-                    }
+                    if (isSelected) appendMark(btn, '✓', 'correct');
+                    btn.addEventListener('click', () => selectOption(state.currentIndex, i));
                 }
 
-                DOM.optionsContainer.appendChild(btn);
+                D.optionsContainer.appendChild(btn);
             });
         }
 
-        // ===== شرح الإجابة =====
-        if (DOM.explanationBox && DOM.expTitle && DOM.expBody) {
-            if (isCompleted) {
-                DOM.explanationBox.className = 'explanation-box visible';
+        // ── Explanation ──
+        renderExplanation(q, userAns, isAnswered, isCorrect, isCompleted);
 
-                if (!isAnswered) {
-                    DOM.expTitle.className = 'exp-title unanswered';
-                    DOM.expTitle.innerHTML = '⚠️ لم يتم اختيار إجابة';
-                    DOM.expBody.innerHTML = `
-                        <p><strong>الإجابة الصحيحة:</strong> ${q.options[q.answer]}</p>
-                        <p><strong>الشرح:</strong> ${q.explanation || 'لا يوجد شرح متاح.'}</p>
-                    `;
-                } else if (isCorrect) {
-                    DOM.expTitle.className = 'exp-title correct';
-                    DOM.expTitle.innerHTML = '✅ إجابة صحيحة!';
-                    DOM.expBody.innerHTML = `
-                        <p><strong>إجابتك:</strong> ${q.options[userAns]}</p>
-                        <p><strong>الشرح:</strong> ${q.explanation || 'أحسنت!'}</p>
-                    `;
-                } else {
-                    DOM.expTitle.className = 'exp-title wrong';
-                    DOM.expTitle.innerHTML = '❌ إجابة خاطئة';
-                    DOM.expBody.innerHTML = `
-                        <p><strong>إجابتك:</strong> ${q.options[userAns]}</p>
-                        <p><strong>الإجابة الصحيحة:</strong> ${q.options[q.answer]}</p>
-                        <p><strong>الشرح:</strong> ${q.explanation || 'راجع المادة.'}</p>
-                    `;
-                }
-            } else {
-                DOM.explanationBox.className = 'explanation-box';
-            }
-        }
-
-        // ===== تحديث العناصر الأخرى =====
+        // ── Misc updates ──
         updateNavButtons();
         updateProgress();
         updateHeroStats();
+        renderJumpPanel();
 
-        // ===== التمرير إلى السؤال =====
-        if (DOM.quizContainer) {
-            DOM.quizContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        // Scroll quiz into view
+        D.quizContainer && D.quizContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function appendMark(btn, symbol, cls) {
+        const mark = document.createElement('span');
+        mark.className = `check-mark ${cls}`;
+        mark.textContent = symbol;
+        btn.appendChild(mark);
+    }
+
+    function renderExplanation(q, userAns, isAnswered, isCorrect, isCompleted) {
+        if (!D.explanationBox || !D.expTitle || !D.expBody) return;
+
+        if (!isCompleted) {
+            D.explanationBox.className = 'explanation-box';
+            return;
+        }
+
+        D.explanationBox.className = 'explanation-box visible';
+
+        if (!isAnswered) {
+            D.expTitle.className = 'exp-title unanswered';
+            D.expTitle.innerHTML = '⚠️ No answer selected';
+            D.expBody.innerHTML = `
+                <p><strong>Correct answer:</strong> ${q.options[q.answer]}</p>
+                <p><strong>Explanation:</strong> ${q.explanation || 'No explanation provided.'}</p>
+            `;
+        } else if (isCorrect) {
+            D.expTitle.className = 'exp-title correct';
+            D.expTitle.innerHTML = '✅ Correct!';
+            D.expBody.innerHTML = `
+                <p><strong>Your answer:</strong> ${q.options[userAns]}</p>
+                <p><strong>Explanation:</strong> ${q.explanation || 'Great job!'}</p>
+            `;
+        } else {
+            D.expTitle.className = 'exp-title wrong';
+            D.expTitle.innerHTML = '❌ Incorrect';
+            D.expBody.innerHTML = `
+                <p><strong>Your answer:</strong> ${q.options[userAns]}</p>
+                <p><strong>Correct answer:</strong> ${q.options[q.answer]}</p>
+                <p><strong>Explanation:</strong> ${q.explanation || 'Review the material.'}</p>
+            `;
         }
     }
 
-    /** اختيار إجابة */
-    function selectOption(questionIndex, optionIndex) {
-        if (state.quizCompleted || state.isReviewMode) return;
-        if (state.isSubmitting) return;
+    // ============================================================
+    // ACTIONS
+    // ============================================================
 
+    function selectOption(questionIndex, optionIndex) {
+        if (state.quizCompleted || state.isReviewMode || state.isSubmitting) return;
         state.userAnswers[questionIndex] = optionIndex;
         renderQuestion();
     }
 
-    /** الانتقال إلى سؤال محدد */
     function goToQuestion(index) {
         if (index < 0 || index >= state.totalQuestions) return;
         state.currentIndex = index;
         renderQuestion();
     }
 
-    // ============================================================
-    // 6. QUIZ LOGIC
-    // ============================================================
+    // ── Results ──
 
-    /** حساب النتائج */
     function calculateResults() {
-        let correct = 0,
-            wrong = 0,
-            unanswered = 0;
-        const results = [];
-
+        let correct = 0, wrong = 0, unanswered = 0;
         for (let i = 0; i < state.totalQuestions; i++) {
             const ans = state.userAnswers[i];
-            const correctAns = state.questions[i].answer;
-
-            if (ans === null || ans === undefined) {
-                unanswered++;
-                results.push({ status: 'unanswered' });
-            } else if (ans === correctAns) {
-                correct++;
-                results.push({ status: 'correct' });
-            } else {
-                wrong++;
-                results.push({ status: 'wrong' });
-            }
+            if (ans == null)                         { unanswered++; }
+            else if (ans === state.questions[i].answer) { correct++; }
+            else                                     { wrong++; }
         }
-
-        return { correct, wrong, unanswered, results };
+        return { correct, wrong, unanswered };
     }
 
-    /** عرض النتائج */
     function showResults() {
         if (state.isSubmitting) return;
         state.isSubmitting = true;
 
-        // حساب النتائج
-        const { correct, wrong, unanswered, results } = calculateResults();
-        state.correctCount = correct;
-        state.wrongCount = wrong;
-        state.unansweredCount = unanswered;
-        state.results = results;
-        state.quizCompleted = true;
+        const { correct, wrong, unanswered } = calculateResults();
+        state.quizCompleted  = true;
+        state.correctCount   = correct;
+        state.wrongCount     = wrong;
+        state.unansweredCount= unanswered;
 
-        const pct = state.totalQuestions > 0 ? Math.round((correct / state.totalQuestions) * 100) : 0;
+        const pct = state.totalQuestions > 0
+            ? Math.round((correct / state.totalQuestions) * 100) : 0;
 
-        // تحديث عناصر النتائج
-        if (DOM.finalScoreNum) DOM.finalScoreNum.textContent = correct;
-        if (DOM.finalScoreTotal) DOM.finalScoreTotal.textContent = state.totalQuestions;
-        if (DOM.finalScorePercent) DOM.finalScorePercent.textContent = pct + '%';
-        if (DOM.finalCorrect) DOM.finalCorrect.textContent = correct;
-        if (DOM.finalWrong) DOM.finalWrong.textContent = wrong;
-        if (DOM.finalUnanswered) DOM.finalUnanswered.textContent = unanswered;
+        set(D.finalScoreNum,    correct);
+        set(D.finalScoreTotal,  state.totalQuestions);
+        set(D.finalScorePercent, pct + '%');
+        set(D.finalCorrect,     correct);
+        set(D.finalWrong,       wrong);
+        set(D.finalUnanswered,  unanswered);
 
-        // إخفاء الاختبار وإظهار النتائج
-        if (DOM.quizContainer) DOM.quizContainer.style.display = 'none';
-        if (DOM.resultsContainer) {
-            DOM.resultsContainer.className = 'results-container visible';
-            DOM.resultsContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        hide(D.quizContainer);
+        if (D.resultsContainer) {
+            D.resultsContainer.className = 'results-container visible';
+            D.resultsContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
 
-        // تحديث الإحصائيات
+        // Hide jump panel & kbd hint during results
+        const panel = document.getElementById('jumpPanel');
+        const hint  = document.getElementById('kbdHint');
+        if (panel) panel.style.display = 'none';
+        if (hint)  hint.style.display  = 'none';
+
         updateHeroStats();
-
-        // تغيير زر التقديم للرجوع للنتائج
-        if (DOM.submitBtn) {
-            DOM.submitBtn.textContent = '🔙 العودة للنتائج';
-            DOM.submitBtn.className = 'nav-btn primary';
-            DOM.submitBtn.onclick = function() {
-                if (DOM.quizContainer) DOM.quizContainer.style.display = 'none';
-                if (DOM.resultsContainer) {
-                    DOM.resultsContainer.className = 'results-container visible';
-                }
-            };
-        }
-
         state.isSubmitting = false;
     }
 
-    /** بدء مراجعة الإجابات */
     function startReview() {
-        state.isReviewMode = true;
+        state.isReviewMode  = true;
         state.quizCompleted = true;
 
-        // إخفاء النتائج وإظهار الاختبار
-        if (DOM.resultsContainer) DOM.resultsContainer.className = 'results-container';
-        if (DOM.quizContainer) DOM.quizContainer.style.display = 'block';
+        if (D.resultsContainer) D.resultsContainer.className = 'results-container';
+        show(D.quizContainer);
+
+        // Restore jump panel & hint
+        const panel = document.getElementById('jumpPanel');
+        const hint  = document.getElementById('kbdHint');
+        if (panel) panel.style.display = 'flex';
+        if (hint)  hint.style.display  = 'flex';
 
         state.currentIndex = 0;
         renderQuestion();
 
-        // تغيير زر التقديم
-        if (DOM.submitBtn) {
-            DOM.submitBtn.textContent = '🔙 العودة للنتائج';
-            DOM.submitBtn.className = 'nav-btn primary';
-            DOM.submitBtn.onclick = function() {
-                showResults();
-                DOM.submitBtn.textContent = '🔙 العودة للنتائج';
-                DOM.submitBtn.className = 'nav-btn primary';
-                DOM.submitBtn.onclick = function() {
-                    if (DOM.quizContainer) DOM.quizContainer.style.display = 'none';
-                    if (DOM.resultsContainer) {
-                        DOM.resultsContainer.className = 'results-container visible';
-                    }
-                };
-            };
-        }
+        setSubmitToBackToResults();
     }
 
-    /** إعادة تعيين الاختبار */
+    function setSubmitToBackToResults() {
+        if (!D.submitBtn) return;
+        D.submitBtn.innerHTML = '<i class="fa-regular fa-chart-bar"></i> Back to Results';
+        D.submitBtn.className = 'nav-btn primary';
+        D.submitBtn.onclick = function () {
+            hide(D.quizContainer);
+            if (D.resultsContainer) D.resultsContainer.className = 'results-container visible';
+            // hide panels again
+            const panel = document.getElementById('jumpPanel');
+            const hint  = document.getElementById('kbdHint');
+            if (panel) panel.style.display = 'none';
+            if (hint)  hint.style.display  = 'none';
+        };
+    }
+
+    function resetSubmitBtn() {
+        if (!D.submitBtn) return;
+        D.submitBtn.innerHTML = '<i class="fa-regular fa-check-circle"></i> Get Final Score &amp; Feedback';
+        D.submitBtn.className = 'nav-btn success';
+        D.submitBtn.onclick   = showResults;
+    }
+
     function resetQuiz() {
-        state.userAnswers = new Array(state.totalQuestions).fill(null);
-        state.quizCompleted = false;
-        state.isReviewMode = false;
-        state.currentIndex = 0;
-        state.score = 0;
-        state.correctCount = 0;
-        state.wrongCount = 0;
+        state.userAnswers     = new Array(state.totalQuestions).fill(null);
+        state.quizCompleted   = false;
+        state.isReviewMode    = false;
+        state.currentIndex    = 0;
+        state.score           = 0;
+        state.correctCount    = 0;
+        state.wrongCount      = 0;
         state.unansweredCount = 0;
-        state.results = [];
 
-        if (DOM.resultsContainer) DOM.resultsContainer.className = 'results-container';
-        if (DOM.quizContainer) DOM.quizContainer.style.display = 'block';
+        if (D.resultsContainer) D.resultsContainer.className = 'results-container';
+        show(D.quizContainer);
 
-        // إعادة تعيين زر التقديم
-        if (DOM.submitBtn) {
-            DOM.submitBtn.textContent = '📊 عرض النتيجة النهائية';
-            DOM.submitBtn.className = 'nav-btn success';
-            DOM.submitBtn.onclick = showResults;
-        }
+        const panel = document.getElementById('jumpPanel');
+        const hint  = document.getElementById('kbdHint');
+        if (panel) panel.style.display = 'flex';
+        if (hint)  hint.style.display  = 'flex';
 
+        resetSubmitBtn();
         renderQuestion();
         updateHeroStats();
     }
 
     // ============================================================
-    // 7. LOAD QUIZ
+    // KEYBOARD SHORTCUTS
     // ============================================================
 
-    /** تحميل ملف الأسئلة */
+    function setupKeyboard() {
+        document.addEventListener('keydown', function (e) {
+            // Don't intercept when typing in an input
+            if (['INPUT', 'TEXTAREA', 'SELECT'].includes(e.target.tagName)) return;
+
+            switch (e.key) {
+                case 'ArrowLeft':
+                    e.preventDefault();
+                    goToQuestion(state.currentIndex - 1);
+                    break;
+                case 'ArrowRight':
+                    e.preventDefault();
+                    goToQuestion(state.currentIndex + 1);
+                    break;
+                case '1': case '2': case '3': case '4': {
+                    if (state.quizCompleted || state.isReviewMode) break;
+                    const idx = parseInt(e.key) - 1;
+                    const q   = state.questions[state.currentIndex];
+                    if (q && idx < q.options.length) {
+                        e.preventDefault();
+                        selectOption(state.currentIndex, idx);
+                    }
+                    break;
+                }
+                case 'Enter':
+                    if (!state.quizCompleted && !state.isReviewMode) {
+                        const answered = countAnswered();
+                        if (answered === state.totalQuestions) {
+                            e.preventDefault();
+                            showResults();
+                        }
+                    }
+                    break;
+            }
+        });
+    }
+
+    // ============================================================
+    // LOAD QUIZ
+    // ============================================================
+
     function loadQuiz() {
         const type = getParam('type') || 'week';
         const file = getParam('file');
 
         if (!file) {
-            showError('لم يتم تحديد ملف الأسئلة. الرجاء العودة واختيار اختبار.');
+            showError('No file specified. Please go back and select a quiz.');
             return;
         }
 
         const path = getFilePath(type, file);
 
-        // إظهار حالة التحميل
-        if (DOM.loadingState) DOM.loadingState.style.display = 'block';
-        if (DOM.errorState) DOM.errorState.style.display = 'none';
-        if (DOM.quizContent) DOM.quizContent.style.display = 'none';
+        show(D.loadingState);
+        hide(D.errorState);
+        hide(D.quizContent);
 
         fetch(path)
             .then(res => {
@@ -469,195 +557,66 @@
                 return res.json();
             })
             .then(data => {
-                if (!data.questions || !Array.isArray(data.questions) || data.questions.length === 0) {
-                    throw new Error('لا توجد أسئلة في هذا الملف.');
+                if (!data.questions || !Array.isArray(data.questions) || !data.questions.length) {
+                    throw new Error('No questions found in this file.');
                 }
 
-                // تخزين البيانات
-                state.quizData = data;
-                state.questions = data.questions;
+                state.quizData       = data;
+                state.questions      = data.questions;
                 state.totalQuestions = data.questions.length;
-                state.userAnswers = new Array(state.totalQuestions).fill(null);
+                state.userAnswers    = new Array(state.totalQuestions).fill(null);
+                state.currentIndex   = 0;
+                state.quizCompleted  = false;
+                state.isReviewMode   = false;
 
-                // تعيين العنوان
-                const displayName = file.replace('week', 'الأسبوع ').replace('quiz', 'كويز ');
-                if (DOM.quizTitle) {
-                    DOM.quizTitle.textContent = data.title || displayName;
-                }
-                if (DOM.quizSubtitle) {
-                    DOM.quizSubtitle.textContent = data.subtitle || `${state.totalQuestions} سؤال`;
-                }
+                // Header text
+                const displayName = file
+                    .replace('week', 'Week ')
+                    .replace('quiz', 'Quiz ');
+                set(D.quizTitle,    data.title    || displayName);
+                set(D.quizSubtitle, data.subtitle || `${state.totalQuestions} questions`);
 
-                // إخفاء التحميل وإظهار المحتوى
-                if (DOM.loadingState) DOM.loadingState.style.display = 'none';
-                if (DOM.quizContent) DOM.quizContent.style.display = 'block';
+                hide(D.loadingState);
+                show(D.quizContent);
 
-                // عرض السؤال الأول
-                state.currentIndex = 0;
-                state.quizCompleted = false;
-                state.isReviewMode = false;
-
+                // Render quiz
                 renderQuestion();
 
-                // إعداد الأزرار
-                if (DOM.prevBtn) {
-                    DOM.prevBtn.onclick = () => goToQuestion(state.currentIndex - 1);
-                }
-                if (DOM.nextBtn) {
-                    DOM.nextBtn.onclick = () => goToQuestion(state.currentIndex + 1);
-                }
-                if (DOM.submitBtn) {
-                    DOM.submitBtn.onclick = showResults;
-                }
-                if (DOM.resetBtn) {
-                    DOM.resetBtn.onclick = resetQuiz;
-                }
-                if (DOM.reviewBtn) {
-                    DOM.reviewBtn.onclick = startReview;
-                }
-                if (DOM.resultsResetBtn) {
-                    DOM.resultsResetBtn.onclick = resetQuiz;
-                }
+                // Build UI additions
+                buildJumpPanel();
+                buildKbdHint();
 
+                // Wire buttons
+                if (D.prevBtn)         D.prevBtn.onclick = () => goToQuestion(state.currentIndex - 1);
+                if (D.nextBtn)         D.nextBtn.onclick = () => goToQuestion(state.currentIndex + 1);
+                if (D.resetBtn)        D.resetBtn.onclick = resetQuiz;
+                if (D.reviewBtn)       D.reviewBtn.onclick = startReview;
+                if (D.resultsResetBtn) D.resultsResetBtn.onclick = resetQuiz;
+                resetSubmitBtn(); // sets submit button fresh
             })
             .catch(err => {
-                console.error('خطأ في التحميل:', err);
-                showError(err.message || 'فشل تحميل الأسئلة. تأكد من وجود الملف.');
+                console.error('Quiz load error:', err);
+                showError(err.message || 'Failed to load questions. Check the file path.');
             });
     }
 
     // ============================================================
-    // 8. KEYBOARD SHORTCUTS
-    // ============================================================
-
-    function setupKeyboardShortcuts() {
-        document.addEventListener('keydown', function(e) {
-            // منع الاختصارات في حالة عرض النتائج أو مراجعة
-            if (state.quizCompleted || state.isReviewMode) return;
-
-            // السهم الأيسر → السابق
-            if (e.key === 'ArrowLeft' && state.currentIndex > 0) {
-                e.preventDefault();
-                goToQuestion(state.currentIndex - 1);
-            }
-            // السهم الأيمن → التالي
-            else if (e.key === 'ArrowRight' && state.currentIndex < state.totalQuestions - 1) {
-                e.preventDefault();
-                goToQuestion(state.currentIndex + 1);
-            }
-            // أرقام 1-4 للاختيار
-            else if (['1', '2', '3', '4'].includes(e.key)) {
-                const idx = parseInt(e.key) - 1;
-                if (!state.quizCompleted && !state.isReviewMode) {
-                    const q = state.questions[state.currentIndex];
-                    if (q && idx < q.options.length) {
-                        e.preventDefault();
-                        selectOption(state.currentIndex, idx);
-                    }
-                }
-            }
-            // زر Enter لتقديم النتيجة
-            else if (e.key === 'Enter' && !state.quizCompleted && !state.isReviewMode) {
-                const answered = state.userAnswers.filter(a => a !== null && a !== undefined).length;
-                if (answered === state.totalQuestions) {
-                    e.preventDefault();
-                    showResults();
-                }
-            }
-        });
-    }
-
-    // ============================================================
-    // 9. INIT
+    // INIT
     // ============================================================
 
     function init() {
-        // ===== تهيئة الـ DOM refs =====
-        DOM = {
-            // Header
-            quizTitle: document.getElementById('quizTitle'),
-            quizSubtitle: document.getElementById('quizSubtitle'),
-            scoreDisplay: document.getElementById('scoreDisplay'),
-            answeredDisplay: document.getElementById('answeredDisplay'),
-            totalDisplay: document.getElementById('totalDisplay'),
-
-            // Loading / Error
-            loadingState: document.getElementById('loadingState'),
-            errorState: document.getElementById('errorState'),
-            errorMessage: document.getElementById('errorMessage'),
-            quizContent: document.getElementById('quizContent'),
-
-            // Progress
-            progressLabel: document.getElementById('progressLabel'),
-            progressPercent: document.getElementById('progressPercent'),
-            progressFill: document.getElementById('progressFill'),
-
-            // Question
-            qNumber: document.getElementById('qNumber'),
-            qStatus: document.getElementById('qStatus'),
-            questionText: document.getElementById('questionText'),
-            optionsContainer: document.getElementById('optionsContainer'),
-            explanationBox: document.getElementById('explanationBox'),
-            expTitle: document.getElementById('expTitle'),
-            expBody: document.getElementById('expBody'),
-
-            // Navigation
-            prevBtn: document.getElementById('prevBtn'),
-            nextBtn: document.getElementById('nextBtn'),
-            navCounter: document.getElementById('navCounter'),
-            submitBtn: document.getElementById('submitBtn'),
-            resetBtn: document.getElementById('resetBtn'),
-
-            // Results
-            resultsContainer: document.getElementById('resultsContainer'),
-            finalScoreNum: document.getElementById('finalScoreNum'),
-            finalScoreTotal: document.getElementById('finalScoreTotal'),
-            finalScorePercent: document.getElementById('finalScorePercent'),
-            finalCorrect: document.getElementById('finalCorrect'),
-            finalWrong: document.getElementById('finalWrong'),
-            finalUnanswered: document.getElementById('finalUnanswered'),
-            reviewBtn: document.getElementById('reviewBtn'),
-            resultsResetBtn: document.getElementById('resultsResetBtn'),
-
-            // Container
-            quizContainer: document.querySelector('.quiz-container'),
-        };
-
-        // ===== التحقق من وجود العناصر الأساسية =====
-        if (!DOM.quizContent) {
-            console.warn('بعض عناصر الصفحة غير موجودة. تأكد من أنك في صفحة quizzes.html');
-        }
-
-        // ===== إعداد اختصارات لوحة المفاتيح =====
-        setupKeyboardShortcuts();
-
-        // ===== تحميل الاختبار =====
+        cacheDom();
+        setupKeyboard();
         loadQuiz();
     }
 
-    // ============================================================
-    // 10. START
-    // ============================================================
-
-    // انتظار تحميل الصفحة بالكامل
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', init);
     } else {
         init();
     }
 
-    // ============================================================
-    // 11. EXPOSE (للتطوير)
-    // ============================================================
-    window.__quizApp = {
-        state: state,
-        renderQuestion: renderQuestion,
-        goToQuestion: goToQuestion,
-        selectOption: selectOption,
-        showResults: showResults,
-        resetQuiz: resetQuiz,
-        startReview: startReview,
-        DOM: DOM,
-    };
+    // Dev exposure
+    window.__quizApp = { state, goToQuestion, selectOption, showResults, resetQuiz, startReview };
 
 })();
