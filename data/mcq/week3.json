@@ -1,69 +1,486 @@
-<!DOCTYPE html>
-<html lang="ar">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>الاختبار - Week 3</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <div class="container quiz-container">
-        <!-- Header -->
-        <header class="quiz-header">
-            <button class="back-btn" onclick="goHome()">← العودة</button>
-            <div class="quiz-title">
-                <h1 id="quizTitle">🧠 Preventing Overfitting</h1>
-                <p id="quizSubtopics">Regularization · L1 / L2 · Dropout · Early Stopping · Data Augmentation</p>
-            </div>
-            <div class="score-display">
-                <span id="scoreDisplay">🎯 0 / 40 (0%)</span>
-                <span id="answeredDisplay">0 answered, 40 unanswered</span>
-            </div>
-        </header>
-
-        <!-- Progress Bar -->
-        <div class="progress-container">
-            <div class="progress-bar" id="progressBar" style="width: 0%"></div>
-        </div>
-
-        <!-- Question Area -->
-        <div class="question-area" id="questionArea">
-            <div class="question-number" id="questionNumber">سؤال 1 من 40</div>
-            <h2 class="question-text" id="questionText">Loading question...</h2>
-            
-            <div class="options-container" id="optionsContainer">
-                <!-- Options will be inserted here -->
-            </div>
-
-            <div class="explanation-box" id="explanationBox" style="display: none;">
-                <div class="explanation-content" id="explanationContent"></div>
-            </div>
-
-            <div class="navigation">
-                <button class="nav-btn" id="prevBtn" onclick="prevQuestion()">← السابق</button>
-                <span class="question-counter" id="questionCounter">1 / 40</span>
-                <button class="nav-btn" id="nextBtn" onclick="nextQuestion()">التالي →</button>
-            </div>
-
-            <div class="action-buttons">
-                <button class="submit-btn" onclick="getFinalScore()">✨ Get Final Score & Feedback</button>
-            </div>
-        </div>
-
-        <!-- Results Area (hidden initially) -->
-        <div class="results-area" id="resultsArea" style="display: none;">
-            <h2>📊 النتائج النهائية</h2>
-            <div class="final-score" id="finalScore">🎯 35 / 40 (87.5%)</div>
-            <div class="stats">
-                <span id="correctCount">✅ 35 صحيح</span>
-                <span id="wrongCount">❌ 5 خطأ</span>
-                <span id="unansweredCount">⚠️ 0 غير مجاب</span>
-            </div>
-            <button class="review-btn" onclick="reviewAnswers()">🔄 مراجعة الإجابات</button>
-            <button class="home-btn" onclick="goHome()">🏠 العودة للرئيسية</button>
-        </div>
-    </div>
-
-    <script src="main.js"></script>
-</body>
-</html>
+{
+  "week": 3,
+  "title": "Preventing Overfitting",
+  "questions": [
+    {
+      "id": 1,
+      "question": "What is the primary goal of regularization in deep learning?",
+      "options": [
+        "Increase training accuracy at all costs",
+        "Reduce test error and improve generalization",
+        "Make the model learn faster",
+        "Increase model capacity"
+      ],
+      "answer": 1,
+      "explanation": "Regularization aims to reduce test error (generalization error) by preventing overfitting, even if it slightly increases training error."
+    },
+    {
+      "id": 2,
+      "question": "Which of the following best describes overfitting?",
+      "options": [
+        "Model is too simple, high training error",
+        "Model is too complex, fits noise and fails to generalize to unseen data",
+        "Model performs equally well on train and test",
+        "Model underfits the training distribution"
+      ],
+      "answer": 1,
+      "explanation": "Overfitting occurs when a model learns training data too well, including noise, resulting in poor performance on new, unseen data."
+    },
+    {
+      "id": 3,
+      "question": "What does 'underfitting' typically indicate?",
+      "options": [
+        "Very low training & validation error",
+        "High training error and high validation error",
+        "Low training error but high validation error",
+        "Model memorizes noise"
+      ],
+      "answer": 1,
+      "explanation": "Underfitting means the model is too simple to capture the underlying pattern, resulting in both high training and validation errors."
+    },
+    {
+      "id": 4,
+      "question": "Regularization techniques constrain the optimization problem to:",
+      "options": [
+        "Increase model variance",
+        "Discourage complex models and limit overfitting",
+        "Always increase training loss drastically",
+        "Remove all non-linear activations"
+      ],
+      "answer": 1,
+      "explanation": "Regularization adds constraints that penalize complexity, encouraging simpler models that generalize better."
+    },
+    {
+      "id": 5,
+      "question": "According to the slides, regularization works by either adding a penalty to the loss function or:",
+      "options": [
+        "Increasing the learning rate",
+        "Modifying the network's architecture during training",
+        "Doubling the dataset size manually",
+        "Using only bias terms"
+      ],
+      "answer": 1,
+      "explanation": "Regularization can be applied as a penalty term in the loss function or through architectural modifications like Dropout."
+    },
+    {
+      "id": 6,
+      "question": "L2 regularization is also known as:",
+      "options": [
+        "Lasso Regularization",
+        "Weight Decay / Ridge Regularization",
+        "Elastic Net",
+        "Dropout"
+      ],
+      "answer": 1,
+      "explanation": "L2 regularization is also called Weight Decay or Ridge Regression, penalizing large weights by adding squared sum to the loss."
+    },
+    {
+      "id": 7,
+      "question": "What is the penalty term for L2 regularization (for weights w_i)?",
+      "options": [
+        "λ Σ |w_i|",
+        "λ Σ w_i²",
+        "λ Σ (w_i)^4",
+        "λ Σ log(1+|w_i|)"
+      ],
+      "answer": 1,
+      "explanation": "L2 penalty is the sum of squared weights (Σ w_i²) multiplied by the regularization strength λ."
+    },
+    {
+      "id": 8,
+      "question": "L1 regularization (Lasso) encourages which property?",
+      "options": [
+        "All weights remain non-zero",
+        "Sparsity — many weights become exactly zero",
+        "Weights are all equal",
+        "Biases are heavily penalized"
+      ],
+      "answer": 1,
+      "explanation": "L1 regularization promotes sparsity by driving many weights to exactly zero, acting as feature selection."
+    },
+    {
+      "id": 9,
+      "question": "In the regularization formula l_reg(θ) = l(θ) + λ Ω(θ), what does λ control?",
+      "options": [
+        "The learning rate",
+        "Regularization strength (hyperparameter)",
+        "Number of layers",
+        "Dropout rate"
+      ],
+      "answer": 1,
+      "explanation": "λ (lambda) controls the strength of regularization - higher λ means stronger penalization of complex models."
+    },
+    {
+      "id": 10,
+      "question": "A large λ (strong regularization) leads to:",
+      "options": [
+        "More flexible model, low bias",
+        "Simpler model, higher bias, lower variance",
+        "No change in model complexity",
+        "Faster convergence always"
+      ],
+      "answer": 1,
+      "explanation": "Large λ penalizes weights heavily, creating simpler models with higher bias but lower variance (less overfitting)."
+    },
+    {
+      "id": 11,
+      "question": "Why do practitioners typically NOT regularize bias terms?",
+      "options": [
+        "Bias terms do not affect model capacity",
+        "Bias terms have different role and often omitted from weight decay",
+        "They would always become zero",
+        "It is computationally impossible"
+      ],
+      "answer": 1,
+      "explanation": "Biases are typically not regularized because they don't affect model complexity as much as weights do."
+    },
+    {
+      "id": 12,
+      "question": "Given weights w1 = [1,0,0,0] and w2 = [0.25,0.25,0.25,0.25] with x=[1,1,1,1], which vector does L2 regularization prefer?",
+      "options": [
+        "w1 (sparse) because it has one big weight",
+        "w2 (spread out) because sum of squares is smaller",
+        "Both equally",
+        "L2 prefers larger magnitude weights"
+      ],
+      "answer": 1,
+      "explanation": "L2 prefers w2 because sum of squares (0.25²×4 = 0.25) is smaller than w1 (1²×1 = 1)."
+    },
+    {
+      "id": 13,
+      "question": "Which vector does L1 regularization prefer for the same x = [1,1,1,1]?",
+      "options": [
+        "w1 ([1,0,0,0]) because it's sparse",
+        "w2 (uniform) because absolute sum is same",
+        "Both are equivalent under L1",
+        "Neither, L1 cannot discriminate"
+      ],
+      "answer": 0,
+      "explanation": "L1 prefers w1 because it encourages sparsity - it pushes weights toward zero when possible."
+    },
+    {
+      "id": 14,
+      "question": "Dropout regularization works by:",
+      "options": [
+        "Adding noise to input data",
+        "Randomly deactivating a fraction of neurons during each training step",
+        "Zeroing out all weights every epoch",
+        "Doubling the learning rate dynamically"
+      ],
+      "answer": 1,
+      "explanation": "Dropout randomly drops a fraction of neurons during training, preventing co-adaptation and forcing robust feature learning."
+    },
+    {
+      "id": 15,
+      "question": "During test time (inference), how is Dropout applied?",
+      "options": [
+        "Same dropout rate is used",
+        "No dropout; all neurons are active, often with weight scaling",
+        "Dropout is increased to 0.7",
+        "Only first layer uses dropout"
+      ],
+      "answer": 1,
+      "explanation": "During inference, dropout is turned off and weights are scaled (multiplied by (1-dropout_rate)) to maintain expected output."
+    },
+    {
+      "id": 16,
+      "question": "A dropout rate of 0.5 in a hidden layer means:",
+      "options": [
+        "50% of neurons are permanently removed",
+        "Each neuron has a 50% chance of being temporarily dropped during training",
+        "Dropout occurs only for biases",
+        "Learning rate is halved"
+      ],
+      "answer": 1,
+      "explanation": "Dropout rate 0.5 means each neuron has 50% chance of being deactivated during each training iteration."
+    },
+    {
+      "id": 17,
+      "question": "Why does dropout help prevent overfitting?",
+      "options": [
+        "It increases model capacity",
+        "It prevents co-adaptation of neurons and forces robust feature learning",
+        "It adds L2 penalty automatically",
+        "It reduces the number of epochs"
+      ],
+      "answer": 1,
+      "explanation": "Dropout forces neurons to learn independently without relying on specific other neurons, promoting more robust features."
+    },
+    {
+      "id": 18,
+      "question": "According to lecture slides, what effect does dropout have on the training loss curve?",
+      "options": [
+        "Training loss becomes smoother",
+        "Training loss becomes noisier, but validation loss becomes more stable",
+        "Both training and validation loss become erratic",
+        "No visible effect"
+      ],
+      "answer": 1,
+      "explanation": "Dropout adds stochasticity during training, making the training loss noisier while improving validation performance."
+    },
+    {
+      "id": 19,
+      "question": "Early stopping stops training when:",
+      "options": [
+        "Training accuracy reaches 100%",
+        "Validation loss fails to improve for a specified number of epochs",
+        "GPU memory runs out",
+        "The model reaches minimum possible loss"
+      ],
+      "answer": 1,
+      "explanation": "Early stopping monitors validation metrics and stops training when they plateau or worsen to prevent overfitting."
+    },
+    {
+      "id": 20,
+      "question": "Which metric is typically monitored for early stopping?",
+      "options": [
+        "Training accuracy",
+        "Validation loss (or chosen metric)",
+        "Gradient magnitude",
+        "Number of parameters"
+      ],
+      "answer": 1,
+      "explanation": "Validation loss is commonly monitored for early stopping as it indicates generalization performance."
+    },
+    {
+      "id": 21,
+      "question": "What model does early stopping ultimately return?",
+      "options": [
+        "The last epoch's model",
+        "The model with the best recorded validation performance",
+        "The model with highest training accuracy",
+        "An ensemble of all models"
+      ],
+      "answer": 1,
+      "explanation": "Early stopping returns the model checkpoint with the best validation performance, not necessarily the final epoch."
+    },
+    {
+      "id": 22,
+      "question": "Data augmentation is a regularization method that:",
+      "options": [
+        "Adds more real-world labeled data",
+        "Creates synthetic training examples by perturbing existing data",
+        "Removes outliers",
+        "Applies L2 penalty to augmented images"
+      ],
+      "answer": 1,
+      "explanation": "Data augmentation generates new training samples through transformations (rotation, flipping, etc.) to improve generalization."
+    },
+    {
+      "id": 23,
+      "question": "Which of the following is a typical image data augmentation technique mentioned in the slides?",
+      "options": [
+        "Translation, rotation, scaling",
+        "Corrupting labels",
+        "Adding random text to images",
+        "Reducing image depth"
+      ],
+      "answer": 0,
+      "explanation": "Common image augmentations include translation, rotation, scaling, flipping, and color adjustments."
+    },
+    {
+      "id": 24,
+      "question": "True or false: Regularization often increases training error slightly but reduces test error.",
+      "options": [
+        "True",
+        "False",
+        "Only for L1",
+        "Only for dropout"
+      ],
+      "answer": 0,
+      "explanation": "True - regularization usually increases training error slightly while reducing the gap between training and test error."
+    },
+    {
+      "id": 25,
+      "question": "Which regularization method is known to drive some weights exactly to zero, helping feature selection?",
+      "options": [
+        "L2 (Ridge)",
+        "L1 (Lasso)",
+        "Dropout",
+        "Early stopping"
+      ],
+      "answer": 1,
+      "explanation": "L1 regularization (Lasso) drives weights to exactly zero, making it useful for feature selection."
+    },
+    {
+      "id": 26,
+      "question": "Which of the following statements about L2 weight decay is correct?",
+      "options": [
+        "Penalty is sum of absolute weights",
+        "Penalty is sum of squared weights → shrinks weights but not to zero",
+        "Only applied to bias",
+        "Equivalent to data augmentation"
+      ],
+      "answer": 1,
+      "explanation": "L2 penalty is sum of squared weights, which shrinks weights toward zero but rarely makes them exactly zero."
+    },
+    {
+      "id": 27,
+      "question": "In Keras / TensorFlow, which layer implements dropout regularization?",
+      "options": [
+        "tf.keras.layers.Dropout(p=0.5)",
+        "tf.keras.layers.BatchNorm",
+        "tf.keras.layers.Sparsity",
+        "tf.keras.regularizers.Dropout"
+      ],
+      "answer": 0,
+      "explanation": "Dropout is implemented using tf.keras.layers.Dropout with the probability parameter p."
+    },
+    {
+      "id": 28,
+      "question": "According to slide content, what is the typical dropout rate suggested for hidden layers?",
+      "options": [
+        "10%",
+        "50%",
+        "90%",
+        "0%"
+      ],
+      "answer": 1,
+      "explanation": "A dropout rate of 50% (p=0.5) is commonly recommended for hidden layers as a good balance."
+    },
+    {
+      "id": 29,
+      "question": "What does the regularization term Ω(θ) represent in L2 regularization?",
+      "options": [
+        "‖θ‖₁ (L1 norm)",
+        "‖θ‖² (squared L2 norm)",
+        "Number of non-zero weights",
+        "Entropy of weights"
+      ],
+      "answer": 1,
+      "explanation": "In L2 regularization, Ω(θ) is the squared L2 norm (sum of squared weights)."
+    },
+    {
+      "id": 30,
+      "question": "The lab this week (Boston Housing dataset) aims to:",
+      "options": [
+        "Only use data augmentation",
+        "Build a complex network that overfits and then apply L2, L1, Dropout to improve generalization",
+        "Implement only early stopping",
+        "Compare CNNs and RNNs"
+      ],
+      "answer": 1,
+      "explanation": "The lab demonstrates overfitting on Boston Housing then applies various regularization techniques to improve generalization."
+    },
+    {
+      "id": 31,
+      "question": "Which technique modifies the network's architecture during training by randomly disabling neurons?",
+      "options": [
+        "L2 regularization",
+        "L1 regularization",
+        "Dropout",
+        "Data augmentation"
+      ],
+      "answer": 2,
+      "explanation": "Dropout modifies architecture during training by randomly dropping neurons, creating different sub-networks each iteration."
+    },
+    {
+      "id": 32,
+      "question": "If validation loss stops improving but training loss keeps decreasing, early stopping suggests:",
+      "options": [
+        "Continue training for 100 more epochs",
+        "Stop training to avoid overfitting",
+        "Increase the dropout rate",
+        "Switch to L2 only"
+      ],
+      "answer": 1,
+      "explanation": "When validation loss plateaus while training loss continues decreasing, it's a sign of overfitting - stop training."
+    },
+    {
+      "id": 33,
+      "question": "What is the effect of increasing the regularization strength λ from 0.001 to 10?",
+      "options": [
+        "Model becomes more complex",
+        "Model becomes simpler, higher bias",
+        "No change",
+        "Learning accelerates"
+      ],
+      "answer": 1,
+      "explanation": "Increasing λ strongly penalizes weights, making the model simpler with higher bias but better generalization."
+    },
+    {
+      "id": 34,
+      "question": "Which statement about L1 vs L2 is correct according to the lecture?",
+      "options": [
+        "L2 encourages sparsity, L1 spreads weights",
+        "L1 encourages sparsity, L2 prefers spreading weight values",
+        "Both have identical behavior",
+        "L1 is only for linear models"
+      ],
+      "answer": 1,
+      "explanation": "L1 promotes sparsity (zero weights), while L2 spreads weights evenly with smaller magnitudes."
+    },
+    {
+      "id": 35,
+      "question": "In early stopping, 'patience' refers to:",
+      "options": [
+        "Number of epochs to wait for improvement before stopping",
+        "Learning rate decay steps",
+        "Number of training samples",
+        "Dropout probability"
+      ],
+      "answer": 0,
+      "explanation": "Patience is the number of epochs to wait for improvement before early stopping triggers."
+    },
+    {
+      "id": 36,
+      "question": "Which of the following scenarios suggests overfitting?",
+      "options": [
+        "Training loss low, validation loss high",
+        "Both training and validation loss high",
+        "Both low and close",
+        "Validation accuracy higher than training"
+      ],
+      "answer": 0,
+      "explanation": "Low training loss but high validation loss is a classic sign of overfitting."
+    },
+    {
+      "id": 37,
+      "question": "The slide 'Regularization intuition: prefer simpler models' suggests that regularization encourages:",
+      "options": [
+        "More complex decision boundaries",
+        "Smoother / simpler functions that don't perfectly fit noise",
+        "Increasing number of parameters",
+        "Zero training loss"
+      ],
+      "answer": 1,
+      "explanation": "Regularization favors simpler, smoother functions that generalize better rather than perfectly fitting training data."
+    },
+    {
+      "id": 38,
+      "question": "What is the main benefit of L1 regularization compared to L2?",
+      "options": [
+        "Computationally cheaper",
+        "It leads to sparse solutions which can be used for feature selection",
+        "Always reduces bias more",
+        "Never requires hyperparameter tuning"
+      ],
+      "answer": 1,
+      "explanation": "L1's sparsity makes it valuable for feature selection, identifying which features are most important."
+    },
+    {
+      "id": 39,
+      "question": "In the context of dropout, why does the training loss become noisier but validation loss improve?",
+      "options": [
+        "Because dropout adds stochasticity during training, preventing overfitting and improving generalization",
+        "Because dropout reduces the learning rate",
+        "Because gradients explode",
+        "Because the optimizer changes"
+      ],
+      "answer": 0,
+      "explanation": "Dropout's stochastic nature adds noise to training loss while forcing the model to learn more generalizable features."
+    },
+    {
+      "id": 40,
+      "question": "Which of the following is NOT a regularization technique covered in the slides?",
+      "options": [
+        "L2 Weight Decay",
+        "Dropout",
+        "Early Stopping",
+        "Batch Gradient Clipping Only"
+      ],
+      "answer": 3,
+      "explanation": "Batch Gradient Clipping (or just gradient clipping) is not discussed as a regularization technique in the slides."
+    }
+  ]
+}
