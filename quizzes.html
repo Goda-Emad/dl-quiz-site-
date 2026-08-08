@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar" dir="ltr">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,712 +8,42 @@
     <!-- ===== GOOGLE FONTS ===== -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap"
+        rel="stylesheet"
+    />
 
     <!-- ===== FONT AWESOME ===== -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-
-    <style>
-        /* ============================================================
-           ROOT VARIABLES
-           ============================================================ */
-        :root {
-            --bg-primary: #f8fafc;
-            --bg-card: #ffffff;
-            --bg-card-hover: #f1f5f9;
-            --text-primary: #0f172a;
-            --text-secondary: #475569;
-            --text-muted: #94a3b8;
-            --border-light: #e2e8f0;
-            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
-            --shadow-md: 0 10px 40px rgba(0, 0, 0, 0.08);
-            --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.12);
-            --radius-md: 16px;
-            --radius-sm: 10px;
-            --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-
-            --gradient-hero: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-            --gradient-accent: linear-gradient(135deg, #6366f1, #8b5cf6);
-            --gradient-accent-hover: linear-gradient(135deg, #4f46e5, #7c3aed);
-            --gradient-success: linear-gradient(135deg, #22c55e, #16a34a);
-            --gradient-danger: linear-gradient(135deg, #ef4444, #dc2626);
-            --gradient-warning: linear-gradient(135deg, #f59e0b, #d97706);
-        }
-
-        /* ============================================================
-           RESET & BASE
-           ============================================================ */
-        *,
-        *::before,
-        *::after {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            line-height: 1.6;
-            min-height: 100vh;
-            padding: 0 24px 60px;
-        }
-
-        /* ============================================================
-           CONTAINER
-           ============================================================ */
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        /* ============================================================
-           HEADER / HERO
-           ============================================================ */
-        .hero {
-            background: var(--gradient-hero);
-            border-radius: 0 0 32px 32px;
-            padding: 28px 36px 24px;
-            margin: 0 -24px 28px;
-            position: relative;
-            overflow: hidden;
-            box-shadow: var(--shadow-lg);
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -10%;
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, transparent 70%);
-            border-radius: 50%;
-            pointer-events: none;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 1;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 14px;
-        }
-
-        .hero-left {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-        }
-
-        .hero-left .back-btn {
-            background: rgba(255, 255, 255, 0.10);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            color: #ffffff;
-            width: 42px;
-            height: 42px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: var(--transition);
-            text-decoration: none;
-        }
-
-        .hero-left .back-btn:hover {
-            background: rgba(255, 255, 255, 0.20);
-            transform: scale(1.05);
-        }
-
-        .hero-text h1 {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: #ffffff;
-            letter-spacing: -0.02em;
-            line-height: 1.2;
-        }
-
-        .hero-text .subtitle {
-            color: #94a3b8;
-            font-size: 0.8rem;
-            font-weight: 400;
-        }
-
-        .hero-right {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .hero-stat {
-            text-align: center;
-        }
-
-        .hero-stat .number {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: #ffffff;
-            display: block;
-            line-height: 1.2;
-        }
-
-        .hero-stat .label {
-            font-size: 0.6rem;
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
-            color: #94a3b8;
-            font-weight: 500;
-        }
-
-        .hero-stat .number.success {
-            color: #86efac;
-        }
-        .hero-stat .number.danger {
-            color: #fca5a5;
-        }
-
-        /* ============================================================
-           QUIZ CONTAINER
-           ============================================================ */
-        .quiz-container {
-            background: var(--bg-card);
-            border-radius: var(--radius-md);
-            border: 1px solid var(--border-light);
-            box-shadow: var(--shadow-sm);
-            padding: 28px 32px 24px;
-            margin-bottom: 20px;
-        }
-
-        /* ============================================================
-           PROGRESS BAR
-           ============================================================ */
-        .progress-section {
-            margin-bottom: 20px;
-        }
-
-        .progress-header {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.75rem;
-            font-weight: 600;
-            color: var(--text-secondary);
-            margin-bottom: 4px;
-        }
-
-        .progress-track {
-            width: 100%;
-            height: 5px;
-            background: var(--border-light);
-            border-radius: 40px;
-            overflow: hidden;
-        }
-
-        .progress-track .progress-fill {
-            height: 100%;
-            background: var(--gradient-accent);
-            border-radius: 40px;
-            transition: width 0.4s ease;
-            width: 0%;
-        }
-
-        /* ============================================================
-           QUESTION
-           ============================================================ */
-        .question-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 10px;
-            flex-wrap: wrap;
-            gap: 6px;
-        }
-
-        .question-header .q-number {
-            font-size: 0.7rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.04em;
-            color: #6366f1;
-            background: #eef2ff;
-            padding: 2px 12px;
-            border-radius: 40px;
-        }
-
-        .question-header .q-status {
-            font-size: 0.7rem;
-            font-weight: 600;
-            color: var(--text-muted);
-        }
-
-        .question-header .q-status.answered {
-            color: #22c55e;
-        }
-
-        .question-text {
-            font-size: 1.1rem;
-            font-weight: 600;
-            line-height: 1.5;
-            margin-bottom: 18px;
-            color: var(--text-primary);
-        }
-
-        /* ============================================================
-           OPTIONS
-           ============================================================ */
-        .options-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            margin-bottom: 16px;
-        }
-
-        .option-btn {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 12px 16px;
-            background: var(--bg-primary);
-            border: 2px solid var(--border-light);
-            border-radius: var(--radius-sm);
-            cursor: pointer;
-            transition: var(--transition);
-            font-family: inherit;
-            font-size: 0.92rem;
-            color: var(--text-primary);
-            text-align: left;
-            width: 100%;
-            position: relative;
-        }
-
-        .option-btn:hover:not(.disabled) {
-            background: var(--bg-card-hover);
-            border-color: #c7d2fe;
-            transform: translateX(3px);
-        }
-
-        .option-btn .letter {
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            background: var(--border-light);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 0.7rem;
-            color: var(--text-secondary);
-            flex-shrink: 0;
-            transition: var(--transition);
-        }
-
-        .option-btn.selected {
-            border-color: #6366f1;
-            background: #eef2ff;
-        }
-
-        .option-btn.selected .letter {
-            background: #6366f1;
-            color: #ffffff;
-        }
-
-        .option-btn.correct {
-            border-color: #22c55e;
-            background: #f0fdf4;
-        }
-
-        .option-btn.correct .letter {
-            background: #22c55e;
-            color: #ffffff;
-        }
-
-        .option-btn.wrong {
-            border-color: #ef4444;
-            background: #fef2f2;
-        }
-
-        .option-btn.wrong .letter {
-            background: #ef4444;
-            color: #ffffff;
-        }
-
-        .option-btn.disabled {
-            cursor: default;
-            opacity: 0.9;
-        }
-
-        .option-btn .check-mark {
-            margin-left: auto;
-            font-size: 1rem;
-        }
-
-        .option-btn .check-mark.correct {
-            color: #22c55e;
-        }
-        .option-btn .check-mark.wrong {
-            color: #ef4444;
-        }
-
-        /* ============================================================
-           EXPLANATION BOX
-           ============================================================ */
-        .explanation-box {
-            margin-top: 14px;
-            padding: 14px 18px;
-            border-radius: var(--radius-sm);
-            border-left: 4px solid #6366f1;
-            background: #f8fafc;
-            display: none;
-        }
-
-        .explanation-box.visible {
-            display: block;
-            animation: fadeSlide 0.3s ease;
-        }
-
-        @keyframes fadeSlide {
-            from {
-                opacity: 0;
-                transform: translateY(-6px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .explanation-box .exp-title {
-            font-weight: 700;
-            font-size: 0.8rem;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            margin-bottom: 2px;
-        }
-
-        .explanation-box .exp-title.correct {
-            color: #16a34a;
-        }
-        .explanation-box .exp-title.wrong {
-            color: #dc2626;
-        }
-        .explanation-box .exp-title.unanswered {
-            color: #d97706;
-        }
-
-        .explanation-box .exp-body {
-            font-size: 0.88rem;
-            color: var(--text-secondary);
-            line-height: 1.6;
-        }
-
-        .explanation-box .exp-body strong {
-            color: var(--text-primary);
-        }
-
-        /* ============================================================
-           NAVIGATION
-           ============================================================ */
-        .nav-section {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-top: 20px;
-            padding-top: 16px;
-            border-top: 1px solid var(--border-light);
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .nav-btn {
-            padding: 8px 20px;
-            border: none;
-            border-radius: 40px;
-            font-family: inherit;
-            font-weight: 600;
-            font-size: 0.8rem;
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            background: var(--border-light);
-            color: var(--text-secondary);
-        }
-
-        .nav-btn:hover:not(:disabled) {
-            background: #cbd5e1;
-            transform: translateY(-1px);
-        }
-
-        .nav-btn:disabled {
-            opacity: 0.4;
-            cursor: not-allowed;
-        }
-
-        .nav-btn.primary {
-            background: var(--gradient-accent);
-            color: #ffffff;
-        }
-
-        .nav-btn.primary:hover:not(:disabled) {
-            background: var(--gradient-accent-hover);
-            box-shadow: 0 4px 14px rgba(99, 102, 241, 0.3);
-        }
-
-        .nav-btn.success {
-            background: var(--gradient-success);
-            color: #ffffff;
-        }
-
-        .nav-btn.success:hover:not(:disabled) {
-            box-shadow: 0 4px 14px rgba(34, 197, 94, 0.3);
-        }
-
-        .nav-btn.danger {
-            background: var(--gradient-danger);
-            color: #ffffff;
-        }
-
-        .nav-btn.danger:hover:not(:disabled) {
-            box-shadow: 0 4px 14px rgba(239, 68, 68, 0.3);
-        }
-
-        .nav-counter {
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: var(--text-secondary);
-        }
-
-        .action-row {
-            border-top: none;
-            padding-top: 6px;
-            margin-top: 2px;
-        }
-
-        .action-row .nav-btn {
-            flex: 1;
-            justify-content: center;
-        }
-
-        /* ============================================================
-           RESULTS
-           ============================================================ */
-        .results-container {
-            display: none;
-        }
-
-        .results-container.visible {
-            display: block;
-            animation: fadeSlide 0.4s ease;
-        }
-
-        .results-card {
-            background: var(--bg-card);
-            border-radius: var(--radius-md);
-            border: 1px solid var(--border-light);
-            box-shadow: var(--shadow-sm);
-            padding: 32px 28px;
-            text-align: center;
-        }
-
-        .results-card .big-score {
-            font-size: 2.8rem;
-            font-weight: 800;
-            letter-spacing: -0.03em;
-            margin: 6px 0 2px;
-        }
-
-        .results-card .big-score .score-fraction {
-            font-size: 1.4rem;
-            font-weight: 600;
-            color: var(--text-muted);
-        }
-
-        .results-card .score-label {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-        }
-
-        .results-stats {
-            display: flex;
-            justify-content: center;
-            gap: 32px;
-            margin: 16px 0 24px;
-            flex-wrap: wrap;
-        }
-
-        .results-stats .rstat {
-            text-align: center;
-        }
-
-        .results-stats .rstat .rnum {
-            font-size: 1.4rem;
-            font-weight: 700;
-            display: block;
-        }
-
-        .results-stats .rstat .rnum.green {
-            color: #22c55e;
-        }
-        .results-stats .rstat .rnum.red {
-            color: #ef4444;
-        }
-        .results-stats .rstat .rnum.yellow {
-            color: #f59e0b;
-        }
-
-        .results-stats .rstat .rlabel {
-            font-size: 0.7rem;
-            color: var(--text-muted);
-            font-weight: 500;
-        }
-
-        .results-actions {
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        /* ============================================================
-           LOADING / ERROR
-           ============================================================ */
-        .loading-state,
-        .error-state {
-            text-align: center;
-            padding: 50px 20px;
-            color: var(--text-muted);
-        }
-
-        .loading-state i,
-        .error-state i {
-            font-size: 2.2rem;
-            display: block;
-            margin-bottom: 10px;
-        }
-
-        .error-state {
-            color: #ef4444;
-        }
-
-        /* ============================================================
-           RESPONSIVE
-           ============================================================ */
-        @media (max-width: 768px) {
-            body {
-                padding: 0 16px 40px;
-            }
-
-            .hero {
-                padding: 18px 18px 16px;
-                margin: 0 -16px 20px;
-                border-radius: 0 0 20px 20px;
-            }
-
-            .hero-text h1 {
-                font-size: 1.05rem;
-            }
-            .hero-text .subtitle {
-                font-size: 0.7rem;
-            }
-
-            .hero-left .back-btn {
-                width: 34px;
-                height: 34px;
-                font-size: 0.85rem;
-            }
-
-            .hero-right {
-                gap: 14px;
-            }
-            .hero-stat .number {
-                font-size: 1rem;
-            }
-            .hero-stat .label {
-                font-size: 0.5rem;
-            }
-
-            .quiz-container {
-                padding: 18px 16px 16px;
-            }
-
-            .question-text {
-                font-size: 0.98rem;
-            }
-
-            .option-btn {
-                padding: 10px 12px;
-                font-size: 0.85rem;
-                gap: 10px;
-            }
-
-            .option-btn .letter {
-                width: 24px;
-                height: 24px;
-                font-size: 0.6rem;
-            }
-
-            .nav-section {
-                flex-direction: column;
-                align-items: stretch;
-            }
-
-            .nav-btn {
-                justify-content: center;
-                padding: 10px 16px;
-            }
-
-            .results-card {
-                padding: 24px 16px;
-            }
-            .results-card .big-score {
-                font-size: 2.2rem;
-            }
-            .results-stats {
-                gap: 20px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .hero-content {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            .hero-right {
-                width: 100%;
-                justify-content: space-around;
-            }
-        }
-    </style>
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+
+    <!-- ===== MAIN STYLESHEET ===== -->
+    <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
+    <div class="container container--narrow">
 
-    <div class="container">
-
-        <!-- ==========================================================
-        HERO HEADER
-        ========================================================== -->
+        <!-- ======================================================
+             HERO HEADER
+             ====================================================== -->
         <header class="hero">
             <div class="hero-content">
+
+                <!-- Left: back button + title -->
                 <div class="hero-left">
-                    <a href="index.html" class="back-btn" title="Back to Home">
+                    <a href="index.html" class="back-btn" title="Back to Home" aria-label="Back to Home">
                         <i class="fa-regular fa-arrow-left"></i>
                     </a>
                     <div class="hero-text">
-                        <h1 id="quizTitle">Loading…</h1>
+                        <h1 class="quiz-title" id="quizTitle">Loading…</h1>
                         <span class="subtitle" id="quizSubtitle"></span>
                     </div>
                 </div>
+
+                <!-- Right: live stats -->
                 <div class="hero-right" id="heroStats">
                     <div class="hero-stat">
                         <span class="number success" id="scoreDisplay">0</span>
@@ -728,36 +58,40 @@
                         <span class="label">Total</span>
                     </div>
                 </div>
+
             </div>
         </header>
 
-        <!-- ==========================================================
-        QUIZ AREA
-        ========================================================== -->
-        <div id="quizArea">
+        <!-- ======================================================
+             QUIZ AREA
+             ====================================================== -->
+        <main id="quizArea">
 
-            <!-- Loading -->
+            <!-- ── Loading ── -->
             <div id="loadingState" class="loading-state">
                 <i class="fa-regular fa-spinner fa-spin"></i>
                 <p>Loading questions…</p>
             </div>
 
-            <!-- Error -->
+            <!-- ── Error ── -->
             <div id="errorState" class="error-state" style="display:none;">
                 <i class="fa-regular fa-circle-exclamation"></i>
                 <h3>Failed to load quiz</h3>
-                <p id="errorMessage">Please check the file path.</p>
-                <a href="index.html" class="nav-btn primary" style="margin-top:14px; display:inline-flex; text-decoration:none;">
+                <p id="errorMessage" style="margin:6px 0 20px; font-size:0.9rem;">Please check the file path.</p>
+                <a href="index.html" class="nav-btn primary" style="display:inline-flex; text-decoration:none;">
                     <i class="fa-regular fa-arrow-left"></i> Back to Home
                 </a>
             </div>
 
-            <!-- Quiz Content -->
+            <!-- ── Quiz Content ── -->
             <div id="quizContent" style="display:none;">
 
+                <!-- Jump panel injected by JS above quiz-container -->
+
+                <!-- Quiz card -->
                 <div class="quiz-container">
 
-                    <!-- Progress -->
+                    <!-- Progress bar -->
                     <div class="progress-section">
                         <div class="progress-header">
                             <span id="progressLabel">Question 1 of 40</span>
@@ -768,28 +102,27 @@
                         </div>
                     </div>
 
-                    <!-- Question -->
+                    <!-- Question header -->
                     <div class="question-header">
                         <span class="q-number" id="qNumber">Q1</span>
                         <span class="q-status" id="qStatus">⬜ Not answered</span>
                     </div>
 
-                    <div class="question-text" id="questionText">
-                        Loading question…
-                    </div>
+                    <!-- Question text -->
+                    <div class="question-text" id="questionText">Loading question…</div>
 
                     <!-- Options -->
                     <div class="options-grid" id="optionsContainer">
-                        <!-- injected by JS -->
+                        <!-- Injected by JS -->
                     </div>
 
                     <!-- Explanation -->
                     <div class="explanation-box" id="explanationBox">
-                        <div class="exp-title" id="expTitle">✅ Explanation</div>
-                        <div class="exp-body" id="expBody"></div>
+                        <div class="exp-title" id="expTitle"></div>
+                        <div class="exp-body"  id="expBody"></div>
                     </div>
 
-                    <!-- Navigation -->
+                    <!-- Navigation row -->
                     <div class="nav-section">
                         <button class="nav-btn" id="prevBtn" disabled>
                             <i class="fa-regular fa-arrow-left"></i> Previous
@@ -800,27 +133,36 @@
                         </button>
                     </div>
 
-                    <!-- Action Buttons -->
+                    <!-- Action row -->
                     <div class="nav-section action-row">
                         <button class="nav-btn success" id="submitBtn">
-                            <i class="fa-regular fa-check-circle"></i> Get Final Score &amp; Feedback
+                            <i class="fa-regular fa-check-circle"></i>
+                            Get Final Score &amp; Feedback
                         </button>
                         <button class="nav-btn danger" id="resetBtn">
                             <i class="fa-regular fa-rotate-right"></i> Reset
                         </button>
                     </div>
 
-                </div>
+                </div><!-- /.quiz-container -->
 
-                <!-- Results -->
+                <!-- Keyboard hint injected by JS below quiz-container -->
+
+                <!-- ── Results panel ── -->
                 <div class="results-container" id="resultsContainer">
                     <div class="results-card">
-                        <div class="score-label">🏆 Your Final Score</div>
+
+                        <span class="trophy">🏆</span>
+                        <div class="score-label">Your Final Score</div>
+
                         <div class="big-score">
-                            <span id="finalScoreNum">0</span>
-                            <span class="score-fraction">/ <span id="finalScoreTotal">0</span></span>
+                            <span id="finalScoreNum">0</span><!--
+                         --><span class="score-fraction">
+                                &thinsp;/&thinsp;<span id="finalScoreTotal">0</span>
+                            </span>
                         </div>
-                        <div style="font-size:1rem; font-weight:600; margin-bottom:2px;" id="finalScorePercent">0%</div>
+
+                        <div class="results-percentage" id="finalScorePercent">0%</div>
 
                         <div class="results-stats">
                             <div class="rstat">
@@ -844,384 +186,21 @@
                             <button class="nav-btn" id="resultsResetBtn">
                                 <i class="fa-regular fa-rotate-right"></i> Retry
                             </button>
-                            <a href="index.html" class="nav-btn" style="text-decoration:none; background:var(--border-light); color:var(--text-secondary);">
+                            <a href="index.html" class="nav-btn" style="text-decoration:none;">
                                 <i class="fa-regular fa-house"></i> Home
                             </a>
                         </div>
+
                     </div>
-                </div>
+                </div><!-- /.results-container -->
 
-            </div><!-- /quizContent -->
+            </div><!-- /#quizContent -->
 
-        </div><!-- /quizArea -->
+        </main>
 
-    </div>
+    </div><!-- /.container -->
 
-    <!-- ==========================================================
-    JAVASCRIPT
-    ========================================================== -->
-    <script>
-        (function() {
-            'use strict';
-
-            // -------- DOM refs --------
-            const quizTitle = document.getElementById('quizTitle');
-            const quizSubtitle = document.getElementById('quizSubtitle');
-            const scoreDisplay = document.getElementById('scoreDisplay');
-            const answeredDisplay = document.getElementById('answeredDisplay');
-            const totalDisplay = document.getElementById('totalDisplay');
-
-            const loadingState = document.getElementById('loadingState');
-            const errorState = document.getElementById('errorState');
-            const errorMessage = document.getElementById('errorMessage');
-            const quizContent = document.getElementById('quizContent');
-
-            const progressLabel = document.getElementById('progressLabel');
-            const progressPercent = document.getElementById('progressPercent');
-            const progressFill = document.getElementById('progressFill');
-
-            const qNumber = document.getElementById('qNumber');
-            const qStatus = document.getElementById('qStatus');
-            const questionText = document.getElementById('questionText');
-            const optionsContainer = document.getElementById('optionsContainer');
-            const explanationBox = document.getElementById('explanationBox');
-            const expTitle = document.getElementById('expTitle');
-            const expBody = document.getElementById('expBody');
-
-            const prevBtn = document.getElementById('prevBtn');
-            const nextBtn = document.getElementById('nextBtn');
-            const navCounter = document.getElementById('navCounter');
-            const submitBtn = document.getElementById('submitBtn');
-            const resetBtn = document.getElementById('resetBtn');
-
-            const resultsContainer = document.getElementById('resultsContainer');
-            const finalScoreNum = document.getElementById('finalScoreNum');
-            const finalScoreTotal = document.getElementById('finalScoreTotal');
-            const finalScorePercent = document.getElementById('finalScorePercent');
-            const finalCorrect = document.getElementById('finalCorrect');
-            const finalWrong = document.getElementById('finalWrong');
-            const finalUnanswered = document.getElementById('finalUnanswered');
-            const reviewBtn = document.getElementById('reviewBtn');
-            const resultsResetBtn = document.getElementById('resultsResetBtn');
-
-            // -------- State --------
-            let quizData = null;
-            let currentIndex = 0;
-            let userAnswers = [];
-            let totalQuestions = 0;
-            let quizCompleted = false;
-            let isReviewMode = false;
-
-            // -------- Helpers --------
-            function getParam(name) {
-                const url = new URL(window.location.href);
-                return url.searchParams.get(name);
-            }
-
-            function updateHeroStats() {
-                const answered = userAnswers.filter(a => a !== null && a !== undefined).length;
-                const correct = userAnswers.reduce((acc, ans, idx) => {
-                    if (ans === null || ans === undefined) return acc;
-                    return acc + (ans === quizData.questions[idx].answer ? 1 : 0);
-                }, 0);
-                scoreDisplay.textContent = correct;
-                answeredDisplay.textContent = answered;
-                totalDisplay.textContent = totalQuestions;
-            }
-
-            function updateProgress() {
-                const answered = userAnswers.filter(a => a !== null && a !== undefined).length;
-                const pct = totalQuestions > 0 ? Math.round((answered / totalQuestions) * 100) : 0;
-                progressFill.style.width = pct + '%';
-                progressPercent.textContent = pct + '%';
-                progressLabel.textContent = `Question ${currentIndex+1} of ${totalQuestions}`;
-            }
-
-            function updateNavCounter() {
-                navCounter.textContent = `${currentIndex+1} / ${totalQuestions}`;
-                prevBtn.disabled = currentIndex === 0;
-                nextBtn.disabled = currentIndex === totalQuestions - 1;
-            }
-
-            function renderQuestion(index) {
-                if (!quizData || !quizData.questions) return;
-                const q = quizData.questions[index];
-                if (!q) return;
-
-                // Header
-                qNumber.textContent = `Q${q.id || index+1}`;
-                const answered = userAnswers[index] !== null && userAnswers[index] !== undefined;
-                const isCorrect = answered && userAnswers[index] === q.answer;
-
-                if (quizCompleted || isReviewMode) {
-                    if (!answered) {
-                        qStatus.textContent = '⚠️ Unanswered';
-                        qStatus.className = 'q-status';
-                    } else if (isCorrect) {
-                        qStatus.textContent = '✅ Correct';
-                        qStatus.className = 'q-status answered';
-                    } else {
-                        qStatus.textContent = '❌ Incorrect';
-                        qStatus.className = 'q-status';
-                    }
-                } else {
-                    qStatus.textContent = answered ? '✅ Answered' : '⬜ Not answered';
-                    qStatus.className = answered ? 'q-status answered' : 'q-status';
-                }
-
-                // Question text
-                questionText.textContent = q.question;
-
-                // Options
-                const labels = ['A', 'B', 'C', 'D'];
-                optionsContainer.innerHTML = '';
-                q.options.forEach((opt, i) => {
-                    const btn = document.createElement('button');
-                    btn.className = 'option-btn';
-                    btn.setAttribute('data-option-index', i);
-
-                    const letter = document.createElement('span');
-                    letter.className = 'letter';
-                    letter.textContent = labels[i];
-                    btn.appendChild(letter);
-
-                    const text = document.createElement('span');
-                    text.textContent = opt;
-                    btn.appendChild(text);
-
-                    const isSelected = userAnswers[index] === i;
-
-                    if (isSelected) {
-                        btn.classList.add('selected');
-                    }
-
-                    if (quizCompleted || isReviewMode) {
-                        btn.classList.add('disabled');
-                        if (i === q.answer) {
-                            btn.classList.add('correct');
-                            const mark = document.createElement('span');
-                            mark.className = 'check-mark correct';
-                            mark.textContent = '✓';
-                            btn.appendChild(mark);
-                        } else if (isSelected && i !== q.answer) {
-                            btn.classList.add('wrong');
-                            const mark = document.createElement('span');
-                            mark.className = 'check-mark wrong';
-                            mark.textContent = '✗';
-                            btn.appendChild(mark);
-                        } else if (isSelected) {
-                            const mark = document.createElement('span');
-                            mark.className = 'check-mark correct';
-                            mark.textContent = '✓';
-                            btn.appendChild(mark);
-                        }
-                    } else {
-                        btn.addEventListener('click', function() {
-                            if (quizCompleted || isReviewMode) return;
-                            selectOption(index, i);
-                        });
-                        if (isSelected) {
-                            const mark = document.createElement('span');
-                            mark.className = 'check-mark correct';
-                            mark.textContent = '✓';
-                            btn.appendChild(mark);
-                        }
-                    }
-
-                    optionsContainer.appendChild(btn);
-                });
-
-                // Explanation
-                if (quizCompleted || isReviewMode) {
-                    explanationBox.className = 'explanation-box visible';
-                    if (userAnswers[index] === null || userAnswers[index] === undefined) {
-                        expTitle.className = 'exp-title unanswered';
-                        expTitle.innerHTML = '⚠️ No answer selected';
-                        expBody.innerHTML = `
-                            <p><strong>Correct answer:</strong> ${q.options[q.answer]}</p>
-                            <p><strong>Explanation:</strong> ${q.explanation || 'No explanation provided.'}</p>
-                        `;
-                    } else if (userAnswers[index] === q.answer) {
-                        expTitle.className = 'exp-title correct';
-                        expTitle.innerHTML = '✅ Correct!';
-                        expBody.innerHTML = `
-                            <p><strong>Your answer:</strong> ${q.options[userAnswers[index]]}</p>
-                            <p><strong>Explanation:</strong> ${q.explanation || 'Well done!'}</p>
-                        `;
-                    } else {
-                        expTitle.className = 'exp-title wrong';
-                        expTitle.innerHTML = '❌ Incorrect';
-                        expBody.innerHTML = `
-                            <p><strong>Your answer:</strong> ${q.options[userAnswers[index]]}</p>
-                            <p><strong>Correct answer:</strong> ${q.options[q.answer]}</p>
-                            <p><strong>Explanation:</strong> ${q.explanation || 'Review the material.'}</p>
-                        `;
-                    }
-                } else {
-                    explanationBox.className = 'explanation-box';
-                }
-
-                updateNavCounter();
-                updateProgress();
-                updateHeroStats();
-            }
-
-            function selectOption(index, optionIndex) {
-                if (quizCompleted || isReviewMode) return;
-                userAnswers[index] = optionIndex;
-                renderQuestion(currentIndex);
-            }
-
-            function goToQuestion(index) {
-                if (index < 0 || index >= totalQuestions) return;
-                currentIndex = index;
-                renderQuestion(currentIndex);
-                document.querySelector('.quiz-container').scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
-
-            // -------- Submit / Results --------
-            function calculateResults() {
-                let correct = 0,
-                    wrong = 0,
-                    unanswered = 0;
-                for (let i = 0; i < totalQuestions; i++) {
-                    const ans = userAnswers[i];
-                    const correctAns = quizData.questions[i].answer;
-                    if (ans === null || ans === undefined) {
-                        unanswered++;
-                    } else if (ans === correctAns) {
-                        correct++;
-                    } else {
-                        wrong++;
-                    }
-                }
-                return { correct, wrong, unanswered };
-            }
-
-            function showResults() {
-                quizCompleted = true;
-                const { correct, wrong, unanswered } = calculateResults();
-                const pct = totalQuestions > 0 ? Math.round((correct / totalQuestions) * 100) : 0;
-
-                finalScoreNum.textContent = correct;
-                finalScoreTotal.textContent = totalQuestions;
-                finalScorePercent.textContent = pct + '%';
-                finalCorrect.textContent = correct;
-                finalWrong.textContent = wrong;
-                finalUnanswered.textContent = unanswered;
-
-                document.querySelector('.quiz-container').style.display = 'none';
-                resultsContainer.className = 'results-container visible';
-                updateHeroStats();
-            }
-
-            function hideResults() {
-                resultsContainer.className = 'results-container';
-                document.querySelector('.quiz-container').style.display = 'block';
-                quizCompleted = false;
-                isReviewMode = false;
-                renderQuestion(currentIndex);
-            }
-
-            function startReview() {
-                isReviewMode = true;
-                quizCompleted = true;
-                resultsContainer.className = 'results-container';
-                document.querySelector('.quiz-container').style.display = 'block';
-                currentIndex = 0;
-                renderQuestion(currentIndex);
-                // Change submit button
-                submitBtn.textContent = '🔙 Back to Results';
-                submitBtn.className = 'nav-btn primary';
-                submitBtn.onclick = function() {
-                    showResults();
-                    submitBtn.textContent = 'Get Final Score & Feedback';
-                    submitBtn.className = 'nav-btn success';
-                    submitBtn.onclick = showResults;
-                };
-            }
-
-            function resetQuiz() {
-                userAnswers = new Array(totalQuestions).fill(null);
-                quizCompleted = false;
-                isReviewMode = false;
-                currentIndex = 0;
-                submitBtn.textContent = 'Get Final Score & Feedback';
-                submitBtn.className = 'nav-btn success';
-                submitBtn.onclick = showResults;
-                resultsContainer.className = 'results-container';
-                document.querySelector('.quiz-container').style.display = 'block';
-                renderQuestion(currentIndex);
-            }
-
-            // -------- Load Quiz --------
-            function loadQuiz() {
-                const type = getParam('type') || 'week';
-                const file = getParam('file');
-                if (!file) {
-                    showError('No file specified. Please go back and select a quiz.');
-                    return;
-                }
-
-                const folder = type === 'week' ? 'mcq' : 'quizzes';
-                const path = `data/${folder}/${file}.json`;
-
-                loadingState.style.display = 'block';
-                errorState.style.display = 'none';
-                quizContent.style.display = 'none';
-
-                fetch(path)
-                    .then(res => {
-                        if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
-                        return res.json();
-                    })
-                    .then(data => {
-                        if (!data.questions || !Array.isArray(data.questions) || data.questions.length === 0) {
-                            throw new Error('No questions found in this file.');
-                        }
-                        quizData = data;
-                        totalQuestions = data.questions.length;
-                        userAnswers = new Array(totalQuestions).fill(null);
-
-                        // Set header
-                        const displayName = file.replace('week', 'Week ').replace('quiz', 'Quiz ');
-                        quizTitle.textContent = data.title || displayName;
-                        quizSubtitle.textContent = data.subtitle || `${totalQuestions} questions`;
-
-                        loadingState.style.display = 'none';
-                        quizContent.style.display = 'block';
-
-                        currentIndex = 0;
-                        quizCompleted = false;
-                        isReviewMode = false;
-                        renderQuestion(0);
-
-                        // Setup buttons
-                        prevBtn.onclick = () => goToQuestion(currentIndex - 1);
-                        nextBtn.onclick = () => goToQuestion(currentIndex + 1);
-                        submitBtn.onclick = showResults;
-                        resetBtn.onclick = resetQuiz;
-                        reviewBtn.onclick = startReview;
-                        resultsResetBtn.onclick = resetQuiz;
-
-                    })
-                    .catch(err => {
-                        showError(err.message);
-                    });
-            }
-
-            function showError(msg) {
-                loadingState.style.display = 'none';
-                errorState.style.display = 'block';
-                errorMessage.textContent = msg;
-                quizContent.style.display = 'none';
-            }
-
-            // -------- Init --------
-            document.addEventListener('DOMContentLoaded', loadQuiz);
-
-        })();
-    </script>
-
+    <!-- ===== MAIN SCRIPT ===== -->
+    <script src="main.js"></script>
 </body>
 </html>
