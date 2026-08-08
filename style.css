@@ -1,36 +1,8 @@
 /* ============================================================
    APPLIED DEEP LEARNING — STYLE SHEET (PRO MAX)
-   خلفية متحركة احترافية + تأثيرات زجاجية
    ============================================================ */
 
-/* ============================================================
-   ROOT VARIABLES
-   ============================================================ */
-:root {
-    --bg-primary: #0f172a;
-    --bg-card: rgba(255, 255, 255, 0.06);
-    --bg-card-hover: rgba(255, 255, 255, 0.12);
-    --text-primary: #f1f5f9;
-    --text-secondary: #cbd5e1;
-    --text-muted: #94a3b8;
-    --border-light: rgba(255, 255, 255, 0.08);
-    --shadow-sm: 0 4px 20px rgba(0, 0, 0, 0.3);
-    --shadow-md: 0 10px 40px rgba(0, 0, 0, 0.4);
-    --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.5);
-    --shadow-glow: 0 0 60px rgba(99, 102, 241, 0.15);
-    --radius-md: 16px;
-    --radius-sm: 10px;
-    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    --gradient-accent: linear-gradient(135deg, #818cf8, #8b5cf6);
-    --gradient-accent-hover: linear-gradient(135deg, #6366f1, #7c3aed);
-    --gradient-success: linear-gradient(135deg, #34d399, #10b981);
-    --gradient-danger: linear-gradient(135deg, #f87171, #ef4444);
-    --gradient-hero: linear-gradient(135deg, rgba(15, 23, 42, 0.92), rgba(30, 27, 75, 0.92));
-}
-
-/* ============================================================
-   RESET & BASE - الخلفية هنا
-   ============================================================ */
+/* ===== إعادة تعيين ===== */
 *,
 *::before,
 *::after {
@@ -51,15 +23,14 @@ body {
     overflow-x: hidden;
 
     /* ===== خلفية متحركة ===== */
-    background: linear-gradient(-45deg, #0f172a, #1e1b4b, #111827, #1e293b) !important;
-    background-size: 400% 400% !important;
-    animation: gradientMove 20s ease infinite !important;
+    background: linear-gradient(-45deg, #0f172a, #1e1b4b, #111827, #1e293b);
+    background-size: 400% 400%;
+    animation: gradientMove 20s ease infinite;
 
-    color: var(--text-primary);
+    color: #f1f5f9;
     line-height: 1.6;
 }
 
-/* ===== حركة الخلفية ===== */
 @keyframes gradientMove {
     0% {
         background-position: 0% 50%;
@@ -72,9 +43,7 @@ body {
     }
 }
 
-/* ============================================================
-   شبكة خلفية (Dots) - إحساس تكنولوجي
-   ============================================================ */
+/* ===== شبكة نقاط خلفية ===== */
 body::before {
     content: '';
     position: fixed;
@@ -89,9 +58,7 @@ body::before {
     pointer-events: none;
 }
 
-/* ============================================================
-   توهج كروي (Orb) - إضاءة خلفية
-   ============================================================ */
+/* ===== توهج كروي ===== */
 body::after {
     content: '';
     position: fixed;
@@ -115,9 +82,7 @@ body::after {
     }
 }
 
-/* ============================================================
-   SCROLLBAR
-   ============================================================ */
+/* ===== شريط التمرير ===== */
 ::-webkit-scrollbar {
     width: 6px;
 }
@@ -126,13 +91,11 @@ body::after {
     border-radius: 40px;
 }
 ::-webkit-scrollbar-thumb {
-    background: var(--gradient-accent);
+    background: linear-gradient(135deg, #818cf8, #8b5cf6);
     border-radius: 40px;
 }
 
-/* ============================================================
-   CONTAINER
-   ============================================================ */
+/* ===== الحاوية الرئيسية ===== */
 .container {
     max-width: 1280px;
     margin: 0 auto;
@@ -141,10 +104,10 @@ body::after {
 }
 
 /* ============================================================
-   HEADER / HERO (زجاجي)
+   HEADER / HERO
    ============================================================ */
 .hero {
-    background: var(--gradient-hero) !important;
+    background: rgba(15, 23, 42, 0.85);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border: 1px solid rgba(255, 255, 255, 0.06);
@@ -153,7 +116,7 @@ body::after {
     margin: 0 -24px 48px;
     position: relative;
     overflow: hidden;
-    box-shadow: var(--shadow-lg);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
 }
 
 .hero::before {
@@ -216,15 +179,13 @@ body::after {
     color: #ffffff;
     letter-spacing: -0.03em;
     line-height: 1.15;
-    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
 }
 
 .hero-text h1 .highlight {
-    background: var(--gradient-accent);
+    background: linear-gradient(135deg, #818cf8, #8b5cf6);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    text-shadow: none;
 }
 
 .hero-text p {
@@ -232,7 +193,6 @@ body::after {
     font-size: 1.1rem;
     margin-top: 6px;
     max-width: 560px;
-    text-shadow: 0 1px 10px rgba(0, 0, 0, 0.2);
 }
 
 .hero-stats {
@@ -240,12 +200,9 @@ body::after {
     gap: 40px;
     background: rgba(255, 255, 255, 0.06);
     backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
     padding: 16px 32px;
     border-radius: 60px;
     border: 1px solid rgba(255, 255, 255, 0.08);
-    flex-shrink: 0;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 }
 
 .hero-stats .stat {
@@ -257,13 +214,11 @@ body::after {
     font-weight: 700;
     color: #ffffff;
     display: block;
-    line-height: 1.2;
 }
 
 .hero-stats .stat .label {
     font-size: 0.75rem;
     text-transform: uppercase;
-    letter-spacing: 0.06em;
     color: #94a3b8;
     font-weight: 500;
 }
@@ -283,7 +238,6 @@ body::after {
 .section-header h2 {
     font-size: 1.5rem;
     font-weight: 700;
-    letter-spacing: -0.02em;
     display: flex;
     align-items: center;
     gap: 10px;
@@ -293,9 +247,6 @@ body::after {
 .section-header h2 i {
     color: #818cf8;
     font-size: 1.3rem;
-    background: rgba(99, 102, 241, 0.1);
-    padding: 8px;
-    border-radius: 12px;
 }
 
 .section-header .badge-count {
@@ -304,7 +255,7 @@ body::after {
     border-radius: 40px;
     font-size: 0.8rem;
     font-weight: 600;
-    color: var(--text-secondary);
+    color: #94a3b8;
     border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
@@ -316,7 +267,7 @@ body::after {
 }
 
 /* ============================================================
-   CARDS (Glassmorphism)
+   CARDS
    ============================================================ */
 .card-grid {
     display: grid;
@@ -325,14 +276,14 @@ body::after {
 }
 
 .week-card {
-    background: var(--bg-card);
+    background: rgba(255, 255, 255, 0.06);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     border: 1px solid rgba(255, 255, 255, 0.06);
-    border-radius: var(--radius-md);
+    border-radius: 16px;
     padding: 24px 22px 22px;
-    box-shadow: var(--shadow-sm);
-    transition: var(--transition);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     cursor: pointer;
     position: relative;
     display: flex;
@@ -340,7 +291,6 @@ body::after {
     overflow: hidden;
 }
 
-/* ===== خط علوي متوهج ===== */
 .week-card::before {
     content: '';
     position: absolute;
@@ -348,9 +298,9 @@ body::after {
     left: 0;
     right: 0;
     height: 3px;
-    background: var(--gradient-accent);
+    background: linear-gradient(135deg, #818cf8, #8b5cf6);
     opacity: 0;
-    transition: var(--transition);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .week-card:hover::before {
@@ -359,13 +309,9 @@ body::after {
 
 .week-card:hover {
     transform: translateY(-8px);
-    background: var(--bg-card-hover);
+    background: rgba(255, 255, 255, 0.12);
     border-color: rgba(255, 255, 255, 0.15);
-    box-shadow: var(--shadow-md), var(--shadow-glow);
-}
-
-.week-card:active {
-    transform: scale(0.97);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4), 0 0 60px rgba(99, 102, 241, 0.1);
 }
 
 .week-card .card-top {
@@ -379,7 +325,6 @@ body::after {
     font-size: 0.7rem;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
     color: #818cf8;
     background: rgba(99, 102, 241, 0.15);
     padding: 3px 14px;
@@ -389,7 +334,7 @@ body::after {
 .week-card .question-count {
     font-size: 0.7rem;
     font-weight: 600;
-    color: var(--text-muted);
+    color: #94a3b8;
     background: rgba(255, 255, 255, 0.05);
     padding: 3px 12px;
     border-radius: 40px;
@@ -399,13 +344,12 @@ body::after {
     font-size: 1.05rem;
     font-weight: 600;
     margin: 6px 0 4px;
-    line-height: 1.3;
     color: #ffffff;
 }
 
 .week-card .card-subtitle {
     font-size: 0.85rem;
-    color: var(--text-secondary);
+    color: #cbd5e1;
     margin-bottom: 12px;
     flex: 1;
     display: -webkit-box;
@@ -430,7 +374,6 @@ body::after {
     border-radius: 40px;
     background: rgba(59, 130, 246, 0.15);
     color: #60a5fa;
-    transition: var(--transition);
 }
 
 .week-card .card-footer .type-tag.quiz {
@@ -438,15 +381,10 @@ body::after {
     color: #f472b6;
 }
 
-.week-card .card-footer .type-tag.mcq {
-    background: rgba(59, 130, 246, 0.15);
-    color: #60a5fa;
-}
-
 .week-card .card-footer .start-arrow {
     font-size: 1rem;
-    color: var(--text-muted);
-    transition: var(--transition);
+    color: #94a3b8;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     display: flex;
     align-items: center;
     gap: 4px;
@@ -457,9 +395,7 @@ body::after {
     transform: translateX(4px);
 }
 
-/* ============================================================
-   QUIZ CARD (slightly different styling)
-   ============================================================ */
+/* ===== بطاقات الكويزات ===== */
 .week-card.quiz-card {
     border-left: 3px solid #ec4899;
 }
@@ -469,67 +405,35 @@ body::after {
     color: #f472b6;
 }
 
-.week-card.quiz-card::before {
-    background: linear-gradient(90deg, #ec4899, #f472b6);
-}
-
 /* ============================================================
    EMPTY STATE
    ============================================================ */
 .empty-state {
     padding: 50px 20px;
     text-align: center;
-    color: var(--text-muted);
-    background: var(--bg-card);
+    color: #94a3b8;
+    background: rgba(255, 255, 255, 0.06);
     backdrop-filter: blur(16px);
-    border-radius: var(--radius-md);
-    border: 2px dashed rgba(255, 255, 255, 0.08);
-    transition: var(--transition);
-}
-
-.empty-state:hover {
-    border-color: rgba(99, 102, 241, 0.3);
-    background: var(--bg-card-hover);
+    border-radius: 16px;
+    border: 2px dashed rgba(255, 255, 255, 0.06);
 }
 
 .empty-state i {
     font-size: 2.8rem;
-    color: var(--text-muted);
+    color: #94a3b8;
     display: block;
     margin-bottom: 12px;
 }
 
 .empty-state h4 {
     font-weight: 600;
-    color: var(--text-secondary);
+    color: #cbd5e1;
     font-size: 1.1rem;
-}
-
-.empty-state p {
-    font-size: 0.9rem;
-    margin-top: 4px;
 }
 
 /* ============================================================
    RESPONSIVE
    ============================================================ */
-@media (max-width: 1024px) {
-    .hero {
-        padding: 36px 32px 32px;
-        margin: 0 -24px 32px;
-    }
-    .hero-text h1 {
-        font-size: 2rem;
-    }
-    .hero-stats {
-        gap: 24px;
-        padding: 12px 24px;
-    }
-    .hero-stats .stat .number {
-        font-size: 1.3rem;
-    }
-}
-
 @media (max-width: 768px) {
     body {
         padding: 0 16px 40px;
@@ -557,13 +461,8 @@ body::after {
     .hero-stats {
         width: 100%;
         justify-content: space-around;
-        gap: 12px;
         padding: 12px 16px;
-        border-radius: 32px;
-    }
-
-    .hero-stats .stat .number {
-        font-size: 1.1rem;
+        gap: 12px;
     }
 
     .card-grid {
