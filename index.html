@@ -1,1 +1,331 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Deep Learning — Test Your Understanding</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
 
+  <!-- NAV -->
+  <nav class="navbar">
+    <div class="nav-inner">
+      <span class="nav-logo">DL<span class="accent">.</span>Quiz</span>
+      <div class="nav-links">
+        <a href="index.html" class="nav-link active">MCQ</a>
+        <a href="quizzes.html" class="nav-link">Quizzes</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero-label">Test Your Understanding</div>
+    <h1 class="hero-title">اختبر نفسك<br /><span class="accent">بعد كل محاضرة</span></h1>
+    <p class="hero-sub">اختار الأسبوع وجاوب على الأسئلة — هتعرف في الآخر كام صح من كام.</p>
+  </header>
+
+  <!-- WEEK SELECTOR -->
+  <section class="week-selector-section">
+    <div class="container">
+      <p class="section-label">اختار الأسبوع</p>
+      <div class="week-grid" id="weekGrid"></div>
+    </div>
+  </section>
+
+  <!-- QUIZ AREA -->
+  <main class="container" id="quizArea" style="display:none;">
+
+    <!-- Progress bar -->
+    <div class="progress-wrap">
+      <div class="progress-meta">
+        <span id="progressLabel">سؤال 1 من 10</span>
+        <span id="progressScore">0 صح</span>
+      </div>
+      <div class="progress-bar-track">
+        <div class="progress-bar-fill" id="progressFill"></div>
+      </div>
+    </div>
+
+    <!-- Question card -->
+    <div class="question-card" id="questionCard">
+      <div class="question-week-tag" id="questionWeekTag"></div>
+      <p class="question-text" id="questionText"></p>
+      <div class="options-grid" id="optionsGrid"></div>
+      <div class="feedback-box" id="feedbackBox" style="display:none;"></div>
+      <button class="btn-next" id="btnNext" style="display:none;">السؤال التالي ←</button>
+    </div>
+
+  </main>
+
+  <!-- RESULT SCREEN -->
+  <div class="result-screen" id="resultScreen" style="display:none;">
+    <div class="result-card">
+      <div class="result-icon" id="resultIcon"></div>
+      <h2 class="result-title" id="resultTitle"></h2>
+      <div class="result-score" id="resultScore"></div>
+      <p class="result-msg" id="resultMsg"></p>
+      <div class="result-actions">
+        <button class="btn-primary" id="btnRetry">حاول تاني</button>
+        <button class="btn-secondary" id="btnBackWeeks">اختار أسبوع تاني</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="main.js"></script>
+  <script>
+    // =====================
+    //  DATA — placeholder (استبدلها بـ JSON حقيقي)
+    // =====================
+    const WEEKS_DATA = {
+      1: {
+        title: "Week 1 — Introduction to Deep Learning",
+        questions: [
+          {
+            id: 1,
+            question: "ما هو الفرق الرئيسي بين Machine Learning و Deep Learning؟",
+            options: [
+              "Deep Learning يحتاج بيانات أقل",
+              "Deep Learning يستخدم شبكات عصبية ذات طبقات متعددة",
+              "Machine Learning أسرع دائماً",
+              "لا يوجد فرق حقيقي بينهم"
+            ],
+            answer: 1,
+            explanation: "Deep Learning هو فرع من ML يعتمد على شبكات عصبية عميقة (multiple hidden layers) تتعلم تمثيلات تلقائية من البيانات."
+          },
+          {
+            id: 2,
+            question: "ما هو دور الـ Activation Function في الشبكة العصبية؟",
+            options: [
+              "تحديد معدل التعلم",
+              "إضافة اللاخطية (non-linearity) للنموذج",
+              "تقليل حجم البيانات",
+              "حساب الـ loss فقط"
+            ],
+            answer: 1,
+            explanation: "الـ Activation Function تضيف non-linearity للشبكة، مما يمكّنها من تعلم patterns معقدة لا يمكن تمثيلها بدوال خطية."
+          },
+          {
+            id: 3,
+            question: "ما هو الـ Perceptron؟",
+            options: [
+              "نوع من أنواع الـ datasets",
+              "أبسط نموذج شبكة عصبية (خلية واحدة)",
+              "خوارزمية تحسين",
+              "دالة خسارة"
+            ],
+            answer: 1,
+            explanation: "الـ Perceptron هو أبسط وحدة في الشبكات العصبية — يأخذ inputs، يضربها في weights، يجمعها ويمررها لـ activation function."
+          },
+          {
+            id: 4,
+            question: "ما المقصود بـ Forward Propagation؟",
+            options: [
+              "تحديث الـ weights",
+              "تمرير البيانات من الـ input للـ output",
+              "حساب الـ gradient",
+              "تقليل الـ overfitting"
+            ],
+            answer: 1,
+            explanation: "Forward Propagation هي العملية التي تتدفق فيها البيانات من طبقة الإدخال عبر الطبقات المخفية وصولاً للـ output."
+          },
+          {
+            id: 5,
+            question: "ما هو الـ Loss Function؟",
+            options: [
+              "دالة تقيس الفرق بين التوقع الحقيقي والمتوقع",
+              "دالة تحدد هيكل الشبكة",
+              "دالة تولّد البيانات",
+              "دالة تحسب عدد الطبقات"
+            ],
+            answer: 0,
+            explanation: "الـ Loss Function تقيس كم النموذج بعيد عن الإجابة الصحيحة — هدفنا تقليلها أثناء التدريب."
+          }
+        ]
+      },
+      2: {
+        title: "Week 2 — Neural Networks Basics",
+        questions: [
+          {
+            id: 1,
+            question: "ما هو الـ Backpropagation؟",
+            options: [
+              "طريقة لتوليد بيانات جديدة",
+              "خوارزمية لحساب الـ gradients وتحديث الـ weights",
+              "نوع من أنواع الـ activation functions",
+              "طريقة لتقسيم البيانات"
+            ],
+            answer: 1,
+            explanation: "Backpropagation تحسب gradient الـ loss بالنسبة لكل weight في الشبكة باستخدام chain rule، ثم يُستخدم هذا الـ gradient لتحديث الـ weights."
+          },
+          {
+            id: 2,
+            question: "ما الفرق بين Batch Gradient Descent و Stochastic Gradient Descent؟",
+            options: [
+              "BGD أسرع دائماً",
+              "SGD يستخدم عينة واحدة في كل خطوة بينما BGD يستخدم كل البيانات",
+              "BGD يستخدم عينة واحدة فقط",
+              "لا يوجد فرق"
+            ],
+            answer: 1,
+            explanation: "BGD يحسب الـ gradient على كامل الـ dataset قبل التحديث، أما SGD فيحدّث بعد كل عينة — وهناك Mini-batch GD كحل وسط."
+          }
+        ]
+      }
+    };
+
+    // fill remaining weeks as empty placeholders
+    for (let w = 3; w <= 13; w++) {
+      if (!WEEKS_DATA[w]) {
+        WEEKS_DATA[w] = { title: `Week ${w}`, questions: [] };
+      }
+    }
+
+    // =====================
+    //  STATE
+    // =====================
+    let currentWeek = null;
+    let questions = [];
+    let currentIndex = 0;
+    let score = 0;
+    let answered = false;
+
+    // =====================
+    //  BUILD WEEK GRID
+    // =====================
+    const weekGrid = document.getElementById('weekGrid');
+    for (let w = 1; w <= 13; w++) {
+      const hasQ = WEEKS_DATA[w]?.questions?.length > 0;
+      const btn = document.createElement('button');
+      btn.className = 'week-btn' + (hasQ ? '' : ' locked');
+      btn.innerHTML = `<span class="week-num">${w}</span><span class="week-label">Week ${w}</span>`;
+      if (hasQ) btn.addEventListener('click', () => startWeek(w));
+      weekGrid.appendChild(btn);
+    }
+
+    // =====================
+    //  LOGIC
+    // =====================
+    function startWeek(w) {
+      currentWeek = w;
+      questions = WEEKS_DATA[w].questions;
+      currentIndex = 0;
+      score = 0;
+      answered = false;
+
+      document.querySelector('.hero').style.display = 'none';
+      document.querySelector('.week-selector-section').style.display = 'none';
+      document.getElementById('resultScreen').style.display = 'none';
+      document.getElementById('quizArea').style.display = 'block';
+
+      renderQuestion();
+    }
+
+    function renderQuestion() {
+      answered = false;
+      const q = questions[currentIndex];
+      const total = questions.length;
+
+      document.getElementById('progressLabel').textContent = `سؤال ${currentIndex + 1} من ${total}`;
+      document.getElementById('progressScore').textContent = `${score} صح`;
+      document.getElementById('progressFill').style.width = `${(currentIndex / total) * 100}%`;
+      document.getElementById('questionWeekTag').textContent = WEEKS_DATA[currentWeek].title;
+      document.getElementById('questionText').textContent = q.question;
+
+      const grid = document.getElementById('optionsGrid');
+      grid.innerHTML = '';
+      q.options.forEach((opt, i) => {
+        const btn = document.createElement('button');
+        btn.className = 'option-btn';
+        btn.innerHTML = `<span class="option-letter">${['أ','ب','ج','د'][i]}</span><span>${opt}</span>`;
+        btn.addEventListener('click', () => selectAnswer(i, btn));
+        grid.appendChild(btn);
+      });
+
+      document.getElementById('feedbackBox').style.display = 'none';
+      document.getElementById('btnNext').style.display = 'none';
+      document.getElementById('questionCard').classList.remove('shake');
+    }
+
+    function selectAnswer(index, btn) {
+      if (answered) return;
+      answered = true;
+
+      const q = questions[currentIndex];
+      const allBtns = document.querySelectorAll('.option-btn');
+      allBtns.forEach(b => b.disabled = true);
+
+      const feedbackBox = document.getElementById('feedbackBox');
+
+      if (index === q.answer) {
+        score++;
+        btn.classList.add('correct');
+        feedbackBox.className = 'feedback-box correct';
+        feedbackBox.innerHTML = `<span class="feedback-icon">✓</span><div><strong>إجابة صحيحة!</strong><br/>${q.explanation}</div>`;
+      } else {
+        btn.classList.add('wrong');
+        allBtns[q.answer].classList.add('correct');
+        feedbackBox.className = 'feedback-box wrong';
+        feedbackBox.innerHTML = `<span class="feedback-icon">✗</span><div><strong>إجابة خاطئة.</strong> الإجابة الصحيحة: <strong>${q.options[q.answer]}</strong><br/>${q.explanation}</div>`;
+        document.getElementById('questionCard').classList.add('shake');
+      }
+
+      feedbackBox.style.display = 'flex';
+      document.getElementById('progressScore').textContent = `${score} صح`;
+
+      const btnNext = document.getElementById('btnNext');
+      btnNext.style.display = 'block';
+      if (currentIndex === questions.length - 1) {
+        btnNext.textContent = 'عرض النتيجة ★';
+      } else {
+        btnNext.textContent = 'السؤال التالي ←';
+      }
+    }
+
+    document.getElementById('btnNext').addEventListener('click', () => {
+      currentIndex++;
+      if (currentIndex >= questions.length) {
+        showResult();
+      } else {
+        renderQuestion();
+      }
+    });
+
+    function showResult() {
+      document.getElementById('quizArea').style.display = 'none';
+      const screen = document.getElementById('resultScreen');
+      screen.style.display = 'flex';
+
+      const total = questions.length;
+      const pct = Math.round((score / total) * 100);
+
+      let icon, title, msg;
+      if (pct >= 80) {
+        icon = '🏆'; title = 'ممتاز!'; msg = 'أداء رائع — أنت فاهم المحاضرة كويس جداً.';
+        screen.querySelector('.result-card').className = 'result-card excellent';
+      } else if (pct >= 60) {
+        icon = '👍'; title = 'كويس!'; msg = 'مش بطال — راجع النقاط اللي وقعت فيها وحاول تاني.';
+        screen.querySelector('.result-card').className = 'result-card good';
+      } else {
+        icon = '📚'; title = 'تحتاج مراجعة'; msg = 'ارجع للمحاضرة واذاكر تاني — انت تقدر!';
+        screen.querySelector('.result-card').className = 'result-card weak';
+      }
+
+      document.getElementById('resultIcon').textContent = icon;
+      document.getElementById('resultTitle').textContent = title;
+      document.getElementById('resultScore').textContent = `${score} / ${total}`;
+      document.getElementById('resultMsg').textContent = msg;
+    }
+
+    document.getElementById('btnRetry').addEventListener('click', () => startWeek(currentWeek));
+    document.getElementById('btnBackWeeks').addEventListener('click', () => {
+      document.getElementById('resultScreen').style.display = 'none';
+      document.querySelector('.hero').style.display = '';
+      document.querySelector('.week-selector-section').style.display = '';
+    });
+  </script>
+</body>
+</html>
