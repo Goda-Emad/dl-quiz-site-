@@ -133,34 +133,36 @@
         .page { display: none; }
         .page.active { display: block; }
 
-        .back-btn {
+        .home-back-btn {
             display: inline-flex;
             align-items: center;
             gap: 10px;
             margin: 32px 0 28px;
-            padding: 11px 22px;
+            padding: 11px 24px;
             background: rgba(255,255,255,0.06);
             border: 1px solid rgba(255,255,255,0.13);
             border-radius: 12px;
             color: rgba(255,255,255,0.75);
             font-size: 0.9rem;
             font-weight: 600;
-            font-family: inherit;
+            font-family: 'Inter', sans-serif;
             cursor: pointer;
             transition: background 0.18s, color 0.18s, border-color 0.18s, transform 0.18s;
             letter-spacing: 0.2px;
+            width: auto !important;
+            height: auto !important;
         }
-        .back-btn i {
+        .home-back-btn i {
             font-size: 0.85rem;
             transition: transform 0.18s;
         }
-        .back-btn:hover {
+        .home-back-btn:hover {
             background: rgba(255,255,255,0.11);
-            border-color: rgba(255,255,255,0.22);
+            border-color: rgba(255,255,255,0.25);
             color: #fff;
             transform: translateX(-2px);
         }
-        .back-btn:hover i { transform: translateX(-3px); }
+        .home-back-btn:hover i { transform: translateX(-3px); }
 
         /* ── Footer ── */
         .site-footer {
@@ -268,7 +270,7 @@
          ====================================================== -->
     <div id="weeksPage" class="page">
 
-        <button class="back-btn" onclick="showPage('homePage')">
+        <button class="home-back-btn" onclick="showPage('homePage')">
             <i class="fa-regular fa-arrow-left"></i> Back to Home
         </button>
 
@@ -293,7 +295,7 @@
          ====================================================== -->
     <div id="quizzesPage" class="page">
 
-        <button class="back-btn" onclick="showPage('homePage')">
+        <button class="home-back-btn" onclick="showPage('homePage')">
             <i class="fa-regular fa-arrow-left"></i> Back to Home
         </button>
 
