@@ -1,1 +1,456 @@
-
+{
+  "week": 9,
+  "title": "Autoencoders Mastery",
+  "questions": [
+    {
+      "id": 1,
+      "question": "What is the fundamental training objective of an autoencoder?",
+      "options": [
+        "Predict discrete class labels given input x",
+        "Reconstruct its input x at the output layer",
+        "Maximize latent space dimensionality",
+        "Classify input images into supervised clusters"
+      ],
+      "answer": 1,
+      "explanation": "Autoencoders are designed to set the target output equal to the input (g(f(x)) ≈ x)."
+    },
+    {
+      "id": 2,
+      "question": "What defines an undercomplete autoencoder?",
+      "options": [
+        "Latent dimension is smaller than input dimension",
+        "Latent dimension is larger than input dimension",
+        "The network has no hidden layers",
+        "Decoder has more parameters than encoder"
+      ],
+      "answer": 0,
+      "explanation": "Undercomplete autoencoders restrict the latent code dimension d_z < d_x to force salient feature extraction."
+    },
+    {
+      "id": 3,
+      "question": "Under complete linear activation functions and MSE loss, an undercomplete autoencoder learns a subspace equivalent to:",
+      "options": [
+        "Support Vector Machines (SVM)",
+        "Principal Component Analysis (PCA)",
+        "t-SNE embedding",
+        "Linear Discriminant Analysis (LDA)"
+      ],
+      "answer": 1,
+      "explanation": "Linear autoencoders with MSE loss span the exact same principal subspace as PCA."
+    },
+    {
+      "id": 4,
+      "question": "What is the main risk of an unregularized overcomplete autoencoder?",
+      "options": [
+        "Vanishing gradients",
+        "Learning the identity function without extracting meaningful features",
+        "Inability to minimize reconstruction error",
+        "Numerical instability during forward pass"
+      ],
+      "answer": 1,
+      "explanation": "If d_z ≥ d_x, the network can simply copy inputs directly to outputs without learning useful representations."
+    },
+    {
+      "id": 5,
+      "question": "What is the training input for a Denoising Autoencoder (DAE)?",
+      "options": [
+        "Clean data x",
+        "Corrupted data x̃",
+        "Pure random Gaussian noise only",
+        "Latent representations z"
+      ],
+      "answer": 1,
+      "explanation": "A DAE receives a corrupted/noisy version x̃ as input and is trained to reconstruct original x."
+    },
+    {
+      "id": 6,
+      "question": "What is the target output of a Denoising Autoencoder during training?",
+      "options": [
+        "Corrupted data x̃",
+        "Clean, uncorrupted original data x",
+        "The noise distribution vector ε",
+        "Binary classification label"
+      ],
+      "answer": 1,
+      "explanation": "The target for a DAE is always the clean original input x."
+    },
+    {
+      "id": 7,
+      "question": "How is sparsity enforced in a Sparse Autoencoder?",
+      "options": [
+        "By setting 90% of weights to zero permanently",
+        "Adding a penalty (e.g., L1 norm or KL-divergence) on hidden activation values",
+        "Removing layers during backpropagation",
+        "Reducing batch size to 1"
+      ],
+      "answer": 1,
+      "explanation": "Sparse autoencoders penalize active hidden units using penalties like L1 norm or KL divergence."
+    },
+    {
+      "id": 8,
+      "question": "Contractive Autoencoders (CAE) add a regularizer based on which mathematical matrix?",
+      "options": [
+        "Hessian Matrix",
+        "Jacobian Matrix of encoder activations",
+        "Covariance Matrix of input",
+        "Identity Matrix"
+      ],
+      "answer": 1,
+      "explanation": "CAE minimizes the Frobenius norm of the Jacobian matrix of encoder activations with respect to inputs."
+    },
+    {
+      "id": 9,
+      "question": "What is the primary purpose of the regularizer in a Contractive Autoencoder?",
+      "options": [
+        "Make representation robust to small input perturbations",
+        "Force all activations to zero",
+        "Accelerate learning rate convergence",
+        "Expand latent dimensions automatically"
+      ],
+      "answer": 0,
+      "explanation": "The Jacobian penalty forces encoder derivatives to be small, ensuring invariance to small input changes."
+    },
+    {
+      "id": 10,
+      "question": "In anomaly detection using autoencoders, how are anomalous data points identified?",
+      "options": [
+        "Anomalies produce significantly lower reconstruction error",
+        "Anomalies produce significantly higher reconstruction error",
+        "Latent representations become exactly zero",
+        "Encoder weights become NaN"
+      ],
+      "answer": 1,
+      "explanation": "Autoencoders trained on normal data struggle to reconstruct out-of-distribution anomalies, yielding high reconstruction error."
+    },
+    {
+      "id": 11,
+      "question": "Which activation function is standard for output neurons when reconstructing normalized image pixel values in [0, 1]?",
+      "options": [
+        "Softmax",
+        "Sigmoid",
+        "ReLU",
+        "Leaky ReLU"
+      ],
+      "answer": 1,
+      "explanation": "Sigmoid bounds outputs between 0 and 1, matching normalized pixel intensity ranges."
+    },
+    {
+      "id": 12,
+      "question": "Binary Cross-Entropy loss is appropriate for autoencoders when:",
+      "options": [
+        "Input features are unscaled continuous real values in (-∞, ∞)",
+        "Input features are formatted as probabilities or normalized in [0, 1]",
+        "Network has no bottleneck",
+        "Target outputs are multiclass labels"
+      ],
+      "answer": 1,
+      "explanation": "Binary cross-entropy can be interpreted as Bernoulli loss when inputs are normalized in [0, 1]."
+    },
+    {
+      "id": 13,
+      "question": "In a Variational Autoencoder (VAE), what does the encoder network output?",
+      "options": [
+        "A deterministic feature vector z",
+        "Parameters of a probability distribution (e.g., mean μ and log-variance log σ²)",
+        "Reconstructed original input directly",
+        "Binary mask matrix"
+      ],
+      "answer": 1,
+      "explanation": "VAEs model latent spaces probabilistically, predicting distribution parameters (μ, σ)."
+    },
+    {
+      "id": 14,
+      "question": "What technical problem does the 'reparameterization trick' solve in VAEs?",
+      "options": [
+        "Allows gradient backpropagation through stochastic sampling nodes",
+        "Prevents overfitting in overcomplete encoders",
+        "Speeds up matrix multiplication in dense layers",
+        "Automatically sets optimal learning rates"
+      ],
+      "answer": 0,
+      "explanation": "Reparameterization expresses z = μ + σ ⊙ ε, isolating randomness into ε so gradients can flow through μ and σ."
+    },
+    {
+      "id": 15,
+      "question": "What role does the Kullback-Leibler (KL) Divergence term play in VAE loss?",
+      "options": [
+        "Measures reconstruction distortion between x and x̂",
+        "Regulates latent distribution to match a standard normal distribution N(0, I)",
+        "Minimizes network weight sizes",
+        "Enforces exact binary activations"
+      ],
+      "answer": 1,
+      "explanation": "KL divergence acts as a regularizer, pushing learned latent distributions close to a prior distribution N(0,I)."
+    },
+    {
+      "id": 16,
+      "question": "What type of layers are primary in Convolutional Autoencoders for spatial data?",
+      "options": [
+        "Recurrent LSTM layers",
+        "Conv2D in encoder and Transposed Conv2D (or Upsampling) in decoder",
+        "Strictly fully connected dense layers",
+        "Attention-only transformer heads"
+      ],
+      "answer": 1,
+      "explanation": "Conv2D extracts spatial features during encoding, while Transposed Conv2D upsamples dimensions during decoding."
+    },
+    {
+      "id": 17,
+      "question": "Which strategy uses trained encoder weights to initialize a deep supervised model?",
+      "options": [
+        "Greedy layer-wise pre-training",
+        "Adversarial zero-shot transfer",
+        "Monte Carlo cross-validation",
+        "Random re-initialization"
+      ],
+      "answer": 0,
+      "explanation": "Unsupervised pre-training uses stacked autoencoders layer-by-layer before fine-tuning on supervised tasks."
+    },
+    {
+      "id": 18,
+      "question": "What characteristic of standard autoencoders makes direct generative sampling difficult?",
+      "options": [
+        "Reconstruction error is non-zero",
+        "Latent space may contain gaps and unorganized regions",
+        "Encoder weights are frozen after training",
+        "Decoders cannot execute forward passes without input x"
+      ],
+      "answer": 1,
+      "explanation": "Vanilla autoencoders do not enforce continuity or completeness in latent space, leaving gaps where decoding produces garbage."
+    },
+    {
+      "id": 19,
+      "question": "In a masking noise Denoising Autoencoder, corrupted inputs are created by:",
+      "options": [
+        "Adding Gaussian noise to weights",
+        "Randomly setting a fraction of input elements to 0",
+        "Rotating the input images by 180 degrees",
+        "Inverting matrix singular values"
+      ],
+      "answer": 1,
+      "explanation": "Masking noise randomly sets selected input features to zero."
+    },
+    {
+      "id": 20,
+      "question": "What is the reconstruction loss formula when using Mean Squared Error (MSE) for batch size N?",
+      "options": [
+        "(1/N) Σ ||x^(i) - x̂^(i)||²",
+        "-Σ x log(x̂)",
+        "max(0, 1 - x · x̂)",
+        "Σ |x^(i) + x̂^(i)|"
+      ],
+      "answer": 0,
+      "explanation": "MSE computes the mean of squared pixel-wise differences between original x and reconstruction x̂."
+    },
+    {
+      "id": 21,
+      "question": "Tied weights in an autoencoder architecture mean:",
+      "options": [
+        "Decoder weight matrix is transpose of encoder weight matrix (W_dec = W_enc^T)",
+        "Encoder and decoder share identical bias vectors",
+        "Network weights are locked during backpropagation",
+        "All neurons have equal weight magnitudes"
+      ],
+      "answer": 0,
+      "explanation": "Tying weights (W_dec = W_enc^T) cuts parameter count in half and acts as a regularizer."
+    },
+    {
+      "id": 22,
+      "question": "Why are non-linear activation functions necessary in deep autoencoders?",
+      "options": [
+        "To guarantee zero reconstruction loss",
+        "To learn complex non-linear manifold representations beyond PCA",
+        "To ensure latent code dimensions remain constant",
+        "To eliminate the need for training data"
+      ],
+      "answer": 1,
+      "explanation": "Without non-linearities, stacking multiple layers collapses mathematically to a standard linear transformation equivalent to PCA."
+    },
+    {
+      "id": 23,
+      "question": "In feature extraction applications, which part of a trained autoencoder is typically retained?",
+      "options": [
+        "Only Decoder",
+        "Only Encoder",
+        "Reconstruction loss layer only",
+        "Noise generator layer"
+      ],
+      "answer": 1,
+      "explanation": "The encoder maps high-dimensional raw inputs into low-dimensional latent features used for downstream tasks."
+    },
+    {
+      "id": 24,
+      "question": "What happens when the latent space dimension d_z of an undercomplete autoencoder is set equal to 1?",
+      "options": [
+        "Data is projected onto a 1D curve or line manifold",
+        "The network cannot be trained",
+        "Reconstruction error becomes identically zero",
+        "Network automatically converts to a classifier"
+      ],
+      "answer": 0,
+      "explanation": "A 1D bottleneck compresses the dataset down to a single principal curve or scalar representation."
+    },
+    {
+      "id": 25,
+      "question": "Autoencoders belong to which general learning paradigm?",
+      "options": [
+        "Supervised Learning with manual labels",
+        "Self-Supervised / Unsupervised Learning",
+        "Reinforcement Learning with environmental rewards",
+        "Evolutionary Strategy"
+      ],
+      "answer": 1,
+      "explanation": "Autoencoders generate their own targets from input data, making them self-supervised / unsupervised."
+    },
+    {
+      "id": 26,
+      "question": "Autoencoders require human-annotated class labels for standard training.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 1,
+      "explanation": "False. Autoencoders use input data as its own target, requiring no external labels."
+    },
+    {
+      "id": 27,
+      "question": "An undercomplete autoencoder with linear activations learns the same subspace as PCA.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 0,
+      "explanation": "True. Under linear constraints and MSE loss, the autoencoder reconstructs the PCA subspace."
+    },
+    {
+      "id": 28,
+      "question": "Overcomplete autoencoders are always useless because they always copy input directly.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 1,
+      "explanation": "False. When regularized (e.g. sparsity penalties or noise injection), overcomplete autoencoders extract meaningful rich features."
+    },
+    {
+      "id": 29,
+      "question": "Denoising autoencoders are trained using clean input data to output noisy data.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 1,
+      "explanation": "False. DAEs take noisy inputs and are trained to output clean targets."
+    },
+    {
+      "id": 30,
+      "question": "In anomaly detection, normal samples typically produce higher reconstruction loss than abnormal samples.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 1,
+      "explanation": "False. Normal samples have low reconstruction loss because the model was trained on them; anomalies yield high loss."
+    },
+    {
+      "id": 31,
+      "question": "Sparse autoencoders encourage most latent units to be inactive for any specific input.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 0,
+      "explanation": "True. Sparsity forces the network to activate only a small subset of neurons for any given sample."
+    },
+    {
+      "id": 32,
+      "question": "Variational Autoencoders enforce a continuous and smooth latent space suitable for interpolation.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 0,
+      "explanation": "True. The KL divergence penalty organizes the latent space into a continuous gaussian manifold."
+    },
+    {
+      "id": 33,
+      "question": "Contractive autoencoders use input image rotation as their primary penalty.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 1,
+      "explanation": "False. Contractive autoencoders use the Frobenius norm of the encoder's Jacobian matrix."
+    },
+    {
+      "id": 34,
+      "question": "Convolutional autoencoders preserve 2D spatial structures better than fully connected autoencoders.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 0,
+      "explanation": "True. Convolutional operations retain spatial grid hierarchies unlike vector flattening in dense networks."
+    },
+    {
+      "id": 35,
+      "question": "Tying weights (W_dec = W_enc^T) doubles the total parameter count of an autoencoder.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 1,
+      "explanation": "False. Tying weights halves the number of weight parameters."
+    },
+    {
+      "id": 36,
+      "question": "Autoencoders can be applied to dimensionality reduction tasks.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 0,
+      "explanation": "True. Undercomplete bottleneck layers map high-dimensional inputs to lower dimensions."
+    },
+    {
+      "id": 37,
+      "question": "A standard deterministic autoencoder is an effective generative model for sampling random data points.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 1,
+      "explanation": "False. Standard autoencoders lack probabilistic constraints in latent space, making random sampling unreliable (VAEs are used instead)."
+    },
+    {
+      "id": 38,
+      "question": "Adding noise in Denoising Autoencoders forces the network to learn the underlying data manifold.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 0,
+      "explanation": "True. DAEs learn vector fields projecting corrupted points back onto the true data manifold."
+    },
+    {
+      "id": 39,
+      "question": "Autoencoder compression is typically lossy.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 0,
+      "explanation": "True. Reconstructed outputs are approximations of the original input, incurring minor loss."
+    },
+    {
+      "id": 40,
+      "question": "The decoder network transforms latent representations back into data space.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 0,
+      "explanation": "True. The decoder function g(z) maps latent vector z back to input space x̂."
+    }
+  ]
+}
