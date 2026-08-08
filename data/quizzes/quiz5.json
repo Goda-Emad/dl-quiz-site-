@@ -1,1 +1,199 @@
-
+{
+  "quiz": 5,
+  "title": "Quiz 5 — CNN Architectures & Transfer Learning (Week 6)",
+  "covers": "Week 6",
+  "total_questions": 20,
+  "type": "theoretical",
+  "questions": [
+    {
+      "id": 1,
+      "question": "ResNet architectures can successfully train networks with over 100 or even 1000 layers.",
+      "options": ["True", "False"],
+      "answer": 0,
+      "explanation": "True. ResNet solved the degradation problem, allowing training of networks with 100+ layers."
+    },
+    {
+      "id": 2,
+      "question": "The 'degradation problem' refers to the fact that adding more layers to a very deep network can lead to higher training error, even without overfitting.",
+      "options": ["True", "False"],
+      "answer": 0,
+      "explanation": "True. Degradation causes error rates to rise across both training and testing splits, pointing to optimization difficulties."
+    },
+    {
+      "id": 3,
+      "question": "ResNet identity mappings (shortcuts) contain a large number of learnable parameters.",
+      "options": ["True", "False"],
+      "answer": 1,
+      "explanation": "False. Skip connections contain no learnable parameters; they simply pass identity forward."
+    },
+    {
+      "id": 4,
+      "question": "What happens to the gradient during backpropagation in a very deep network without skip connections?",
+      "options": [
+        "It increases exponentially.",
+        "It becomes extremely small, preventing the early layers from learning.",
+        "It remains constant across all layers.",
+        "It only affects the Dropout layers."
+      ],
+      "answer": 1,
+      "explanation": "Without skip connections, gradients vanish in deep networks, preventing early layers from learning effectively."
+    },
+    {
+      "id": 5,
+      "question": "Data augmentation increases the size of your dataset on disk by saving thousands of new modified image files before training begins.",
+      "options": ["True", "False"],
+      "answer": 1,
+      "explanation": "False. Data augmentation generates transformations on-the-fly during training, not by saving new files."
+    },
+    {
+      "id": 6,
+      "question": "One of the key insights of VGGNet is that a stack of two 3x3 filters has the same effective receptive field as one 5x5 filter.",
+      "options": ["True", "False"],
+      "answer": 0,
+      "explanation": "True. Two 3x3 filters stacked achieve a 5x5 receptive field with fewer parameters."
+    },
+    {
+      "id": 7,
+      "question": "LeNet-5 utilized 5x5 convolutional filters.",
+      "options": ["True", "False"],
+      "answer": 0,
+      "explanation": "True. LeNet-5 used 5x5 filters in its convolutional layers."
+    },
+    {
+      "id": 8,
+      "question": "What is the defining architectural characteristic of VGGNet?",
+      "options": [
+        "Using very large kernels (11x11) to capture more context.",
+        "Using small (3x3) filters exclusively and increasing depth.",
+        "The introduction of inception modules with parallel paths.",
+        "Eliminating the use of Max Pooling."
+      ],
+      "answer": 1,
+      "explanation": "VGGNet uses uniform 3x3 filters stacked in homogeneous blocks, increasing depth."
+    },
+    {
+      "id": 9,
+      "question": "What problem do 'Skip Connections' (or Identity Shortcuts) in ResNet primarily solve?",
+      "options": [
+        "Slow inference time",
+        "Spatial aliasing",
+        "Vanishing gradients in very deep networks",
+        "Excessive memory usage from large kernels"
+      ],
+      "answer": 2,
+      "explanation": "Skip connections allow gradients to flow directly through the network, solving the vanishing gradient problem."
+    },
+    {
+      "id": 10,
+      "question": "AlexNet was significantly deeper than LeNet-5, featuring 8 weight layers.",
+      "options": ["True", "False"],
+      "answer": 0,
+      "explanation": "True. AlexNet had 8 weight layers, making it much deeper than LeNet-5."
+    },
+    {
+      "id": 11,
+      "question": "LeNet-5 was famously designed for which specific application in the late 1990s?",
+      "options": [
+        "Classifying 1000 categories of natural images",
+        "Handwritten digit recognition (MNIST)",
+        "Real-time autonomous driving",
+        "Medical tumor segmentation"
+      ],
+      "answer": 1,
+      "explanation": "LeNet-5 was designed for handwritten digit recognition on MNIST in the late 1990s."
+    },
+    {
+      "id": 12,
+      "question": "When fine-tuning a pre-trained model, what kind of learning rate is typically recommended?",
+      "options": [
+        "A very high learning rate to force rapid change.",
+        "A very low learning rate to make small, incremental adjustments.",
+        "The same learning rate used to train the original model.",
+        "Zero learning rate."
+      ],
+      "answer": 1,
+      "explanation": "Fine-tuning uses a very low learning rate to make subtle adjustments without destroying pre-trained weights."
+    },
+    {
+      "id": 13,
+      "question": "If a system is invariant, a shift in the input leads to a corresponding shift in the output.",
+      "options": ["True", "False"],
+      "answer": 1,
+      "explanation": "False. Invariance means the output is unchanged despite input shifts. Equivariance means output shifts with input."
+    },
+    {
+      "id": 14,
+      "question": "Which operation in a CNN is primarily responsible for 'Equivariance', where the feature map shifts in tandem with the input?",
+      "options": [
+        "Convolutional Layers",
+        "Pooling Layers",
+        "Softmax Layers",
+        "Fully Connected Layers"
+      ],
+      "answer": 0,
+      "explanation": "Convolution is equivariant: shifting input causes a corresponding shift in the output feature map."
+    },
+    {
+      "id": 15,
+      "question": "AlexNet won the ILSVRC 2012 competition by a very small margin (less than 1% error difference).",
+      "options": ["True", "False"],
+      "answer": 1,
+      "explanation": "False. AlexNet won by a monumental margin, significantly outperforming all other entries."
+    },
+    {
+      "id": 16,
+      "question": "What distinguishes Semantic Segmentation from Object Detection?",
+      "options": [
+        "It only identifies the single most prominent object in the image.",
+        "It uses bounding boxes to wrap around objects.",
+        "It classifies every individual pixel in the image into a category.",
+        "It only works on grayscale images."
+      ],
+      "answer": 2,
+      "explanation": "Semantic Segmentation provides pixel-wise classification masks, unlike detection with bounding boxes."
+    },
+    {
+      "id": 17,
+      "question": "Which of the following is an example of Data Augmentation used to prevent overfitting?",
+      "options": [
+        "Increasing the learning rate",
+        "Horizontal flipping, rotation, and zooming of training images",
+        "Adding more neurons to the final dense layer",
+        "Using a smaller batch size"
+      ],
+      "answer": 1,
+      "explanation": "Horizontal flipping, rotation, and zooming are common data augmentation techniques that increase data diversity."
+    },
+    {
+      "id": 18,
+      "question": "What is ImageNet in the context of Deep Learning?",
+      "options": [
+        "A specific type of CNN architecture used for edge detection.",
+        "A massive dataset of over 14 million labeled images used for benchmarking.",
+        "A software library for data augmentation.",
+        "The name of the GPU used to train AlexNet."
+      ],
+      "answer": 1,
+      "explanation": "ImageNet is a large-scale dataset with millions of labeled images used for benchmarking computer vision models."
+    },
+    {
+      "id": 19,
+      "question": "Which computer vision task involves both identifying what objects are in an image and where they are located by drawing bounding boxes?",
+      "options": [
+        "Object Classification",
+        "Object Detection",
+        "Semantic Segmentation",
+        "Object Localization (Single Object)"
+      ],
+      "answer": 1,
+      "explanation": "Object Detection identifies objects with bounding boxes, combining classification and localization."
+    },
+    {
+      "id": 20,
+      "question": "AlexNet was originally trained across two GPUs because of the memory limitations of the time.",
+      "options": ["True", "False"],
+      "answer": 0,
+      "explanation": "True. AlexNet was split across two GPUs due to memory constraints in 2012."
+    }
+  ]
+}
