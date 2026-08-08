@@ -1,1 +1,486 @@
-
+{
+  "week": 5,
+  "title": "CNN Architecture & Deep Learning",
+  "questions": [
+    {
+      "id": 1,
+      "question": "Why are standard Feed-Forward Neural Networks (FFNN) not ideal for image classification tasks?",
+      "options": [
+        "They are too slow to train on any image",
+        "Loss of spatial structure & huge number of parameters",
+        "They cannot use activation functions",
+        "They only work on grayscale images"
+      ],
+      "answer": 1,
+      "explanation": "FFNNs lose spatial structure when flattening images and require enormous numbers of parameters, making them impractical for image tasks."
+    },
+    {
+      "id": 2,
+      "question": "Flattening a 28×28 grayscale image into 784 pixels for an FFNN leads to:",
+      "options": [
+        "Preservation of local adjacency",
+        "Better gradient flow",
+        "Loss of spatial information about pixel proximity",
+        "Reduced overfitting"
+      ],
+      "answer": 2,
+      "explanation": "Flattening destroys spatial relationships between nearby pixels, losing crucial information about local patterns and structures."
+    },
+    {
+      "id": 3,
+      "question": "Which CNN concept mimics the human visual system's local-to-global perception?",
+      "options": [
+        "Global average pooling",
+        "Local receptive field",
+        "Dropout",
+        "Batch normalization"
+      ],
+      "answer": 1,
+      "explanation": "Local receptive fields allow neurons to respond to small regions of the input, building from local to global features, similar to human vision."
+    },
+    {
+      "id": 4,
+      "question": "Parameter sharing in convolutional layers means:",
+      "options": [
+        "Each filter uses the same weights across all spatial locations",
+        "All layers share the same bias",
+        "Different filters share identical weights",
+        "Weights are shared across different images"
+      ],
+      "answer": 0,
+      "explanation": "Parameter sharing means the same filter weights are applied at every spatial location, detecting the same feature anywhere in the image."
+    },
+    {
+      "id": 5,
+      "question": "In a CNN, early layers typically detect ____ while deeper layers detect ____.",
+      "options": [
+        "complex objects / edges & colors",
+        "edges & simple patterns / complex object parts",
+        "class probabilities / raw pixels",
+        "color histograms / motion"
+      ],
+      "answer": 1,
+      "explanation": "Early CNN layers detect simple features like edges and colors, while deeper layers combine these into complex object parts and patterns."
+    },
+    {
+      "id": 6,
+      "question": "The fundamental operation that slides a small matrix over an image and performs element-wise multiplication + sum is called:",
+      "options": [
+        "Pooling",
+        "Fully connection",
+        "Convolution",
+        "ReLU activation"
+      ],
+      "answer": 2,
+      "explanation": "Convolution involves sliding a kernel over the input, performing element-wise multiplication and summing to produce a feature map."
+    },
+    {
+      "id": 7,
+      "question": "What does a kernel (filter) in a Conv layer represent?",
+      "options": [
+        "A learned feature detector",
+        "The output class label",
+        "The stride size",
+        "The padding value"
+      ],
+      "answer": 0,
+      "explanation": "Each kernel learns to detect a specific feature (e.g., edge, texture, pattern) by training on data."
+    },
+    {
+      "id": 8,
+      "question": "The depth of the output volume (number of feature maps) from a convolutional layer equals:",
+      "options": [
+        "The input depth",
+        "The kernel size",
+        "The number of filters",
+        "The stride value"
+      ],
+      "answer": 2,
+      "explanation": "The output depth equals the number of filters used in the convolutional layer, as each filter produces one feature map."
+    },
+    {
+      "id": 9,
+      "question": "Which hyperparameter controls how many pixels the kernel shifts each step?",
+      "options": [
+        "Padding",
+        "Stride",
+        "Dilation",
+        "Kernel depth"
+      ],
+      "answer": 1,
+      "explanation": "Stride determines how many pixels the kernel moves each step. Stride=1 moves one pixel, stride=2 moves two pixels."
+    },
+    {
+      "id": 10,
+      "question": "Padding is primarily used to:",
+      "options": [
+        "Increase the number of parameters",
+        "Preserve spatial dimensions or handle borders",
+        "Reduce overfitting",
+        "Increase stride effect"
+      ],
+      "answer": 1,
+      "explanation": "Padding adds zeros around the input to preserve spatial dimensions and ensure filters can process border pixels properly."
+    },
+    {
+      "id": 11,
+      "question": "What is the main purpose of a pooling layer in CNNs?",
+      "options": [
+        "Apply non-linearity",
+        "Downsample feature maps & provide translational invariance",
+        "Perform classification",
+        "Learn filters"
+      ],
+      "answer": 1,
+      "explanation": "Pooling reduces spatial dimensions (downsampling) and provides robustness to small translations by retaining dominant features."
+    },
+    {
+      "id": 12,
+      "question": "How many learnable parameters does a typical Max-Pooling layer (e.g., pool size 2×2, stride 2) have?",
+      "options": [
+        "2",
+        "4",
+        "Depends on input depth",
+        "Zero"
+      ],
+      "answer": 3,
+      "explanation": "Pooling layers have zero learnable parameters - they perform fixed operations (max or average) without any trainable weights."
+    },
+    {
+      "id": 13,
+      "question": "Which activation function is most commonly used after convolution layers?",
+      "options": [
+        "Sigmoid",
+        "Tanh",
+        "ReLU",
+        "Softmax"
+      ],
+      "answer": 2,
+      "explanation": "ReLU (Rectified Linear Unit) is the most common activation after convolution due to its simplicity and effectiveness in preventing vanishing gradients."
+    },
+    {
+      "id": 14,
+      "question": "Translational invariance (robustness to small shifts) in CNNs is mainly achieved by:",
+      "options": [
+        "Convolution with stride 1",
+        "Deep fully connected layers",
+        "Pooling operations",
+        "Large kernel sizes"
+      ],
+      "answer": 2,
+      "explanation": "Pooling provides translational invariance by downsampling and retaining dominant activations regardless of slight positional shifts."
+    },
+    {
+      "id": 15,
+      "question": "The number of trainable parameters in a convolutional layer depends on: (select most accurate)",
+      "options": [
+        "Only kernel size",
+        "Input image height and width",
+        "Kernel size, input depth, number of filters",
+        "Output feature map size only"
+      ],
+      "answer": 2,
+      "explanation": "Parameters depend on kernel dimensions, input depth, and number of filters: (kernel_h × kernel_w × input_depth + 1) × num_filters."
+    },
+    {
+      "id": 16,
+      "question": "Given an input of size 32×32×3, a Conv layer with 5×5 kernel, stride=1, and no padding. What is the output spatial dimension?",
+      "options": [
+        "32×32",
+        "28×28",
+        "30×30",
+        "26×26"
+      ],
+      "answer": 1,
+      "explanation": "Output size = (32 - 5 + 1) = 28, so 28×28. Formula: (N - K + 1) with stride=1, padding=0."
+    },
+    {
+      "id": 17,
+      "question": "If a feature map of size 60×60×32 is passed through a 2×2 pooling with stride 2, the output dimensions are:",
+      "options": [
+        "30×30×32",
+        "60×60×16",
+        "30×30×16",
+        "58×58×32"
+      ],
+      "answer": 0,
+      "explanation": "Pooling downsamples spatial dimensions: 60/2 = 30, depth remains 32. Output: 30×30×32."
+    },
+    {
+      "id": 18,
+      "question": "In the notation 'CONV-9-32', the number 9 represents:",
+      "options": [
+        "Number of filters",
+        "Stride value",
+        "Kernel size (9×9)",
+        "Padding amount"
+      ],
+      "answer": 2,
+      "explanation": "In CONV-K-N notation, K represents kernel size. So CONV-9-32 means 9×9 kernels with 32 filters."
+    },
+    {
+      "id": 19,
+      "question": "Using the notation (padding=0, stride=1) from the solved example, an INPUT 128×128×3 → CONV-9-32. What is the output activation map size?",
+      "options": [
+        "128×128×32",
+        "120×120×32",
+        "119×119×32",
+        "126×126×32"
+      ],
+      "answer": 1,
+      "explanation": "Output = (128 - 9 + 1) = 120. With 32 filters, output size = 120×120×32."
+    },
+    {
+      "id": 20,
+      "question": "For the same CONV-9-32 layer (input depth=3, 32 filters, kernel 9×9). How many weight parameters (excluding biases) does the layer have?",
+      "options": [
+        "9×9×32 = 2592",
+        "9×9×3×32 = 7776",
+        "9×9×3+32 = 275",
+        "9×9×32×3 = 7776 (same)"
+      ],
+      "answer": 1,
+      "explanation": "Weights = kernel_h × kernel_w × input_depth × num_filters = 9×9×3×32 = 7776 parameters."
+    },
+    {
+      "id": 21,
+      "question": "Still with CONV-9-32 (32 filters), how many bias parameters are added?",
+      "options": [
+        "1",
+        "32",
+        "9×9",
+        "128"
+      ],
+      "answer": 1,
+      "explanation": "Each filter has one bias term, so with 32 filters there are 32 bias parameters."
+    },
+    {
+      "id": 22,
+      "question": "After the first POOL-2 (size 2, stride 2) on a 120×120×32 feature map, the shape becomes:",
+      "options": [
+        "60×60×32",
+        "120×120×16",
+        "60×60×64",
+        "118×118×32"
+      ],
+      "answer": 0,
+      "explanation": "Pooling with size 2 and stride 2 halves spatial dimensions: 120/2 = 60. Depth remains 32. Output: 60×60×32."
+    },
+    {
+      "id": 23,
+      "question": "A fully connected layer with N neurons and an input vector of length M contains how many weight parameters?",
+      "options": [
+        "M + N",
+        "M × N",
+        "N × N",
+        "M × M"
+      ],
+      "answer": 1,
+      "explanation": "FC weights = M × N (each input connects to each neuron). Plus N biases."
+    },
+    {
+      "id": 24,
+      "question": "An input image 500×500×3 is flattened and fed to a fully connected layer with 100 hidden units. What is the shape of the weight matrix?",
+      "options": [
+        "(100, 750000)",
+        "(750000, 100)",
+        "(100, 500)",
+        "(500×500, 3)"
+      ],
+      "answer": 0,
+      "explanation": "Input vector length = 500×500×3 = 750,000. Weight matrix shape is (num_neurons, input_dim) = (100, 750000)."
+    },
+    {
+      "id": 25,
+      "question": "Corresponding bias vector shape for the FC layer above (100 hidden units) is:",
+      "options": [
+        "(750000,)",
+        "(100,)",
+        "(1, 100)",
+        "(100, 750000)"
+      ],
+      "answer": 1,
+      "explanation": "Each hidden unit has one bias, so bias vector shape is (100,) for 100 neurons."
+    },
+    {
+      "id": 26,
+      "question": "Consider a convolutional layer on 500×500×3 input with 10 filters of size 5×5. How many trainable parameters (weights + biases) does this layer have?",
+      "options": [
+        "750",
+        "760",
+        "1250",
+        "2600"
+      ],
+      "answer": 1,
+      "explanation": "Weights = 5×5×3×10 = 750. Biases = 10. Total = 760 parameters."
+    },
+    {
+      "id": 27,
+      "question": "Which pooling operation selects the maximum value from each pooling window?",
+      "options": [
+        "Average pooling",
+        "Max pooling",
+        "Sum pooling",
+        "L2 pooling"
+      ],
+      "answer": 1,
+      "explanation": "Max pooling selects the maximum value from each window, retaining the most prominent feature in that region."
+    },
+    {
+      "id": 28,
+      "question": "How does pooling contribute to robustness against small translations?",
+      "options": [
+        "By averaging out shifts",
+        "Because it downsamples and retains dominant activations",
+        "It adds more parameters",
+        "By increasing spatial resolution"
+      ],
+      "answer": 1,
+      "explanation": "Pooling retains dominant activations, so small shifts in input don't affect the output as long as the feature remains in the pooling window."
+    },
+    {
+      "id": 29,
+      "question": "If we set stride=2 in a convolution (with no padding), what effect does it have on output size compared to stride=1?",
+      "options": [
+        "Output size remains same",
+        "Output size roughly halves",
+        "Output size doubles",
+        "It only changes depth"
+      ],
+      "answer": 1,
+      "explanation": "Stride=2 roughly halves the output spatial dimension: output = (N - K)/2 + 1 compared to N-K+1 for stride=1."
+    },
+    {
+      "id": 30,
+      "question": "The classification head of a typical CNN usually consists of:",
+      "options": [
+        "Only pooling layers",
+        "Fully connected layers + softmax",
+        "Additional convolutional layers only",
+        "Recurrent layers"
+      ],
+      "answer": 1,
+      "explanation": "After feature extraction, CNNs use fully connected layers followed by softmax for classification."
+    },
+    {
+      "id": 31,
+      "question": "In a CNN classifier, the softmax function is used to:",
+      "options": [
+        "Extract edges",
+        "Reduce dimensions",
+        "Output class probabilities",
+        "Introduce non-linearity"
+      ],
+      "answer": 2,
+      "explanation": "Softmax converts logits to probabilities (sum=1), enabling multi-class classification predictions."
+    },
+    {
+      "id": 32,
+      "question": "Why do CNNs have far fewer parameters than a fully connected network for the same input size?",
+      "options": [
+        "Because of local connectivity and parameter sharing",
+        "Due to deeper architectures",
+        "Because CNNs use less data",
+        "Because of higher learning rate"
+      ],
+      "answer": 0,
+      "explanation": "Local connectivity (each neuron sees only a small region) and parameter sharing (same weights across space) dramatically reduce parameters."
+    },
+    {
+      "id": 33,
+      "question": "In the provided solved architecture table (INPUT 128×128×3 → CONV-9-32 → POOL-2 → CONV-5-64 ...), after CONV-5-64, the number of output filters is:",
+      "options": [
+        "5",
+        "64",
+        "32",
+        "128"
+      ],
+      "answer": 1,
+      "explanation": "In CONV-5-64 notation, 64 represents the number of filters, so output depth is 64."
+    },
+    {
+      "id": 34,
+      "question": "The final FC-3 layer in the solved example (after pooling layers) indicates:",
+      "options": [
+        "3 hidden neurons",
+        "3 output classes",
+        "3 convolutional layers",
+        "3 feature maps"
+      ],
+      "answer": 1,
+      "explanation": "FC-3 means a fully connected layer with 3 neurons, typically representing 3 output classes for classification."
+    },
+    {
+      "id": 35,
+      "question": "Common kernel sizes used in CNNs are (select typical):",
+      "options": [
+        "1×1, 3×3, 5×5",
+        "10×10, 12×12",
+        "Only 2×2",
+        "8×8 only"
+      ],
+      "answer": 0,
+      "explanation": "Small kernel sizes like 1×1, 3×3, and 5×5 are most common, with 3×3 being the most popular in modern CNNs."
+    },
+    {
+      "id": 36,
+      "question": "In the official notation (CONV-K-N, POOL-K, FC-N) used in the PDF, the default padding and stride for convolutional layers are:",
+      "options": [
+        "padding=1, stride=1",
+        "padding=0, stride=1",
+        "padding=same, stride=2",
+        "padding=1, stride=2"
+      ],
+      "answer": 1,
+      "explanation": "The standard notation assumes padding=0 and stride=1 for convolutional layers unless otherwise specified."
+    },
+    {
+      "id": 37,
+      "question": "What does a Max-Pooling layer of size 2×2 with stride 2 output for a 4×4 input region?",
+      "options": [
+        "2 values (max of each 2×2 block)",
+        "4 values (each max)",
+        "1 value only",
+        "16 values"
+      ],
+      "answer": 1,
+      "explanation": "A 4×4 input with 2×2 pooling, stride 2 produces 2×2 = 4 output values, each being the max of a 2×2 block."
+    },
+    {
+      "id": 38,
+      "question": "Why do CNNs learn kernel values automatically during training?",
+      "options": [
+        "Because they are random",
+        "Backpropagation updates filters to minimize loss",
+        "Kernels are predefined by user",
+        "Only fully connected layers learn"
+      ],
+      "answer": 1,
+      "explanation": "Kernel values are learned through backpropagation, updating filters to minimize the loss function, just like weights in FC layers."
+    },
+    {
+      "id": 39,
+      "question": "If input feature map is 48×48×1 and we apply CONV-3-16 (stride=1, no padding), what is the depth (number of channels) of the output?",
+      "options": [
+        "48",
+        "16",
+        "3",
+        "1"
+      ],
+      "answer": 1,
+      "explanation": "Output depth equals number of filters (16), regardless of input depth. Output shape: 46×46×16."
+    },
+    {
+      "id": 40,
+      "question": "After a POOL-2 (2×2, stride 2) applied to a 48×48 feature map, the new spatial dimension becomes:",
+      "options": [
+        "24×24",
+        "46×46",
+        "48×48",
+        "12×12"
+      ],
+      "answer": 0,
+      "explanation": "Pooling with size 2 and stride 2 halves spatial dimensions: 48/2 = 24, output is 24×24."
+    }
+  ]
+}
