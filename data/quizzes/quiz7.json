@@ -1,1 +1,194 @@
-
+{
+  "quiz": 7,
+  "title": "Quiz 7 — Model Evaluation & Metrics (Week 8)",
+  "covers": "Week 8",
+  "total_questions": 20,
+  "type": "theoretical",
+  "questions": [
+    {
+      "id": 1,
+      "question": "Which metric measures the completeness of positive class predictions, answering: 'Out of all actual positive instances, how many did the model correctly find?'",
+      "options": [
+        "Specificity",
+        "Precision",
+        "Recall",
+        "F1-Score"
+      ],
+      "answer": 2,
+      "explanation": "Recall = TP/(TP+FN) measures the proportion of actual positives correctly identified."
+    },
+    {
+      "id": 2,
+      "question": "A False Negative (FN) occurs when an actual positive sample is incorrectly predicted as negative. This corresponds to a:",
+      "options": [
+        "Type I Error",
+        "Type II Error",
+        "Symmetric True Variance",
+        "Harmonic False Baseline"
+      ],
+      "answer": 1,
+      "explanation": "False Negative is a Type II Error - failing to detect a positive case."
+    },
+    {
+      "id": 3,
+      "question": "Precision is highly sensitive to False Positives; minimizing False Positives will increase your Precision score.",
+      "options": ["True", "False"],
+      "answer": 0,
+      "explanation": "True. Precision = TP/(TP+FP), so reducing FP directly increases precision."
+    },
+    {
+      "id": 4,
+      "question": "What specific performance dimension does the Area Under the Receiver Operating Characteristic (AUC-ROC) curve measure?",
+      "options": [
+        "The exact mathematical average error across standard regression folds.",
+        "The model's capability to separate and distinguish between different target classes.",
+        "The total ratio of True Negatives to False Negatives exclusively.",
+        "The time it takes to train a dense network architecture layer."
+      ],
+      "answer": 1,
+      "explanation": "AUC-ROC measures the model's ability to distinguish between positive and negative classes."
+    },
+    {
+      "id": 5,
+      "question": "An ideal, perfect classifier that separates positive and negative instances flawlessly achieves an AUC-ROC score equal to 1.0.",
+      "options": ["True", "False"],
+      "answer": 0,
+      "explanation": "True. AUC = 1.0 means perfect discrimination between positive and negative classes."
+    },
+    {
+      "id": 6,
+      "question": "In a medical diagnosis scenario, a True Positive (TP) outcome means:",
+      "options": [
+        "A sick patient is correctly diagnosed by the model as sick.",
+        "A healthy patient is diagnosed as sick.",
+        "A sick patient is diagnosed as healthy.",
+        "A healthy patient is correctly diagnosed as healthy."
+      ],
+      "answer": 0,
+      "explanation": "True Positive = model correctly identifies a positive case (sick patient diagnosed as sick)."
+    },
+    {
+      "id": 7,
+      "question": "Evaluating a model's performance exclusively on the same data it was trained on provides a reliable estimate of how it will perform in practical, real-world applications.",
+      "options": ["True", "False"],
+      "answer": 1,
+      "explanation": "False. Evaluating on training data overestimates performance; unseen test data is needed."
+    },
+    {
+      "id": 8,
+      "question": "In an email spam filtering system, what is the consequence of a high False Positive error rate?",
+      "options": [
+        "Important, legitimate emails are incorrectly marked as spam and sent to the junk folder.",
+        "Spam emails successfully flood the user's primary inbox.",
+        "The training set becomes systematically imbalanced.",
+        "The accuracy score is forced to reach 100% automatically."
+      ],
+      "answer": 0,
+      "explanation": "High FP means legitimate emails are incorrectly flagged as spam, causing important emails to be lost."
+    },
+    {
+      "id": 9,
+      "question": "Stratified Cross-Validation reduces performance estimation bias by ensuring each individual fold is representative of the overall class distribution.",
+      "options": ["True", "False"],
+      "answer": 0,
+      "explanation": "True. Stratified CV preserves class distribution in each fold to match the original dataset."
+    },
+    {
+      "id": 10,
+      "question": "A Type I error represents a False Negative, while a Type II error represents a False Positive.",
+      "options": ["True", "False"],
+      "answer": 1,
+      "explanation": "False. Type I error = False Positive; Type II error = False Negative."
+    },
+    {
+      "id": 11,
+      "question": "Which formula represents Recall (Sensitivity)?",
+      "options": [
+        "TP/(TP + FP)",
+        "TP/(TP + FN)",
+        "TN/(TN + FP)",
+        "TN/(TN + FN)"
+      ],
+      "answer": 1,
+      "explanation": "Recall = TP/(TP+FN) - the proportion of actual positives correctly identified."
+    },
+    {
+      "id": 12,
+      "question": "How is 'Accuracy' defined in a classification context?",
+      "options": [
+        "The overall correctness of the predictions, measured as total correct predictions divided by total samples.",
+        "The ratio of true positives to the total number of predicted positives.",
+        "The ratio of true positives to the total number of actual positives.",
+        "The geometric mean of precision and class separation capability."
+      ],
+      "answer": 0,
+      "explanation": "Accuracy = (TP+TN)/(TP+TN+FP+FN) - total correct predictions divided by total samples."
+    },
+    {
+      "id": 13,
+      "question": "The decision of whether to optimize for high precision or high recall depends entirely on the application-specific needs and costs of errors.",
+      "options": ["True", "False"],
+      "answer": 0,
+      "explanation": "True. The choice between precision and recall depends on the specific application and cost of different error types."
+    },
+    {
+      "id": 14,
+      "question": "Different evaluation metrics highlight different strengths and weaknesses in a model's performance.",
+      "options": ["True", "False"],
+      "answer": 0,
+      "explanation": "True. Each metric provides a different perspective on model performance."
+    },
+    {
+      "id": 15,
+      "question": "By assessing model metrics on separate, unseen test sets, engineers can successfully detect and prevent overfitting behaviors.",
+      "options": ["True", "False"],
+      "answer": 0,
+      "explanation": "True. Test set performance reveals overfitting when it's significantly worse than training performance."
+    },
+    {
+      "id": 16,
+      "question": "The F1-Score provides a balanced assessment by evaluating both precision and recall in a single metric, making it useful for uneven class distributions.",
+      "options": ["True", "False"],
+      "answer": 0,
+      "explanation": "True. F1 balances precision and recall, useful for imbalanced datasets."
+    },
+    {
+      "id": 17,
+      "question": "If a dataset contains 95% positive samples and 5% negative samples, a naive model that predicts 'Positive' for every single case achieves 95% Accuracy. Why is this accuracy score misleading?",
+      "options": [
+        "Because it proves the model handles both classes flawlessly.",
+        "Because the validation sets were automatically stratified.",
+        "It masks the model's total failure to detect the critical 5% minority negative class (Accuracy Paradox).",
+        "Because harmonic means cannot handle percentages above 90%."
+      ],
+      "answer": 2,
+      "explanation": "The Accuracy Paradox: high accuracy masks the model's failure to detect the minority class."
+    },
+    {
+      "id": 18,
+      "question": "In a standard confusion matrix layout, correct predictions (True Positives and True Negatives) lie along the main diagonal of the matrix.",
+      "options": ["True", "False"],
+      "answer": 0,
+      "explanation": "True. Correct predictions are on the diagonal: TP and TN."
+    },
+    {
+      "id": 19,
+      "question": "Metrics like precision, recall, and F1-score are irrelevant for binary classification tasks and are only applied to regression problems.",
+      "options": ["True", "False"],
+      "answer": 1,
+      "explanation": "False. Precision, recall, and F1 are specifically designed for classification tasks."
+    },
+    {
+      "id": 20,
+      "question": "What is the primary purpose of the Training Set in machine learning model development?",
+      "options": [
+        "To allow the model to learn underlying patterns and relationships from the data.",
+        "To serve as a completely unseen set for the final performance evaluation.",
+        "To balance class distributions manually without changing weights.",
+        "To hyperparameter tune the architecture via grid search exclusively."
+      ],
+      "answer": 0,
+      "explanation": "The training set is used to train the model and learn patterns from the data."
+    }
+  ]
+}
