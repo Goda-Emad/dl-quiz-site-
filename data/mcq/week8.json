@@ -1,1 +1,486 @@
-
+{
+  "week": 8,
+  "title": "Model Evaluation & Metrics",
+  "questions": [
+    {
+      "id": 1,
+      "question": "What is a primary advantage of cross-validation over a single train-test split?",
+      "options": [
+        "Provides more reliable performance estimate with lower variance",
+        "Always increases test accuracy",
+        "Removes need for test set",
+        "Less computational cost"
+      ],
+      "answer": 0,
+      "explanation": "Cross-validation provides a more reliable performance estimate with lower variance by averaging results across multiple splits."
+    },
+    {
+      "id": 2,
+      "question": "In confusion matrix terms, Type I error is equivalent to:",
+      "options": [
+        "False Positive",
+        "True Negative",
+        "True Positive",
+        "False Negative"
+      ],
+      "answer": 0,
+      "explanation": "Type I error is a False Positive - incorrectly predicting the positive class when the actual is negative."
+    },
+    {
+      "id": 3,
+      "question": "Cross-validation helps to avoid:",
+      "options": [
+        "Feature scaling",
+        "Using training sets",
+        "Overfitting or underfitting",
+        "Data normalization"
+      ],
+      "answer": 2,
+      "explanation": "Cross-validation helps detect and avoid overfitting or underfitting by providing multiple train-test evaluations."
+    },
+    {
+      "id": 4,
+      "question": "If we have 1000 samples and use 10-fold cross-validation, how many samples are in each test fold?",
+      "options": [
+        "500",
+        "900",
+        "10",
+        "100"
+      ],
+      "answer": 3,
+      "explanation": "With 10-fold CV, each fold contains 1000/10 = 100 samples for testing."
+    },
+    {
+      "id": 5,
+      "question": "In ROC analysis, each point on the curve corresponds to:",
+      "options": [
+        "A different model architecture",
+        "A different feature set",
+        "A different training set",
+        "A different classification threshold"
+      ],
+      "answer": 3,
+      "explanation": "Each point on the ROC curve represents the TPR vs FPR at a different classification threshold."
+    },
+    {
+      "id": 6,
+      "question": "In medical screening for a rare disease, which metric is most critical to minimize false negatives (missed cases)?",
+      "options": [
+        "Accuracy",
+        "Recall (Sensitivity)",
+        "Precision",
+        "Specificity"
+      ],
+      "answer": 1,
+      "explanation": "Recall (Sensitivity) measures the proportion of actual positives correctly identified. Missing a case (FN) is critical in medical screening."
+    },
+    {
+      "id": 7,
+      "question": "The Receiver Operating Characteristic (ROC) curve plots:",
+      "options": [
+        "TP vs FP",
+        "True Positive Rate vs False Positive Rate",
+        "Precision vs Recall",
+        "Accuracy vs Threshold"
+      ],
+      "answer": 1,
+      "explanation": "ROC curve plots True Positive Rate (Recall) against False Positive Rate at various threshold settings."
+    },
+    {
+      "id": 8,
+      "question": "What does the diagonal line from (0,0) to (1,1) represent on an ROC curve?",
+      "options": [
+        "A random classifier (50% chance)",
+        "A classifier with high precision",
+        "A classifier that always predicts positive",
+        "A perfect model"
+      ],
+      "answer": 0,
+      "explanation": "The diagonal line represents a random classifier with no discriminative ability - equivalent to random guessing."
+    },
+    {
+      "id": 9,
+      "question": "For a spam filter used in emergency response emails, missing an important legitimate email is catastrophic. Which metric should be prioritized?",
+      "options": [
+        "High precision",
+        "Low FPR only",
+        "High recall",
+        "High accuracy"
+      ],
+      "answer": 2,
+      "explanation": "High recall ensures important legitimate emails are not missed (minimizes false negatives), even if some spam gets through."
+    },
+    {
+      "id": 10,
+      "question": "In the slide example, a precision of 91% (TP=50, FP=5) means:",
+      "options": [
+        "91% of positive predictions are correct",
+        "91% of actual positives are identified",
+        "Accuracy is 91%",
+        "Model incorrectly labels 9% of negatives"
+      ],
+      "answer": 0,
+      "explanation": "Precision = TP/(TP+FP) = 50/55 = 0.91, meaning 91% of positive predictions are actually correct."
+    },
+    {
+      "id": 11,
+      "question": "Leave-One-Out Cross-Validation (LOOCV) is a special case of K-Fold where K equals:",
+      "options": [
+        "5",
+        "The number of features",
+        "10",
+        "The total number of data points (N)"
+      ],
+      "answer": 3,
+      "explanation": "LOOCV uses K = N, where N is the total number of data points, training on N-1 and testing on 1 sample each iteration."
+    },
+    {
+      "id": 12,
+      "question": "True Positive Rate (TPR) is mathematically equivalent to:",
+      "options": [
+        "False Positive Rate",
+        "Recall",
+        "F1 Score",
+        "Precision"
+      ],
+      "answer": 1,
+      "explanation": "TPR = TP/(TP+FN), which is exactly the definition of Recall (Sensitivity)."
+    },
+    {
+      "id": 13,
+      "question": "In the disease detection slide, a False Negative (FN) means:",
+      "options": [
+        "Patient has disease, test says negative",
+        "Test negative and no disease",
+        "Test positive and disease present",
+        "Patient does not have disease, test says positive"
+      ],
+      "answer": 0,
+      "explanation": "False Negative occurs when the patient actually has the disease but the test incorrectly returns negative."
+    },
+    {
+      "id": 14,
+      "question": "Recall is also known as:",
+      "options": [
+        "Specificity",
+        "False Positive Rate",
+        "True Negative Rate",
+        "True Positive Rate (Sensitivity)"
+      ],
+      "answer": 3,
+      "explanation": "Recall is also called True Positive Rate (TPR) or Sensitivity - all measuring the same concept."
+    },
+    {
+      "id": 15,
+      "question": "Which formula correctly represents Accuracy?",
+      "options": [
+        "(TP + TN) / (TP + TN + FP + FN)",
+        "TP / (TP + FP)",
+        "2 * (Precision * Recall) / (Precision + Recall)",
+        "TP / (TP + FN)"
+      ],
+      "answer": 0,
+      "explanation": "Accuracy is the proportion of all correct predictions (both positive and negative) out of all predictions."
+    },
+    {
+      "id": 16,
+      "question": "AUC (Area Under the ROC Curve) provides:",
+      "options": [
+        "A single measure of classification performance independent of threshold",
+        "Exact error rate",
+        "Recall value",
+        "Precision value"
+      ],
+      "answer": 0,
+      "explanation": "AUC provides a single number summarizing model performance across all thresholds, independent of any specific threshold."
+    },
+    {
+      "id": 17,
+      "question": "Which cross-validation variant ensures each fold maintains the same class proportion as the original dataset?",
+      "options": [
+        "Leave-One-Out",
+        "Standard K-Fold",
+        "Shuffle Split",
+        "Stratified K-Fold"
+      ],
+      "answer": 3,
+      "explanation": "Stratified K-Fold preserves the class distribution in each fold to match the original dataset's proportions."
+    },
+    {
+      "id": 18,
+      "question": "Which metric answers: 'Of all predicted positive cases, how many are actually positive?'",
+      "options": [
+        "Recall",
+        "F1 Score",
+        "Precision",
+        "Specificity"
+      ],
+      "answer": 2,
+      "explanation": "Precision = TP/(TP+FP) answers the question: 'Of all cases predicted positive, what proportion is actually positive?'"
+    },
+    {
+      "id": 19,
+      "question": "An AUC (Area Under the ROC Curve) value of 1.0 indicates:",
+      "options": [
+        "Perfect classifier with perfect discrimination",
+        "Very poor performance",
+        "Random classifier",
+        "High bias model"
+      ],
+      "answer": 0,
+      "explanation": "AUC = 1.0 means the classifier perfectly separates positive and negative classes with no errors."
+    },
+    {
+      "id": 20,
+      "question": "In imbalanced datasets, why is F1 score more informative than accuracy?",
+      "options": [
+        "Because accuracy can be high by always predicting majority class, while F1 reveals minority class performance",
+        "F1 ignores false negatives",
+        "F1 only works for balanced data",
+        "F1 is always higher than accuracy"
+      ],
+      "answer": 0,
+      "explanation": "Accuracy can be misleading with imbalanced data (e.g., 99% accuracy by predicting majority class). F1 balances precision and recall."
+    },
+    {
+      "id": 21,
+      "question": "The F1 Score is a harmonic mean because:",
+      "options": [
+        "It yields higher values than accuracy",
+        "It's easier to compute",
+        "It only uses TP",
+        "It penalizes extreme values (low precision or recall) more than arithmetic mean"
+      ],
+      "answer": 3,
+      "explanation": "Harmonic mean penalizes extreme values more heavily than arithmetic mean, making F1 low if either precision or recall is low."
+    },
+    {
+      "id": 22,
+      "question": "Why is the F1 score particularly useful for imbalanced datasets?",
+      "options": [
+        "It balances precision and recall, giving a realistic view on minority class performance",
+        "It ignores false positives",
+        "It always equals accuracy",
+        "It only considers the majority class"
+      ],
+      "answer": 0,
+      "explanation": "F1 balances precision and recall, providing a realistic evaluation of minority class performance in imbalanced datasets."
+    },
+    {
+      "id": 23,
+      "question": "Precision is defined as:",
+      "options": [
+        "Proportion of actual positives correctly identified",
+        "Overall correctness of the model",
+        "Proportion of positive predictions that are actually correct",
+        "Ratio of true negatives to total negatives"
+      ],
+      "answer": 2,
+      "explanation": "Precision = TP/(TP+FP) - the proportion of predicted positives that are actually correct."
+    },
+    {
+      "id": 24,
+      "question": "The F1 Score is the harmonic mean of which two metrics?",
+      "options": [
+        "TPR and FPR",
+        "Precision and Recall",
+        "Accuracy and Recall",
+        "Precision and Accuracy"
+      ],
+      "answer": 1,
+      "explanation": "F1 Score is the harmonic mean of Precision and Recall: 2 × (P×R)/(P+R)."
+    },
+    {
+      "id": 25,
+      "question": "What is the main disadvantage of k-fold cross-validation?",
+      "options": [
+        "Cannot be used for classification",
+        "Increases overfitting",
+        "Not suitable for small datasets",
+        "Computationally more expensive"
+      ],
+      "answer": 3,
+      "explanation": "K-fold CV requires training the model K times, making it computationally expensive compared to a single train-test split."
+    },
+    {
+      "id": 26,
+      "question": "If we increase the classification threshold (e.g., from 0.5 to 0.7), what typically happens to recall?",
+      "options": [
+        "Recall decreases or stays same",
+        "False positives increase dramatically",
+        "No effect",
+        "Recall increases"
+      ],
+      "answer": 0,
+      "explanation": "Higher threshold means fewer positive predictions, so recall (TP/(TP+FN)) typically decreases as some true positives become negatives."
+    },
+    {
+      "id": 27,
+      "question": "Stratified K-Fold ensures that each fold has the same class distribution as the original dataset. This statement is:",
+      "options": [
+        "Only for regression",
+        "True",
+        "Only for binary classification",
+        "False"
+      ],
+      "answer": 1,
+      "explanation": "True - Stratified K-Fold preserves the class distribution in each fold to match the original dataset."
+    },
+    {
+      "id": 28,
+      "question": "In cross-validation terminology, a 'fold' refers to:",
+      "options": [
+        "The loss function",
+        "A subset of data used for testing in one iteration",
+        "A layer in neural network",
+        "The number of epochs"
+      ],
+      "answer": 1,
+      "explanation": "A fold is one subset of the data used as the test set in one iteration of cross-validation."
+    },
+    {
+      "id": 29,
+      "question": "When is accuracy considered a misleading metric?",
+      "options": [
+        "When the classes are imbalanced (one class dominates)",
+        "When datasets are perfectly balanced",
+        "When recall is extremely high",
+        "When using cross-validation"
+      ],
+      "answer": 0,
+      "explanation": "Accuracy is misleading when classes are imbalanced because predicting the majority class gives high accuracy but poor minority performance."
+    },
+    {
+      "id": 30,
+      "question": "High precision is especially critical in which scenario (based on lecture examples)?",
+      "options": [
+        "Spam detection for personal email",
+        "Detecting all fraud cases",
+        "Medical screening for flu",
+        "Microchip fabrication where false positives discard good chips"
+      ],
+      "answer": 3,
+      "explanation": "In microchip fabrication, false positives mean good chips are incorrectly discarded, making precision critical."
+    },
+    {
+      "id": 31,
+      "question": "In a confusion matrix, what does a False Positive (FP) represent?",
+      "options": [
+        "Incorrectly predicted as negative when actual positive",
+        "Correctly predicted positive",
+        "Incorrectly predicted as positive when actual negative",
+        "Correctly predicted negative"
+      ],
+      "answer": 2,
+      "explanation": "False Positive occurs when the model incorrectly predicts the positive class when the actual is negative."
+    },
+    {
+      "id": 32,
+      "question": "Using the same confusion matrix (TP=50, FN=10, FP=5, TN=35), what is the recall?",
+      "options": [
+        "0.91",
+        "0.78",
+        "0.83",
+        "0.95"
+      ],
+      "answer": 2,
+      "explanation": "Recall = TP/(TP+FN) = 50/(50+10) = 50/60 = 0.833 or 83.3%."
+    },
+    {
+      "id": 33,
+      "question": "When using stratified cross-validation on a binary dataset with 80% positives, each fold should ideally maintain:",
+      "options": [
+        "Majority negative",
+        "80% positive, 20% negative",
+        "50% positive, 50% negative",
+        "Random distribution independent of original"
+      ],
+      "answer": 1,
+      "explanation": "Stratified CV maintains the original class proportion in each fold: 80% positive and 20% negative."
+    },
+    {
+      "id": 34,
+      "question": "The default decision threshold for converting predicted probabilities into class labels is usually:",
+      "options": [
+        "0.7",
+        "0.9",
+        "0.3",
+        "0.5"
+      ],
+      "answer": 3,
+      "explanation": "The default threshold is typically 0.5, where probabilities ≥ 0.5 predict the positive class."
+    },
+    {
+      "id": 35,
+      "question": "What is the formula for False Positive Rate (FPR)?",
+      "options": [
+        "FN / (FN + TP)",
+        "FP / (TP + FP)",
+        "FP / (FP + TN)",
+        "TN / (TN + FP)"
+      ],
+      "answer": 2,
+      "explanation": "FPR = FP/(FP+TN) - the proportion of actual negatives incorrectly predicted as positive."
+    },
+    {
+      "id": 36,
+      "question": "What is the correct F1 Score formula?",
+      "options": [
+        "2 * (Precision * Recall) / (Precision + Recall)",
+        "Accuracy/Recall",
+        "TP/(TP+0.5*(FP+FN))",
+        "(Precision + Recall)/2"
+      ],
+      "answer": 0,
+      "explanation": "F1 = 2 × (Precision × Recall)/(Precision + Recall) - the harmonic mean of precision and recall."
+    },
+    {
+      "id": 37,
+      "question": "High recall is critically important in:",
+      "options": [
+        "Autonomous vehicle navigation precision",
+        "High frequency trading",
+        "Manufacturing tolerances",
+        "Legal e-discovery where missing a crucial document loses the case"
+      ],
+      "answer": 3,
+      "explanation": "In legal e-discovery, missing a crucial document (false negative) can lose the case, making high recall critical."
+    },
+    {
+      "id": 38,
+      "question": "In K-Fold Cross-Validation, the process is:",
+      "options": [
+        "Bootstrap sampling without replacement",
+        "Train on one fold and test on K-1 folds",
+        "Use one random split only",
+        "Split into K folds, train on K-1 folds, test on the remaining fold, repeat K times"
+      ],
+      "answer": 3,
+      "explanation": "K-Fold CV splits data into K folds, trains on K-1 folds, tests on the remaining fold, and repeats K times."
+    },
+    {
+      "id": 39,
+      "question": "Given TP=50, FN=10, FP=5, TN=35 (disease example), what is the precision?",
+      "options": [
+        "0.91 (91%)",
+        "0.85 (85%)",
+        "0.83 (83%)",
+        "0.77 (77%)"
+      ],
+      "answer": 0,
+      "explanation": "Precision = TP/(TP+FP) = 50/(50+5) = 50/55 = 0.909 or 91%."
+    },
+    {
+      "id": 40,
+      "question": "What is the main purpose of using a separate testing set in machine learning?",
+      "options": [
+        "To evaluate generalization on unseen data and avoid overfitting",
+        "To compute gradient descent",
+        "To increase training data size",
+        "To perform feature engineering"
+      ],
+      "answer": 0,
+      "explanation": "The test set evaluates the model's generalization ability on unseen data and helps detect overfitting."
+    }
+  ]
+}
