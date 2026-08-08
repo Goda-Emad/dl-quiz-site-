@@ -1,1 +1,466 @@
-
+{
+  "week": 6,
+  "title": "Applied Deep Learning - CNN Architectures, Tasks, Invariance, and Transfer Learning",
+  "questions": [
+    {
+      "id": 1,
+      "question": "Which convolutional component utilizes learnable filters (kernels) to discover properties such as edges and textures?",
+      "options": [
+        "Pooling layers (MaxPooling2D)",
+        "Convolutional layers (Conv2D)",
+        "Dense layers",
+        "Flatten layers"
+      ],
+      "answer": 1,
+      "explanation": "Convolutional Layers (Conv2D) leverage learnable filters to discover local features like edges and textures while preserving spatial information."
+    },
+    {
+      "id": 2,
+      "question": "What design concept allows convolutional layers to optimize parameters by reusing the same weight matrix across different regions?",
+      "options": [
+        "Translational Invariance",
+        "Parameter Sharing",
+        "Identity Mapping",
+        "Data Augmentation"
+      ],
+      "answer": 1,
+      "explanation": "Conv2D layers utilize parameter sharing to detect features regardless of their exact spatial position, significantly optimizing parameter overhead."
+    },
+    {
+      "id": 3,
+      "question": "What is the primary objective of pooling layers (MaxPooling2D) in a baseline CNN design?",
+      "options": [
+        "To add fully connected Dense parameters",
+        "To increase computational dimensionality",
+        "To downsample feature maps and establish translational invariance",
+        "To resolve the vanishing gradient bottleneck"
+      ],
+      "answer": 2,
+      "explanation": "Pooling layers downsample feature maps to systematically lower dimensionality and construct a degree of translational invariance."
+    },
+    {
+      "id": 4,
+      "question": "Which step is crucial immediately before transmitting spatial structural outputs into Dense layers for classification?",
+      "options": [
+        "Apply a skip connection",
+        "Flatten the output",
+        "Unfreeze the convolutional base",
+        "Perform spatial cropping"
+      ],
+      "answer": 1,
+      "explanation": "A typical CNN structure stacks Conv2D and pooling layers, flattens the multidimensional array, and supplies it to Dense layers for classification."
+    },
+    {
+      "id": 5,
+      "question": "What category of computer vision problems assigns a single discrete label to an entire input image containing one dominant subject?",
+      "options": [
+        "Object Localization",
+        "Object Classification",
+        "Object Detection",
+        "Object Segmentation"
+      ],
+      "answer": 1,
+      "explanation": "Object Classification assigns an overall singular discrete label representing the primary dominant subject within the scene."
+    },
+    {
+      "id": 6,
+      "question": "How does 'Object Recognition' strictly differentiate itself from generalized 'Object Classification'?",
+      "options": [
+        "It constructs pixel-perfect boundary overlays",
+        "It handles thousands of classes simultaneously",
+        "It evaluates instance-level specific verification (e.g., identity names or specific landmarks)",
+        "It must avoid using a neural base entirely"
+      ],
+      "answer": 2,
+      "explanation": "Object Recognition determines specific instance identification (such as a specific landmark like the 'Statue of Liberty' or individual faces)."
+    },
+    {
+      "id": 7,
+      "question": "If an output yields explicit bounding box spatial parameters [x, y, w, h] alongside a class label for exactly one primary subject, the challenge belongs to:",
+      "options": [
+        "Object Segmentation",
+        "Object Detection",
+        "Object Localization",
+        "Object Classification"
+      ],
+      "answer": 2,
+      "explanation": "Object Localization deals with determining the specific coordinates and scale [x, y, w, h] of a single localized subject."
+    },
+    {
+      "id": 8,
+      "question": "An autonomous car needs to locate multiple pedestrians, nearby vehicles, and cyclists simultaneously using unique bounding boxes. This task is categorized as:",
+      "options": [
+        "Object Classification",
+        "Object Detection",
+        "Object Localization",
+        "Semantic Segmentation"
+      ],
+      "answer": 1,
+      "explanation": "Object Detection handles multiple unique subjects simultaneously, identifying both their labels and individual spatial coordinates using bounding boxes."
+    },
+    {
+      "id": 9,
+      "question": "Which system provides pixel-perfect categorical masks mapping every distinct coordinate pixel of a scene to a class category?",
+      "options": [
+        "Object Localization",
+        "Object Detection",
+        "Object Segmentation",
+        "Object Recognition"
+      ],
+      "answer": 2,
+      "explanation": "Object Segmentation delivers comprehensive pixel-wise masks rather than rough square boundaries."
+    },
+    {
+      "id": 10,
+      "question": "In segmentation frameworks, what is the core structural distinction between Instance Segmentation and Semantic Segmentation?",
+      "options": [
+        "Semantic divides individual objects of the same class; Instance separates categorical regions regardless of subject boundaries",
+        "Instance treats separate elements of the same category with unique individual masks; Semantic tracks broader categorical blocks uniformly",
+        "Instance relies exclusively on standard Dense networks; Semantic avoids deep convolution entirely",
+        "There is no functional distinction between them"
+      ],
+      "answer": 1,
+      "explanation": "Instance segmentation isolates a distinct mask per individual entity instance (e.g., Cat A in red, Cat B in blue). Semantic segmentation applies a uniform mask per structural category."
+    },
+    {
+      "id": 11,
+      "question": "Select the correct complexity progression trend outlined across computer vision tasks:",
+      "options": [
+        "Segmentation → Detection → Localization → Classification",
+        "Classification → Localization → Detection → Segmentation",
+        "Localization → Classification → Segmentation → Detection",
+        "Classification → Segmentation → Localization → Detection"
+      ],
+      "answer": 1,
+      "explanation": "According to the slide parameters, the design scale scales upwards in programmatic complexity along the trajectory: Classification → Localization → Detection → Segmentation."
+    },
+    {
+      "id": 12,
+      "question": "If a function satisfies f(t[x]) = f(x) for a transformation t[], the mathematical relationship demonstrates:",
+      "options": [
+        "Equivariance",
+        "Invariance",
+        "Degradation",
+        "Identity Mapping"
+      ],
+      "answer": 1,
+      "explanation": "A function is strictly invariant if its structural execution value remains completely unaltered even when the input experiences structural shifts."
+    },
+    {
+      "id": 13,
+      "question": "When a structural translation of an image shifts its internal segmentation pixel values by an identical spatial offset, the process highlights:",
+      "options": [
+        "Invariance",
+        "Equivariance",
+        "Optimization degradation",
+        "Overfitting"
+      ],
+      "answer": 1,
+      "explanation": "Equivariance signifies that applying a modification to an input scales and transforms the output pattern in an identical manner: f(t[x]) = t(f[x])."
+    },
+    {
+      "id": 14,
+      "question": "Which historical CNN served as the 1998 foundational blueprint for processing handwriting and digit recognition datasets?",
+      "options": [
+        "AlexNet",
+        "VGG-16",
+        "LeNet-5",
+        "ResNet-152"
+      ],
+      "answer": 2,
+      "explanation": "LeNet-5 (1998) stands as the pioneer baseline architecture designed primarily for handling digit pattern recognition."
+    },
+    {
+      "id": 15,
+      "question": "Which network made Deep Learning mainstream by winning the ILSVRC competition in 2012 by a monumental margin?",
+      "options": [
+        "LeNet-5",
+        "GoogLeNet",
+        "VGGNet",
+        "AlexNet"
+      ],
+      "answer": 3,
+      "explanation": "AlexNet won the 2012 ImageNet competition by a wide margin, proving the capability of deep CNN configurations."
+    },
+    {
+      "id": 16,
+      "question": "How did AlexNet structurally mitigate the vanishing gradient problem to facilitate faster optimization rates over older layouts?",
+      "options": [
+        "By substituting hyperbolic tanh functions with Rectified Linear Units (ReLU)",
+        "By integrating specialized skip modules",
+        "By expanding the resolution to 1000 layers",
+        "By deleting convolutional filters"
+      ],
+      "answer": 0,
+      "explanation": "AlexNet integrated Rectified Linear Units (ReLU) instead of traditional saturating functions like tanh, minimizing vanishing gradients during optimization."
+    },
+    {
+      "id": 17,
+      "question": "Which regularization scheme did AlexNet use within its fully connected (Dense) blocks to specifically address overfitting parameters?",
+      "options": [
+        "L1 Lasso scaling exclusively",
+        "Dropout",
+        "Residual connections",
+        "Softmax downsampling"
+      ],
+      "answer": 1,
+      "explanation": "AlexNet introduced Dropout mechanisms within its dense classifier layers to selectively deactivate nodes and combat overfitting."
+    },
+    {
+      "id": 18,
+      "question": "What strategy did AlexNet use to artificially expand its source training footprint without harvesting new source images?",
+      "options": [
+        "Transfer Learning bases",
+        "Identity residual mapping",
+        "Data Augmentation (cropping, flipping, etc.)",
+        "Homogeneous stacks"
+      ],
+      "answer": 2,
+      "explanation": "Data Augmentation allowed AlexNet to artificially boost its training scale through spatial alterations like crop patterns and mirroring."
+    },
+    {
+      "id": 19,
+      "question": "How many layers deep was the core configuration of the classic AlexNet network?",
+      "options": [
+        "5 layers",
+        "8 layers",
+        "16 layers",
+        "22 layers"
+      ],
+      "answer": 1,
+      "explanation": "AlexNet was considerably deeper than previous architectures of its era, featuring 8 learned layers."
+    },
+    {
+      "id": 20,
+      "question": "The structural hallmark of the VGGNet design architecture is defined by:",
+      "options": [
+        "Inception structures containing asymmetric pooling nodes",
+        "Varying random convolutional filter dimensions across every layer",
+        "Homogeneous blocks utilizing uniform, small 3x3 filters throughout",
+        "Extremely wide blocks with minimal deep pooling steps"
+      ],
+      "answer": 2,
+      "explanation": "VGGNet simplified network structural logic by focusing on uniform, stacked blocks composed entirely of tiny 3x3 filters."
+    },
+    {
+      "id": 21,
+      "question": "What key advantage does stacking two 3x3 convolutional layers provide compared to employing a single 5x5 layer?",
+      "options": [
+        "It achieves the same effective receptive field but integrates more non-linearities and reduces parameter footprints",
+        "It eliminates the need for activation functions entirely",
+        "It prevents spatial size reduction during processing",
+        "It doubles the resolution of the image"
+      ],
+      "answer": 0,
+      "explanation": "A stack of two 3x3 layers replicates a 5x5 receptive field while creating additional non-linear decision thresholds and reducing overall network parameters."
+    },
+    {
+      "id": 22,
+      "question": "Which specific variants of VGGNet became prominent standard configurations used globally across computer vision research?",
+      "options": [
+        "VGG-5 and VGG-8",
+        "VGG-16 and VGG-19",
+        "VGG-50 and VGG-100",
+        "VGG-2012 and VGG-2015"
+      ],
+      "answer": 1,
+      "explanation": "VGG-16 and VGG-19, incorporating 16 and 19 weight layers respectively, represent the most famous standard variations of VGG."
+    },
+    {
+      "id": 23,
+      "question": "Which model achieved an efficiency footprint of only 5 million parameters (12x fewer than AlexNet) while winning ILSVRC 2014 via Inception modules?",
+      "options": [
+        "VGG-16",
+        "ResNet-50",
+        "GoogLeNet",
+        "LeNet-5"
+      ],
+      "answer": 2,
+      "explanation": "GoogLeNet (Inception) prioritized parameter efficiency, using only 5 million parameters while achieving a 6.7% top-5 error rate."
+    },
+    {
+      "id": 24,
+      "question": "As network topologies became extremely deep (e.g., 56 layers), they encountered the 'degradation problem'. What defines this phenomenon?",
+      "options": [
+        "Overfitting where training performance remains perfect but test validation metrics fail completely",
+        "Optimization limitations where deeper configurations yield worse errors on *both* training and testing metrics",
+        "Hardware memory crashes due to excessive float parameter states",
+        "A complete destruction of the input dataset during transformation steps"
+      ],
+      "answer": 1,
+      "explanation": "Degradation implies that adding more layers causes accuracy to saturate and then degrade, increasing both training and testing errors, which shows optimization difficulties rather than standard overfitting."
+    },
+    {
+      "id": 25,
+      "question": "ResNet alters direct layer mapping H(x) into a residual framework. What expression represents this mapping?",
+      "options": [
+        "F(x) = H(x) * x",
+        "F(x) = H(x) - x",
+        "F(x) = H(x) + x",
+        "F(x) = x / H(x)"
+      ],
+      "answer": 1,
+      "explanation": "ResNet models a residual mapping defined as F(x) = H(x) - x, allowing layers to learn offsets relative to the input identity matrix."
+    },
+    {
+      "id": 26,
+      "question": "What architectural mechanism allows ResNet to route data around one or more blocks, effectively resolving the optimization degradation issue?",
+      "options": [
+        "Inception pooling branches",
+        "Skip Connections (or Shortcut Connections)",
+        "Dropout nodes",
+        "Dense bottleneck routing"
+      ],
+      "answer": 1,
+      "explanation": "Skip connections bypass processing blocks to directly pass identity inputs forward. This makes it easier for the network to optimize identity operations by pushing residuals toward zero."
+    },
+    {
+      "id": 27,
+      "question": "Which model achieved a top-5 error rate of 3.6% on ImageNet using a 152-layer deep framework?",
+      "options": [
+        "VGGNet",
+        "AlexNet",
+        "ResNet",
+        "GoogLeNet"
+      ],
+      "answer": 2,
+      "explanation": "ResNet won ILSVRC 2015 with a 152-layer framework, solving the degradation problem and achieving a 3.6% top-5 error rate."
+    },
+    {
+      "id": 28,
+      "question": "What core rule governs feature extraction hierarchies across early versus late convolutional base blocks?",
+      "options": [
+        "Early layers acquire late task-specific patterns; late layers discover generic elements",
+        "Early blocks detect generic elements (edges, colors, textures); later layers extract complex, task-specific features",
+        "All blocks capture identical generic parameters across the board",
+        "Early layers focus exclusively on structural bounding tracking maps"
+      ],
+      "answer": 1,
+      "explanation": "CNNs learn a hierarchy of features. Early layers detect generic patterns like edges and textures, whereas deep, late layers specialize in task-specific structural details."
+    },
+    {
+      "id": 29,
+      "question": "In Transfer Learning via 'Feature Extraction', what action is performed on the convolutional base weights?",
+      "options": [
+        "They are randomized completely via Gaussian distribution values",
+        "They are frozen to prevent any weight modifications during training",
+        "They are optimized using an aggressive learning rate parameter",
+        "They are removed entirely to save compute memory"
+      ],
+      "answer": 1,
+      "explanation": "Feature extraction freezes the pre-trained convolutional base layers, preserving their weights while training a newly added classifier on top."
+    },
+    {
+      "id": 30,
+      "question": "What step is required when executing 'Fine-Tuning' to modify a pre-trained network's higher-level feature extractors for a new target dataset?",
+      "options": [
+        "Delete all prior layers and rebuild from scratch",
+        "Unfreeze top layers of the convolutional base and train using a very low learning rate",
+        "Maximize dropout parameters up to 99%",
+        "Avoid using classification heads"
+      ],
+      "answer": 1,
+      "explanation": "Fine-tuning unfreezes a few top layers of the convolutional base and trains them along with the new classifier using a very low learning rate to subtly adjust features."
+    },
+    {
+      "id": 31,
+      "question": "Convolutional layers systematically discard spatial information during feature extraction workflows.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 1,
+      "explanation": "False. Convolutional layers explicitly use spatial localized tracking matrices to preserve structural relationship values across pixels."
+    },
+    {
+      "id": 32,
+      "question": "Object Detection is equivalent to performing localization for multiple unique entities alongside classification inside an image framework.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 0,
+      "explanation": "True. Detection explicitly expands localization across multiple entities within a scene."
+    },
+    {
+      "id": 33,
+      "question": "Image Classification tasks require pixel-perfect categorical masks to isolate target boundaries.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 1,
+      "explanation": "False. Classification only provides an overall categorical label for the image without drawing bounding boxes or generating masks."
+    },
+    {
+      "id": 34,
+      "question": "A function is considered equivariant to a transformation if modifying the input results in an identical alteration to the output mapping.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 0,
+      "explanation": "True. Equivariance maintains consistency under transformation updates: f(t[x]) = t(f[x])."
+    },
+    {
+      "id": 35,
+      "question": "AlexNet utilized Rectified Linear Units (ReLU) to help mitigate vanishing gradients, allowing for faster training times over older tanh functions.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 0,
+      "explanation": "True. ReLU keeps gradients active across positive scalar zones, avoiding the saturation issues seen with tanh."
+    },
+    {
+      "id": 36,
+      "question": "The standard VGG-16 model features a highly complex, heterogeneous array of random filter sizes across consecutive processing steps.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 1,
+      "explanation": "False. VGG relies on uniform, homogeneous blocks comprised entirely of 3x3 filters."
+    },
+    {
+      "id": 37,
+      "question": "The degradation problem encountered in deeper architectures is caused by severe overfitting on training data.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 1,
+      "explanation": "False. Degradation causes error rates to rise across *both* training and testing splits, pointing to optimization difficulties rather than standard overfitting."
+    },
+    {
+      "id": 38,
+      "question": "ResNet handles deep configuration optimization challenges by introducing identity skip connections.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 0,
+      "explanation": "True. Skip connections make optimization easier by allowing layers to learn residual mappings relative to an identity shortcut."
+    },
+    {
+      "id": 39,
+      "question": "Early layers within deep convolutional networks focus on highly specialized, task-specific details.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 1,
+      "explanation": "False. Early network blocks extract generic elements like edges and textures, whereas deeper blocks specialize in task-specific features."
+    },
+    {
+      "id": 40,
+      "question": "Fine-tuning a network requires using a very low learning rate to protect pre-trained weights from being destroyed.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 0,
+      "explanation": "True. A very low learning rate ensures that backpropagation updates make subtle, incremental changes to pre-trained feature weights rather than destroying them."
+    }
+  ]
+}
