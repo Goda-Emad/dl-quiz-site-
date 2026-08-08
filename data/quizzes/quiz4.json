@@ -1,1 +1,229 @@
-
+{
+  "quiz": 4,
+  "title": "Quiz 4 — CNN Architecture (Week 5)",
+  "covers": "Week 5",
+  "total_questions": 20,
+  "type": "theoretical",
+  "questions": [
+    {
+      "id": 1,
+      "question": "If a data block in a convolutional network has a size of H x W x D = 200x200x128, and we apply a single convolutional filter of dimensions 7x7x128 with padding 0 and stride 1, what is the dimension of the output data block?",
+      "options": [
+        "194 x 194 x 1",
+        "200 x 200 x 1",
+        "194 x 194 x 128",
+        "193 x 193 x 128"
+      ],
+      "answer": 0,
+      "explanation": "Output size = (200 - 7 + 1) = 194. With 1 filter, depth = 1. Output: 194×194×1."
+    },
+    {
+      "id": 2,
+      "question": "According to the hierarchical vision structure of CNNs, what features do early layers typically learn to detect?",
+      "options": [
+        "Simple features like edges, dark spots, and horizontal/vertical boundaries",
+        "Complex objects like whole facial structures or vehicles",
+        "Mid-level feature segments like eyes, noses, and ears",
+        "Softmax categorical class distribution probabilities"
+      ],
+      "answer": 0,
+      "explanation": "Early CNN layers detect simple features like edges and colors, which are combined into complex patterns in deeper layers."
+    },
+    {
+      "id": 3,
+      "question": "In the final code block model definition, the last Dense layer uses an activation of 'softmax' with 10 outputs.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 0,
+      "explanation": "True. For 10-class classification (e.g., Fashion-MNIST), softmax with 10 outputs is used as the final layer."
+    },
+    {
+      "id": 4,
+      "question": "How does the pooling layer affect feature detection capabilities regarding minor structural shifts?",
+      "options": [
+        "It renders the network extremely sensitive to slight changes in positional contrast ratios.",
+        "It forces spatial resolution attributes to expand lineally.",
+        "It makes feature detection more robust to small shifts and distortions in the input image (translational invariance).",
+        "It cancels non-linear behaviors created by rectified linear activation layers."
+      ],
+      "answer": 2,
+      "explanation": "Pooling provides translational invariance by downsampling and retaining dominant activations regardless of slight positional shifts."
+    },
+    {
+      "id": 5,
+      "question": "For an input image of shape 500x500x3, a convolutional layer applies 10 filters with a kernel size of 5x5. How many total trainable parameters (including weights and biases) does this convolutional layer contain?",
+      "options": [
+        "75,000,000 parameters",
+        "250 parameters",
+        "760 parameters (computed as 5 * 5 * 3 * 10 + 10)",
+        "750 parameters"
+      ],
+      "answer": 2,
+      "explanation": "Weights = 5×5×3×10 = 750. Biases = 10. Total = 760 parameters."
+    },
+    {
+      "id": 6,
+      "question": "An activation function layer like ReLU is introduced into CNN architectures because real-world data is non-linear.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 0,
+      "explanation": "True. ReLU introduces non-linearity, allowing the network to learn complex, non-linear patterns in data."
+    },
+    {
+      "id": 7,
+      "question": "Spatial correlations among local pixels of an image are generally closer than those among distant pixels.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 0,
+      "explanation": "True. Nearby pixels are more correlated than distant pixels, which is why local receptive fields work well."
+    },
+    {
+      "id": 8,
+      "question": "Under the local receptive field principle, each individual neuron must process the global image dimensions simultaneously to find local edges.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 1,
+      "explanation": "False. Each neuron processes only a local region of the input, not the global image simultaneously."
+    },
+    {
+      "id": 9,
+      "question": "In the solved example where a flattened 500x500x3 image passes to a dense layer with 100 hidden units, what is the shape of the corresponding bias vector?",
+      "options": [
+        "500",
+        "100",
+        "3",
+        "75,000,000"
+      ],
+      "answer": 1,
+      "explanation": "Each hidden unit has one bias, so bias vector shape is (100,) for 100 neurons."
+    },
+    {
+      "id": 10,
+      "question": "The fully connected layer at the end of a CNN uses extracted high-level features for classifying the input image.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 0,
+      "explanation": "True. The fully connected layer takes high-level features extracted by convolutional layers for final classification."
+    },
+    {
+      "id": 11,
+      "question": "Max-pooling extracts the average value of all elements contained within the local filter area window.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 1,
+      "explanation": "False. Max-pooling extracts the maximum value, not the average. Average pooling extracts the average."
+    },
+    {
+      "id": 12,
+      "question": "How is the mathematical element-wise operation of a kernel sliding over an image section summarized?",
+      "options": [
+        "An element-wise division of pixel vectors normalized by a matrix dot product",
+        "An element-wise multiplication between the kernel and underlying image patch, with results summed into a single pixel",
+        "A global matrix inversion of the patch dimensions mapping straight to a softmax distribution",
+        "An arithmetic calculation finding only the maximum absolute variable inside the kernel range"
+      ],
+      "answer": 1,
+      "explanation": "Convolution involves element-wise multiplication between kernel and image patch, with results summed into a single output value."
+    },
+    {
+      "id": 13,
+      "question": "Convolutional layers are better suited for processing images than fully connected layers because they assume nearby pixels share similar structure.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 0,
+      "explanation": "True. Convolution exploits spatial locality by assuming nearby pixels are more related than distant ones."
+    },
+    {
+      "id": 14,
+      "question": "Which of the following represents an activation layer commonly applied directly after a Convolution layer to introduce non-linearity into a classification CNN?",
+      "options": [
+        "ReLU",
+        "MaxPooling2D",
+        "BatchNorm",
+        "Flatten"
+      ],
+      "answer": 0,
+      "explanation": "ReLU is the most common activation function applied after convolution layers to introduce non-linearity."
+    },
+    {
+      "id": 15,
+      "question": "What does the 'stride' hyperparameter determine in a convolutional layer?",
+      "options": [
+        "The step size at which the convolutional kernel/filter is moved across the input data",
+        "The depth dimension count generated at the end of a pooling layer block",
+        "The extra border pixels padded around an input image matrix to preserve spatial resolution",
+        "The number of neurons present in the final Multi-layer Perceptron classifier head"
+      ],
+      "answer": 0,
+      "explanation": "Stride determines how many pixels the kernel moves each step. Stride=1 moves one pixel, stride=2 moves two pixels."
+    },
+    {
+      "id": 16,
+      "question": "In a Convolutional Neural Network, the concept of a 'local receptive field' implies that:",
+      "options": [
+        "Every hidden neuron connects comprehensively to every single pixel in the entire global input volume.",
+        "Each neuron only needs to process a local region of the input image, which is combined at higher levels to generate global information.",
+        "Spatial configurations are discarded in favor of global statistical correlations.",
+        "Filters must match the exact dimensions of the total input volume."
+      ],
+      "answer": 1,
+      "explanation": "Local receptive fields allow neurons to process small regions, with higher layers combining them into global representations."
+    },
+    {
+      "id": 17,
+      "question": "Sharing kernel parameters across an input image allows features to be invariant to the location of objects in images.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 0,
+      "explanation": "True. Parameter sharing means the same filter detects the same feature anywhere in the image, providing translational invariance."
+    },
+    {
+      "id": 18,
+      "question": "Human vision and CNN architectures operate similarly by recognizing complex abstract structures first, and then decomposing them into simple edges in deep layers.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 1,
+      "explanation": "False. Both operate from simple to complex: edges → shapes → objects, not the reverse."
+    },
+    {
+      "id": 19,
+      "question": "What does parameter sharing mean during the convolution operation across an image?",
+      "options": [
+        "Every individual pixel location utilizes a completely unique filter weight matrix.",
+        "Layers share their learned features directly with the multi-layer perceptron without spatial mapping.",
+        "A filter uses the same fixed weights as it slides/scans across the entire input image.",
+        "Weights are dynamically randomly reset at each sliding stride configuration."
+      ],
+      "answer": 2,
+      "explanation": "Parameter sharing means the same filter weights are applied at every spatial location, detecting features anywhere in the image."
+    },
+    {
+      "id": 20,
+      "question": "According to the solved table example solutions, standard POOL-2 layers add zero additional biases to the model structure.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 0,
+      "explanation": "True. Pooling layers have zero learnable parameters, including no biases."
+    }
+  ]
+}
