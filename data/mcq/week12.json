@@ -1,1 +1,446 @@
-
+{
+  "week": 12,
+  "title": "Understanding Attention Mechanisms",
+  "questions": [
+    {
+      "id": 1,
+      "question": "What is the primary cause of the vanishing gradient problem in vanilla Recurrent Neural Networks (RNNs)?",
+      "options": [
+        "Excessive use of non-linear activation functions",
+        "Repeated matrix multiplication with small derivatives during backpropagation via the chain rule",
+        "The model taking SGD steps that are too large",
+        "High dimensional word embeddings"
+      ],
+      "answer": 1,
+      "explanation": "As gradients backpropagate through time using the chain rule, repeated multiplication of small derivatives causes the gradient signal to shrink exponentially."
+    },
+    {
+      "id": 2,
+      "question": "What is the main consequence of vanishing gradients in an RNN Language Model (RNN-LM)?",
+      "options": [
+        "The weights produce Inf or NaN values",
+        "The model updates parameters too aggressively",
+        "The model fails to learn long-distance context and dependencies",
+        "The training loss drops instantly to zero"
+      ],
+      "answer": 2,
+      "explanation": "Because the far-away gradient vanishes, model weights are only updated based on near effects, ignoring long-term context."
+    },
+    {
+      "id": 3,
+      "question": "What standard solution is commonly used to resolve the exploding gradient problem?",
+      "options": [
+        "Mean-pooling hidden states",
+        "Gradient clipping",
+        "Adding more layers to the Encoder",
+        "Removing the activation functions"
+      ],
+      "answer": 1,
+      "explanation": "Gradient clipping rescales the gradient vector if its norm exceeds a defined threshold, preventing unstable weight updates."
+    },
+    {
+      "id": 4,
+      "question": "Neural Machine Translation (NMT) directly calculates which of the following probabilities?",
+      "options": [
+        "P(x|y)",
+        "P(y)",
+        "P(y|x)",
+        "P(x, y)"
+      ],
+      "answer": 2,
+      "explanation": "NMT is a Conditional Language Model that directly models P(y|x), the probability of target sequence y given source sequence x."
+    },
+    {
+      "id": 5,
+      "question": "What is the 'bottleneck problem' in standard (non-attention) Sequence-to-Sequence models?",
+      "options": [
+        "The loss function calculation takes linear time",
+        "All information about the source sentence must be compressed into a single fixed-size vector",
+        "Decoders cannot execute argmax operations in parallel",
+        "Hidden states cannot be computed during inference"
+      ],
+      "answer": 1,
+      "explanation": "The final hidden state of the encoder must store all information of the source sentence, creating a compression bottleneck for long sequences."
+    },
+    {
+      "id": 6,
+      "question": "Attention provides a dynamic connection between which two components?",
+      "options": [
+        "Input word embeddings and loss outputs",
+        "Decoder hidden states and all Encoder hidden states",
+        "Optimizer learning rate and weight matrices",
+        "First hidden state and last output token"
+      ],
+      "answer": 1,
+      "explanation": "At each step, the current decoder state (query) attends to all encoder hidden states (keys/values)."
+    },
+    {
+      "id": 7,
+      "question": "How is an attention score computed between a decoder state and an encoder state in basic dot-product attention?",
+      "options": [
+        "Element-wise addition",
+        "Softmax normalization directly",
+        "Dot product of the two hidden vectors",
+        "Euclidean distance average"
+      ],
+      "answer": 2,
+      "explanation": "The simplest similarity measure for attention scores is the scalar dot product between vectors."
+    },
+    {
+      "id": 8,
+      "question": "What function is applied to raw attention scores to produce the attention distribution (weights)?",
+      "options": [
+        "Sigmoid function",
+        "Softmax function",
+        "ReLU function",
+        "Tanh function"
+      ],
+      "answer": 1,
+      "explanation": "The Softmax function normalizes raw attention scores into probabilities that sum to 1."
+    },
+    {
+      "id": 9,
+      "question": "How is the 'attention output' (or context vector) calculated?",
+      "options": [
+        "Weighted sum of the encoder hidden states (values) using attention weights",
+        "Simple element-wise average of all target embeddings",
+        "Multiplying decoder hidden states by the learning rate",
+        "Taking the maximum value across all hidden units"
+      ],
+      "answer": 0,
+      "explanation": "The attention distribution is used to weight the values (encoder hidden states), which are then summed."
+    },
+    {
+      "id": 10,
+      "question": "In a traditional seq2seq model with attention, what acts as the 'Query'?",
+      "options": [
+        "The word embedding of the source text",
+        "The current Decoder hidden state",
+        "The target vocabulary list",
+        "The previous layer's gradient"
+      ],
+      "answer": 1,
+      "explanation": "The Decoder hidden state searches (queries) the source representations to find relevant information."
+    },
+    {
+      "id": 11,
+      "question": "Which of the following is NOT a benefit of attention in NMT?",
+      "options": [
+        "It eliminates the sequence length bottleneck",
+        "It provides shortcut pathways that help reduce vanishing gradients",
+        "It provides interpretability via soft alignments",
+        "It reduces computational complexity to linear time relative to sequence length"
+      ],
+      "answer": 3,
+      "explanation": "Attention mechanisms generally have quadratic O(N²) complexity with respect to sequence length."
+    },
+    {
+      "id": 12,
+      "question": "What is the fundamental difference between Self-Attention and Cross-Attention?",
+      "options": [
+        "Self-attention operates only on target outputs without training weights",
+        "Self-attention relates tokens within the same sequence, whereas cross-attention relates tokens between two different sequences",
+        "Self-attention uses linear regression instead of dot products",
+        "Cross-attention does not require Key and Value matrices"
+      ],
+      "answer": 1,
+      "explanation": "Self-attention computes representations by looking at other positions within the same input sequence."
+    },
+    {
+      "id": 13,
+      "question": "In self-attention, how are Queries (q), Keys (k), and Values (v) generated from an input embedding x?",
+      "options": [
+        "By multiplying x with three separate trainable projection matrices: W_Q, W_K, and W_V",
+        "By taking the average, min, and max of vector x",
+        "By applying a softmax directly to x",
+        "They are randomly initialized constants fixed during training"
+      ],
+      "answer": 0,
+      "explanation": "q_i = Qx_i, k_i = Kx_i, v_i = Vx_i where Q, K, and V are weight matrices learned during training."
+    },
+    {
+      "id": 14,
+      "question": "What geometric interpretation explains why the dot product measures vector similarity?",
+      "options": [
+        "It calculates the gradient descent direction",
+        "It is proportional to the cosine of the angle between two vectors",
+        "It computes the exponential variance between two features",
+        "It measures the inverse Euclidean distance squared"
+      ],
+      "answer": 1,
+      "explanation": "Since x₁ · x₂ = |x₁||x₂| cos(θ), identical directions produce positive scores while opposite directions produce negative ones."
+    },
+    {
+      "id": 15,
+      "question": "In the efficient matrix implementation of scaled dot-product self-attention, what is the correct formula?",
+      "options": [
+        "softmax(Q K^T) · V",
+        "softmax(Q K^T / √d_k) V",
+        "sigmoid(Q V) · K",
+        "Q · K · V / d_k"
+      ],
+      "answer": 1,
+      "explanation": "The scaled dot-product attention formula is softmax(QK^T/√d_k)V."
+    },
+    {
+      "id": 16,
+      "question": "Why is scaling by √d_k used in Scaled Dot-Product Attention?",
+      "options": [
+        "To make matrix dimensions compatible for multiplication",
+        "To keep dot-product magnitudes moderate and prevent small gradients in softmax",
+        "To remove word order information from inputs",
+        "To convert negative vectors into positive values"
+      ],
+      "answer": 1,
+      "explanation": "Large values of d_k cause dot products to grow large, pushing softmax into regions with extremely small gradients. Scaling mitigates this."
+    },
+    {
+      "id": 17,
+      "question": "What barrier exists if self-attention is used entirely on its own without additional components?",
+      "options": [
+        "It cannot compute dot products in parallel",
+        "It lacks an inherent notion of sequence order and lacks non-linearities",
+        "It requires recurrent feedback loops that slow down execution",
+        "It cannot process sequences longer than 5 tokens"
+      ],
+      "answer": 1,
+      "explanation": "Self-attention is order-invariant (permutation-symmetric) and relies purely on linear weighted averages without non-linear operations."
+    },
+    {
+      "id": 18,
+      "question": "What simple baseline method was discussed as a precursor to attention for creating a sentence encoding from hidden states?",
+      "options": [
+        "Element-wise max or mean pooling of hidden states",
+        "Multiplying states by zero",
+        "Gradient clipping along time steps",
+        "Removing backward passes"
+      ],
+      "answer": 0,
+      "explanation": "Before attention, taking the element-wise mean or max pooling across sequence hidden states was a common basic approach."
+    },
+    {
+      "id": 19,
+      "question": "Seq2Seq models optimized end-to-end for Machine Translation optimize what objective?",
+      "options": [
+        "Sum of squared errors across embeddings",
+        "Sum of negative log probabilities of correct target words",
+        "Cosine distance of encoder hidden vectors",
+        "Gradient clipping norm threshold"
+      ],
+      "answer": 1,
+      "explanation": "NMT models are trained by minimizing the sum of negative log probabilities (cross-entropy loss) over target words."
+    },
+    {
+      "id": 20,
+      "question": "In what year did Neural Machine Translation transition into mainstream standard practice across major tech platforms?",
+      "options": [
+        "1998",
+        "2008",
+        "2016",
+        "2024"
+      ],
+      "answer": 2,
+      "explanation": "Following initial seq2seq papers in 2014, NMT became the production standard around 2016 (e.g., Google Translate)."
+    },
+    {
+      "id": 21,
+      "question": "Exploding gradients in RNNs can result in parameters yielding 'Inf' or 'NaN' values.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 0,
+      "explanation": "True. Step updates that are too large push parameters into invalid numerical ranges resulting in Inf/NaN."
+    },
+    {
+      "id": 22,
+      "question": "Gradient clipping changes the direction of the gradient vector.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 1,
+      "explanation": "False. Gradient clipping scales down the magnitude of the vector while keeping its original direction intact."
+    },
+    {
+      "id": 23,
+      "question": "In a vanilla RNN, the hidden state is continuously rewritten at every timestep.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 0,
+      "explanation": "True. The formula h^(t) = σ(W_h h^(t-1) + W_x x^(t) + b) constantly overwrites information."
+    },
+    {
+      "id": 24,
+      "question": "Statistical Machine Translation (SMT) systems were simpler to build than early NMT systems.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 1,
+      "explanation": "False. SMT systems required complex feature engineering by hundreds of engineers over years, whereas NMT systems were end-to-end trained."
+    },
+    {
+      "id": 25,
+      "question": "At test time, a Seq2Seq decoder uses its own previous word predictions as inputs for the next time step.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 0,
+      "explanation": "True. During inference/test time, predicted outputs are fed back into the decoder at step t+1."
+    },
+    {
+      "id": 26,
+      "question": "Seq2Seq architectures are strictly restricted to Machine Translation and cannot be applied to tasks like summarization or code generation.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 1,
+      "explanation": "False. Seq2Seq is highly versatile and used for summarization, dialogue, parsing, and code generation."
+    },
+    {
+      "id": 27,
+      "question": "NMT training uses backpropagation end-to-end to optimize the entire encoder-decoder system simultaneously.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 0,
+      "explanation": "True. The loss is backpropagated end-to-end through both decoder and encoder."
+    },
+    {
+      "id": 28,
+      "question": "Human visual attention inspires attention mechanisms in deep learning.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 0,
+      "explanation": "True. Just as humans focus visual attention on specific regions, neural models focus on relevant sub-parts of data."
+    },
+    {
+      "id": 29,
+      "question": "Attention allows a decoder to look directly at source encoder states, effectively bypassing the bottleneck.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 0,
+      "explanation": "True. Direct shortcut connections allow retrieval of information without compressing everything into one final vector."
+    },
+    {
+      "id": 30,
+      "question": "Attention alignment maps between source and target words must always be manually provided via human annotations during training.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 1,
+      "explanation": "False. The network learns soft alignments automatically without explicit alignment supervision."
+    },
+    {
+      "id": 31,
+      "question": "Attention mechanisms are exclusive to sequence-to-sequence models and cannot be used in other architectures.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 1,
+      "explanation": "False. Attention is a general deep learning technique applicable across vision, audio, tabular, and feed-forward architectures."
+    },
+    {
+      "id": 32,
+      "question": "Softmax normalization produces weights that are all positive and sum up to 1.0.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 0,
+      "explanation": "True. Softmax creates a valid probability distribution where values range between 0 and 1 and sum to 1."
+    },
+    {
+      "id": 33,
+      "question": "In self-attention, each word's representation is updated by taking a weighted sum of all values in the sequence.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 0,
+      "explanation": "True. o_i = Σ_j α_ij v_j updates token representation based on all value vectors weighted by attention."
+    },
+    {
+      "id": 34,
+      "question": "If two vectors are orthogonal (at 90 degrees), their dot product similarity is zero.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 0,
+      "explanation": "True. cos(90°) = 0, so orthogonal vectors yield a dot product of zero."
+    },
+    {
+      "id": 35,
+      "question": "In matrix operations for self-attention, input tokens are represented as columns rather than rows in matrix X.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 1,
+      "explanation": "False. In standard self-attention notation (e.g., Jay Alammar diagrams), each row of matrix X represents an input token vector."
+    },
+    {
+      "id": 36,
+      "question": "Self-attention inherently understands word order without needing positional encodings.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 1,
+      "explanation": "False. Self-attention is order-agnostic; positional encodings must be explicitly added to convey sequence order."
+    },
+    {
+      "id": 37,
+      "question": "In sequence generation tasks, masking is necessary in self-attention to prevent the decoder from looking at future tokens.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 0,
+      "explanation": "True. Causal/Look-ahead masking ensures predictions for step t depend only on tokens at positions < t."
+    },
+    {
+      "id": 38,
+      "question": "Attention mechanism computational cost grows linearly O(N) with respect to sequence length N.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 1,
+      "explanation": "False. Computing pairwise similarity between all tokens results in quadratic O(N²) computational complexity."
+    },
+    {
+      "id": 39,
+      "question": "LSTMs solved the vanishing gradient problem entirely, making direct connections like attention redundant.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 1,
+      "explanation": "False. While LSTMs help retain long-term memory better than vanilla RNNs, they still suffer from compression bottlenecks over long sequences, making attention essential."
+    },
+    {
+      "id": 40,
+      "question": "The milestone paper that introduced self-attention as a standalone architecture is titled 'Attention Is All You Need'.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 0,
+      "explanation": "True. The landmark 2017 paper by Vaswani et al. introduced the Transformer network built entirely on self-attention."
+    }
+  ]
+}
