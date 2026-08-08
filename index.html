@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar" dir="ltr">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -13,477 +13,16 @@
     <!-- ===== FONT AWESOME ===== -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
-    <style>
-        /* ============================================================
-                   ROOT VARIABLES
-                   ============================================================ */
-        :root {
-            --bg-primary: #f8fafc;
-            --bg-card: #ffffff;
-            --bg-card-hover: #f1f5f9;
-            --text-primary: #0f172a;
-            --text-secondary: #475569;
-            --text-muted: #94a3b8;
-            --border-light: #e2e8f0;
-            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
-            --shadow-md: 0 10px 40px rgba(0, 0, 0, 0.08);
-            --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.12);
-            --radius-md: 16px;
-            --radius-sm: 10px;
-            --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-
-            /* ===== ACCENT GRADIENTS ===== */
-            --gradient-hero: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-            --gradient-accent: linear-gradient(135deg, #6366f1, #8b5cf6);
-            --gradient-accent-hover: linear-gradient(135deg, #4f46e5, #7c3aed);
-            --gradient-card-1: linear-gradient(135deg, #eef2ff, #e0e7ff);
-            --gradient-card-2: linear-gradient(135deg, #f0fdf4, #dcfce7);
-            --gradient-card-3: linear-gradient(135deg, #fefce8, #fef9c3);
-            --gradient-card-4: linear-gradient(135deg, #fef2f2, #fee2e2);
-            --gradient-card-5: linear-gradient(135deg, #f3e8ff, #e9d5ff);
-            --gradient-card-6: linear-gradient(135deg, #fce7f3, #fbcfe8);
-            --gradient-card-7: linear-gradient(135deg, #cffafe, #a5f3fc);
-            --gradient-card-8: linear-gradient(135deg, #dbeafe, #bfdbfe);
-        }
-
-        /* ============================================================
-                   RESET & BASE
-                   ============================================================ */
-        *,
-        *::before,
-        *::after {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            line-height: 1.6;
-            min-height: 100vh;
-            padding: 0 24px 60px;
-        }
-
-        /* ============================================================
-                   CONTAINER
-                   ============================================================ */
-        .container {
-            max-width: 1280px;
-            margin: 0 auto;
-        }
-
-        /* ============================================================
-                   HEADER / HERO
-                   ============================================================ */
-        .hero {
-            background: var(--gradient-hero);
-            border-radius: 0 0 40px 40px;
-            padding: 48px 48px 40px;
-            margin: 0 -24px 48px;
-            position: relative;
-            overflow: hidden;
-            box-shadow: var(--shadow-lg);
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: -60%;
-            right: -10%;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, transparent 70%);
-            border-radius: 50%;
-            pointer-events: none;
-        }
-
-        .hero::after {
-            content: '';
-            position: absolute;
-            bottom: -40%;
-            left: -5%;
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, rgba(139, 92, 246, 0.10) 0%, transparent 70%);
-            border-radius: 50%;
-            pointer-events: none;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 1;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 24px;
-        }
-
-        .hero-text h1 {
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: #ffffff;
-            letter-spacing: -0.03em;
-            line-height: 1.2;
-        }
-
-        .hero-text h1 .highlight {
-            background: var(--gradient-accent);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .hero-text p {
-            color: #cbd5e1;
-            font-size: 1.1rem;
-            margin-top: 6px;
-            font-weight: 400;
-            max-width: 560px;
-        }
-
-        .hero-stats {
-            display: flex;
-            gap: 40px;
-            background: rgba(255, 255, 255, 0.06);
-            backdrop-filter: blur(8px);
-            padding: 16px 32px;
-            border-radius: 60px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            flex-shrink: 0;
-        }
-
-        .hero-stats .stat {
-            text-align: center;
-        }
-
-        .hero-stats .stat .number {
-            font-size: 1.6rem;
-            font-weight: 700;
-            color: #ffffff;
-            display: block;
-            line-height: 1.2;
-        }
-
-        .hero-stats .stat .label {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
-            color: #94a3b8;
-            font-weight: 500;
-        }
-
-        /* ============================================================
-                   SECTION TITLES
-                   ============================================================ */
-        .section-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-            gap: 12px;
-        }
-
-        .section-header h2 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .section-header h2 i {
-            color: #6366f1;
-            font-size: 1.3rem;
-        }
-
-        .section-header .badge-count {
-            background: var(--border-light);
-            padding: 4px 14px;
-            border-radius: 40px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: var(--text-secondary);
-        }
-
-        .section-divider {
-            border: none;
-            height: 2px;
-            background: var(--border-light);
-            margin: 40px 0 36px;
-        }
-
-        /* ============================================================
-                   CARD GRID
-                   ============================================================ */
-        .card-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 20px;
-        }
-
-        /* ============================================================
-                   WEEK CARD
-                   ============================================================ */
-        .week-card {
-            background: var(--bg-card);
-            border-radius: var(--radius-md);
-            padding: 24px 22px 22px;
-            border: 1px solid var(--border-light);
-            box-shadow: var(--shadow-sm);
-            transition: var(--transition);
-            cursor: pointer;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .week-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-md);
-            border-color: #c7d2fe;
-            background: var(--bg-card-hover);
-        }
-
-        .week-card:active {
-            transform: scale(0.98);
-        }
-
-        .week-card .card-top {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 8px;
-        }
-
-        .week-card .week-number {
-            font-size: 0.7rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: #6366f1;
-            background: #eef2ff;
-            padding: 2px 12px;
-            border-radius: 40px;
-        }
-
-        .week-card .question-count {
-            font-size: 0.7rem;
-            font-weight: 600;
-            color: var(--text-muted);
-            background: var(--bg-primary);
-            padding: 2px 12px;
-            border-radius: 40px;
-        }
-
-        .week-card h3 {
-            font-size: 1.05rem;
-            font-weight: 600;
-            margin: 6px 0 4px;
-            line-height: 1.3;
-            color: var(--text-primary);
-        }
-
-        .week-card .card-subtitle {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            margin-bottom: 12px;
-            flex: 1;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-
-        .week-card .card-footer {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-top: 12px;
-            padding-top: 14px;
-            border-top: 1px solid var(--border-light);
-        }
-
-        .week-card .card-footer .type-tag {
-            font-size: 0.7rem;
-            font-weight: 600;
-            padding: 3px 12px;
-            border-radius: 40px;
-            background: #dbeafe;
-            color: #2563eb;
-        }
-
-        .week-card .card-footer .type-tag.quiz {
-            background: #fce7f3;
-            color: #db2777;
-        }
-
-        .week-card .card-footer .type-tag.mcq {
-            background: #dbeafe;
-            color: #2563eb;
-        }
-
-        .week-card .card-footer .start-arrow {
-            font-size: 1rem;
-            color: #94a3b8;
-            transition: var(--transition);
-        }
-
-        .week-card:hover .card-footer .start-arrow {
-            color: #6366f1;
-            transform: translateX(4px);
-        }
-
-        /* ============================================================
-                   QUIZ CARD (slightly different styling)
-                   ============================================================ */
-        .week-card.quiz-card {
-            border-left: 4px solid #ec4899;
-        }
-
-        .week-card.quiz-card .week-number {
-            background: #fce7f3;
-            color: #db2777;
-        }
-
-        /* ============================================================
-                   RESPONSIVE
-                   ============================================================ */
-        @media (max-width: 1024px) {
-            .hero {
-                padding: 36px 32px 32px;
-                margin: 0 -24px 32px;
-            }
-            .hero-text h1 {
-                font-size: 2rem;
-            }
-            .hero-stats {
-                gap: 24px;
-                padding: 12px 24px;
-            }
-            .hero-stats .stat .number {
-                font-size: 1.3rem;
-            }
-        }
-
-        @media (max-width: 768px) {
-            body {
-                padding: 0 16px 40px;
-            }
-
-            .hero {
-                padding: 28px 20px 24px;
-                margin: 0 -16px 28px;
-                border-radius: 0 0 28px 28px;
-            }
-
-            .hero-text h1 {
-                font-size: 1.6rem;
-            }
-
-            .hero-text p {
-                font-size: 0.95rem;
-            }
-
-            .hero-content {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .hero-stats {
-                width: 100%;
-                justify-content: space-around;
-                gap: 12px;
-                padding: 12px 16px;
-                border-radius: 32px;
-            }
-
-            .hero-stats .stat .number {
-                font-size: 1.1rem;
-            }
-
-            .card-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .section-header h2 {
-                font-size: 1.2rem;
-            }
-
-            .week-card {
-                padding: 18px 16px 16px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .hero-text h1 {
-                font-size: 1.3rem;
-            }
-
-            .hero-stats .stat .number {
-                font-size: 1rem;
-            }
-            .hero-stats .stat .label {
-                font-size: 0.6rem;
-            }
-        }
-
-        /* ============================================================
-                   UTILITY
-                   ============================================================ */
-        .text-center {
-            text-align: center;
-        }
-        .mt-8 {
-            margin-top: 8px;
-        }
-        .mt-16 {
-            margin-top: 16px;
-        }
-        .mb-8 {
-            margin-bottom: 8px;
-        }
-        .gap-8 {
-            gap: 8px;
-        }
-
-        /* empty state */
-        .empty-state {
-            padding: 40px 20px;
-            text-align: center;
-            color: var(--text-muted);
-            background: var(--bg-card);
-            border-radius: var(--radius-md);
-            border: 1px dashed var(--border-light);
-        }
-        .empty-state i {
-            font-size: 2.4rem;
-            color: #cbd5e1;
-            display: block;
-            margin-bottom: 12px;
-        }
-        .empty-state h4 {
-            font-weight: 600;
-            color: var(--text-secondary);
-        }
-    </style>
+    <!-- ===== MAIN STYLESHEET ===== -->
+    <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
-
     <div class="container">
 
-        <!-- ==========================================================
-        HERO SECTION
-        ========================================================== -->
+        <!-- ======================================================
+             HERO SECTION
+             ====================================================== -->
         <header class="hero">
             <div class="hero-content">
                 <div class="hero-text">
@@ -513,9 +52,9 @@
             </div>
         </header>
 
-        <!-- ==========================================================
-        WEEKLY MCQ SECTION
-        ========================================================== -->
+        <!-- ======================================================
+             WEEKLY MCQ SECTION
+             ====================================================== -->
         <section>
             <div class="section-header">
                 <h2>
@@ -524,7 +63,6 @@
                 </h2>
                 <span class="badge-count" id="weekBadge">0 files</span>
             </div>
-
             <div class="card-grid" id="weekGrid">
                 <!-- cards injected by JavaScript -->
             </div>
@@ -532,9 +70,9 @@
 
         <hr class="section-divider" />
 
-        <!-- ==========================================================
-        QUIZZES SECTION
-        ========================================================== -->
+        <!-- ======================================================
+             GRADED QUIZZES SECTION
+             ====================================================== -->
         <section>
             <div class="section-header">
                 <h2>
@@ -543,207 +81,161 @@
                 </h2>
                 <span class="badge-count" id="quizBadge">0 files</span>
             </div>
-
             <div class="card-grid" id="quizGrid">
                 <!-- cards injected by JavaScript -->
             </div>
         </section>
 
-    </div>
+    </div><!-- /.container -->
 
-    <!-- ==========================================================
-    JAVASCRIPT
-    ========================================================== -->
+    <!-- ======================================================
+         JAVASCRIPT
+         ====================================================== -->
     <script>
-        (function() {
-            'use strict';
+    (function () {
+        'use strict';
 
-            // -------- DATA REGISTRY --------
-            // Each entry tells the page what files exist.
-            // For weeks: we have week1…week12 (all present).
-            // For quizzes: the files that actually exist.
-            const registry = {
+        // ── DATA REGISTRY ──────────────────────────────────────
+        const registry = {
+            weeks: [
+                { file: 'week1.json',  label: 'Week 1',  subtitle: 'Foundations of Deep Learning' },
+                { file: 'week2.json',  label: 'Week 2',  subtitle: 'Feed-Forward Networks' },
+                { file: 'week3.json',  label: 'Week 3',  subtitle: 'Preventing Overfitting' },
+                { file: 'week4.json',  label: 'Week 4',  subtitle: 'Advanced Optimizers &amp; Hyperparameter Tuning' },
+                { file: 'week5.json',  label: 'Week 5',  subtitle: 'CNN Architecture' },
+                { file: 'week6.json',  label: 'Week 6',  subtitle: 'Applied DL – CNN Architectures &amp; Transfer Learning' },
+                { file: 'week7.json',  label: 'Week 7',  subtitle: 'RNNs – Sequential Data' },
+                { file: 'week8.json',  label: 'Week 8',  subtitle: 'Model Evaluation &amp; Metrics' },
+                { file: 'week9.json',  label: 'Week 9',  subtitle: 'Autoencoders' },
+                { file: 'week10.json', label: 'Week 10', subtitle: 'Variational Autoencoders' },
+                { file: 'week11.json', label: 'Week 11', subtitle: 'Generative Adversarial Networks' },
+                { file: 'week12.json', label: 'Week 12', subtitle: 'Attention Mechanisms' }
+            ],
+            quizzes: [
+                { file: 'quiz1.json', label: 'Quiz 1', subtitle: 'Weeks 1–2 · Foundations &amp; Feed-Forward' },
+                { file: 'quiz2.json', label: 'Quiz 2', subtitle: 'Week 3 · Preventing Overfitting' },
+                { file: 'quiz4.json', label: 'Quiz 4', subtitle: 'Week 5 · CNN Part 1' },
+                { file: 'quiz5.json', label: 'Quiz 5', subtitle: 'Week 6 · CNN Part 2' },
+                { file: 'quiz6.json', label: 'Quiz 6', subtitle: 'Week 7 · RNNs' },
+                { file: 'quiz7.json', label: 'Quiz 7', subtitle: 'Week 8 · Evaluation Metrics' }
+            ]
+        };
 
-                weeks: [
-                    { file: 'week1.json', label: 'Week 1', subtitle: 'Foundations of Deep Learning' },
-                    { file: 'week2.json', label: 'Week 2', subtitle: 'Feed‑Forward Networks' },
-                    { file: 'week3.json', label: 'Week 3', subtitle: 'Preventing Overfitting' },
-                    { file: 'week4.json', label: 'Week 4', subtitle: 'Advanced Optimizers &amp; Hyperparameter Tuning' },
-                    { file: 'week5.json', label: 'Week 5', subtitle: 'CNN Architecture' },
-                    { file: 'week6.json', label: 'Week 6', subtitle: 'Applied DL – CNN Architectures &amp; Transfer Learning' },
-                    { file: 'week7.json', label: 'Week 7', subtitle: 'RNNs – Sequential Data' },
-                    { file: 'week8.json', label: 'Week 8', subtitle: 'Model Evaluation &amp; Metrics' },
-                    { file: 'week9.json', label: 'Week 9', subtitle: 'Autoencoders' },
-                    { file: 'week10.json', label: 'Week 10', subtitle: 'Variational Autoencoders' },
-                    { file: 'week11.json', label: 'Week 11', subtitle: 'Generative Adversarial Networks' },
-                    { file: 'week12.json', label: 'Week 12', subtitle: 'Attention Mechanisms' }
-                ],
+        // ── DOM REFS ────────────────────────────────────────────
+        const weekGrid      = document.getElementById('weekGrid');
+        const quizGrid      = document.getElementById('quizGrid');
+        const weekBadge     = document.getElementById('weekBadge');
+        const quizBadge     = document.getElementById('quizBadge');
+        const totalWeeks    = document.getElementById('totalWeeks');
+        const totalQuizzes  = document.getElementById('totalQuizzes');
+        const totalQuestions= document.getElementById('totalQuestions');
 
-                quizzes: [
-                    { file: 'quiz1.json', label: 'Quiz 1', subtitle: 'Weeks 1–2 · Foundations &amp; Feed‑Forward' },
-                    { file: 'quiz2.json', label: 'Quiz 2', subtitle: 'Week 3 · Preventing Overfitting' },
-                    { file: 'quiz4.json', label: 'Quiz 4', subtitle: 'Week 5 · CNN Part 1' },
-                    { file: 'quiz5.json', label: 'Quiz 5', subtitle: 'Week 6 · CNN Part 2' },
-                    { file: 'quiz6.json', label: 'Quiz 6', subtitle: 'Week 7 · RNNs' },
-                    { file: 'quiz7.json', label: 'Quiz 7', subtitle: 'Week 8 · Evaluation Metrics' }
-                ]
-            };
+        // ── CARD BUILDER ────────────────────────────────────────
+        function buildCard(item, type) {
+            const isQuiz = type === 'quiz';
+            const card   = document.createElement('div');
+            card.className = 'week-card' + (isQuiz ? ' quiz-card' : '');
 
-            // -------- DOM refs --------
-            const weekGrid = document.getElementById('weekGrid');
-            const quizGrid = document.getElementById('quizGrid');
-            const weekBadge = document.getElementById('weekBadge');
-            const quizBadge = document.getElementById('quizBadge');
-            const totalWeeks = document.getElementById('totalWeeks');
-            const totalQuizzes = document.getElementById('totalQuizzes');
-            const totalQuestions = document.getElementById('totalQuestions');
+            const baseFile = item.file.replace('.json', '');
+            card.addEventListener('click', function () {
+                window.location.href = `quizzes.html?type=${type}&file=${baseFile}`;
+            });
 
-            // -------- helpers --------
-            function buildCard(item, type) {
-                // type: 'week' or 'quiz'
-                const isQuiz = type === 'quiz';
-                const card = document.createElement('div');
-                card.className = `week-card ${isQuiz ? 'quiz-card' : ''}`;
+            // Top row
+            const top = document.createElement('div');
+            top.className = 'card-top';
 
-                // click → go to quizzes.html with query param
-                const baseFile = item.file.replace('.json', '');
-                card.addEventListener('click', function() {
-                    window.location.href = `quizzes.html?type=${type}&file=${baseFile}`;
-                });
+            const badge = document.createElement('span');
+            badge.className = 'week-number';
+            badge.textContent = isQuiz ? '📝 Quiz' : `📘 ${item.label}`;
 
-                // top row
-                const top = document.createElement('div');
-                top.className = 'card-top';
+            const qCount = document.createElement('span');
+            qCount.className = 'question-count';
+            qCount.textContent = '— Q';
 
-                const badge = document.createElement('span');
-                badge.className = 'week-number';
-                badge.textContent = isQuiz ? '📝 Quiz' : `📘 ${item.label}`;
+            top.appendChild(badge);
+            top.appendChild(qCount);
+            card.appendChild(top);
 
-                const qCount = document.createElement('span');
-                qCount.className = 'question-count';
-                qCount.textContent = '40 Q'; // will be updated via fetch later
+            // Title
+            const title = document.createElement('h3');
+            title.textContent = item.label;
+            card.appendChild(title);
 
-                top.appendChild(badge);
-                top.appendChild(qCount);
-                card.appendChild(top);
+            // Subtitle
+            const sub = document.createElement('div');
+            sub.className = 'card-subtitle';
+            sub.innerHTML = item.subtitle;
+            card.appendChild(sub);
 
-                // title
-                const title = document.createElement('h3');
-                title.textContent = isQuiz ? item.label : item.label;
-                card.appendChild(title);
+            // Footer
+            const footer = document.createElement('div');
+            footer.className = 'card-footer';
 
-                // subtitle
-                const sub = document.createElement('div');
-                sub.className = 'card-subtitle';
-                sub.innerHTML = item.subtitle;
-                card.appendChild(sub);
+            const tag = document.createElement('span');
+            tag.className = 'type-tag ' + (isQuiz ? 'quiz' : 'mcq');
+            tag.textContent = isQuiz ? 'Graded Quiz' : 'MCQ';
 
-                // footer
-                const footer = document.createElement('div');
-                footer.className = 'card-footer';
+            const arrow = document.createElement('span');
+            arrow.className = 'start-arrow';
+            arrow.innerHTML = 'Start <i class="fa-regular fa-arrow-right"></i>';
 
-                const tag = document.createElement('span');
-                tag.className = `type-tag ${isQuiz ? 'quiz' : 'mcq'}`;
-                tag.textContent = isQuiz ? 'Graded Quiz' : 'MCQ';
+            footer.appendChild(tag);
+            footer.appendChild(arrow);
+            card.appendChild(footer);
 
-                const arrow = document.createElement('span');
-                arrow.className = 'start-arrow';
-                arrow.innerHTML = 'Start <i class="fa-regular fa-arrow-right"></i>';
-
-                footer.appendChild(tag);
-                footer.appendChild(arrow);
-                card.appendChild(footer);
-
-                // Asynchronously fetch the file to get the real question count.
-                // We do this after the card is built so the UI appears immediately.
-                fetch(`data/${isQuiz ? 'quizzes' : 'mcq'}/${item.file}`)
-                    .then(res => {
-                        if (!res.ok) throw new Error('File not found');
-                        return res.json();
-                    })
-                    .then(data => {
-                        if (data && Array.isArray(data.questions)) {
-                            const n = data.questions.length;
-                            qCount.textContent = `${n} Q`;
-                            // also accumulate total questions for stats
-                            window._questionCounter = (window._questionCounter || 0) + n;
-                            updateTotalQuestions();
-                        }
-                    })
-                    .catch(() => {
-                        // if file can't be loaded, keep default "40 Q" or fallback
-                        qCount.textContent = '? Q';
-                    });
-
-                return card;
-            }
-
-            function renderGrid(container, items, type) {
-                container.innerHTML = '';
-                if (!items || items.length === 0) {
-                    container.innerHTML = `
-                        <div class="empty-state">
-                            <i class="fa-regular fa-folder-open"></i>
-                            <h4>No ${type} files found</h4>
-                            <p style="font-size:0.9rem; margin-top:4px;">Add JSON files to the <code>data/${type === 'week' ? 'mcq' : 'quizzes'}</code> folder.</p>
-                        </div>
-                    `;
-                    return;
-                }
-                items.forEach(item => {
-                    const card = buildCard(item, type);
-                    container.appendChild(card);
-                });
-            }
-
-            function updateTotalQuestions() {
-                const val = window._questionCounter || 0;
-                totalQuestions.textContent = val;
-            }
-
-            function updateStats() {
-                const w = registry.weeks.length;
-                const q = registry.quizzes.length;
-                totalWeeks.textContent = w;
-                totalQuizzes.textContent = q;
-                weekBadge.textContent = `${w} files`;
-                quizBadge.textContent = `${q} files`;
-                // question count will be updated asynchronously via fetch
-                // initial placeholder
-                totalQuestions.textContent = '…';
-            }
-
-            // -------- INIT --------
-            function init() {
-                updateStats();
-
-                // Render week cards
-                renderGrid(weekGrid, registry.weeks, 'week');
-
-                // Render quiz cards
-                renderGrid(quizGrid, registry.quizzes, 'quiz');
-
-                // If some cards were loaded before the counter was updated,
-                // we may have already accumulated some questions.
-                // But fetch is async, so we set a small timeout to re-check.
-                setTimeout(() => {
-                    if (window._questionCounter) {
-                        updateTotalQuestions();
-                    } else {
-                        // fallback: count by trying to read from registry (but we don't have counts here)
-                        // just show a reasonable default
-                        totalQuestions.textContent = '…';
+            // Async: fetch real question count
+            fetch(`data/${isQuiz ? 'quizzes' : 'mcq'}/${item.file}`)
+                .then(r => { if (!r.ok) throw new Error(); return r.json(); })
+                .then(data => {
+                    if (data && Array.isArray(data.questions)) {
+                        const n = data.questions.length;
+                        qCount.textContent = `${n} Q`;
+                        window._qCounter = (window._qCounter || 0) + n;
+                        totalQuestions.textContent = window._qCounter;
                     }
-                }, 1200);
+                })
+                .catch(() => { qCount.textContent = '? Q'; });
+
+            return card;
+        }
+
+        // ── RENDER GRID ─────────────────────────────────────────
+        function renderGrid(container, items, type) {
+            container.innerHTML = '';
+            if (!items || !items.length) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fa-regular fa-folder-open"></i>
+                        <h4>No ${type} files found</h4>
+                        <p style="font-size:.85rem;margin-top:4px;">
+                            Add JSON files to <code>data/${type === 'week' ? 'mcq' : 'quizzes'}/</code>
+                        </p>
+                    </div>`;
+                return;
             }
+            items.forEach(item => container.appendChild(buildCard(item, type)));
+        }
 
-            // make sure we don't double-count
-            window._questionCounter = 0;
+        // ── INIT ────────────────────────────────────────────────
+        function init() {
+            const w = registry.weeks.length;
+            const q = registry.quizzes.length;
 
-            // go
-            init();
+            totalWeeks.textContent   = w;
+            totalQuizzes.textContent = q;
+            weekBadge.textContent    = `${w} files`;
+            quizBadge.textContent    = `${q} files`;
+            totalQuestions.textContent = '…';
 
-        })();
+            window._qCounter = 0;
+
+            renderGrid(weekGrid,  registry.weeks,   'week');
+            renderGrid(quizGrid,  registry.quizzes, 'quiz');
+        }
+
+        init();
+    })();
     </script>
 
 </body>
