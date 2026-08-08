@@ -136,19 +136,31 @@
         .back-btn {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            margin-bottom: 24px;
-            padding: 8px 18px;
+            gap: 10px;
+            margin: 32px 0 28px;
+            padding: 11px 22px;
             background: rgba(255,255,255,0.06);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 10px;
-            color: rgba(255,255,255,0.7);
-            font-size: 0.88rem;
-            font-weight: 500;
+            border: 1px solid rgba(255,255,255,0.13);
+            border-radius: 12px;
+            color: rgba(255,255,255,0.75);
+            font-size: 0.9rem;
+            font-weight: 600;
+            font-family: inherit;
             cursor: pointer;
-            transition: background 0.18s, color 0.18s;
+            transition: background 0.18s, color 0.18s, border-color 0.18s, transform 0.18s;
+            letter-spacing: 0.2px;
         }
-        .back-btn:hover { background: rgba(255,255,255,0.12); color: #fff; }
+        .back-btn i {
+            font-size: 0.85rem;
+            transition: transform 0.18s;
+        }
+        .back-btn:hover {
+            background: rgba(255,255,255,0.11);
+            border-color: rgba(255,255,255,0.22);
+            color: #fff;
+            transform: translateX(-2px);
+        }
+        .back-btn:hover i { transform: translateX(-3px); }
 
         /* ── Footer ── */
         .site-footer {
