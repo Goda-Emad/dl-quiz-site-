@@ -1,6 +1,6 @@
 /* ============================================================
    APPLIED DEEP LEARNING — STYLE SHEET (PRO MAX)
-   خلفية متحركة + تأثيرات زجاجية + تصميم عصري
+   خلفية متحركة احترافية + تأثيرات زجاجية
    ============================================================ */
 
 /* ============================================================
@@ -16,6 +16,7 @@
     --border-light: rgba(255, 255, 255, 0.08);
     --shadow-sm: 0 4px 20px rgba(0, 0, 0, 0.3);
     --shadow-md: 0 10px 40px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.5);
     --shadow-glow: 0 0 60px rgba(99, 102, 241, 0.15);
     --radius-md: 16px;
     --radius-sm: 10px;
@@ -24,6 +25,7 @@
     --gradient-accent-hover: linear-gradient(135deg, #6366f1, #7c3aed);
     --gradient-success: linear-gradient(135deg, #34d399, #10b981);
     --gradient-danger: linear-gradient(135deg, #f87171, #ef4444);
+    --gradient-hero: linear-gradient(135deg, rgba(15, 23, 42, 0.92), rgba(30, 27, 75, 0.92));
 }
 
 /* ============================================================
@@ -48,10 +50,10 @@ body {
     position: relative;
     overflow-x: hidden;
 
-    /* ===== الخلفية الرئيسية (Graident متحرك) ===== */
-    background: linear-gradient(-45deg, #0f172a, #1e1b4b, #111827, #1e293b);
-    background-size: 400% 400%;
-    animation: gradientMove 20s ease infinite;
+    /* ===== خلفية متحركة ===== */
+    background: linear-gradient(-45deg, #0f172a, #1e1b4b, #111827, #1e293b) !important;
+    background-size: 400% 400% !important;
+    animation: gradientMove 20s ease infinite !important;
 
     color: var(--text-primary);
     line-height: 1.6;
@@ -71,7 +73,7 @@ body {
 }
 
 /* ============================================================
-   شبكة خلفية (Dots)
+   شبكة خلفية (Dots) - إحساس تكنولوجي
    ============================================================ */
 body::before {
     content: '';
@@ -88,7 +90,7 @@ body::before {
 }
 
 /* ============================================================
-   توهج كروي (Orb)
+   توهج كروي (Orb) - إضاءة خلفية
    ============================================================ */
 body::after {
     content: '';
@@ -139,10 +141,10 @@ body::after {
 }
 
 /* ============================================================
-   HERO (زجاجي)
+   HEADER / HERO (زجاجي)
    ============================================================ */
 .hero {
-    background: rgba(15, 23, 42, 0.7);
+    background: var(--gradient-hero) !important;
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border: 1px solid rgba(255, 255, 255, 0.06);
@@ -151,7 +153,51 @@ body::after {
     margin: 0 -24px 48px;
     position: relative;
     overflow: hidden;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    box-shadow: var(--shadow-lg);
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: -60%;
+    right: -10%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    animation: heroGlow 8s ease-in-out infinite alternate;
+}
+
+.hero::after {
+    content: '';
+    position: absolute;
+    bottom: -40%;
+    left: -5%;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(139, 92, 246, 0.10) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    animation: heroGlow2 10s ease-in-out infinite alternate;
+}
+
+@keyframes heroGlow {
+    0% {
+        transform: translate(0, 0) scale(1);
+    }
+    100% {
+        transform: translate(-30px, 20px) scale(1.1);
+    }
+}
+
+@keyframes heroGlow2 {
+    0% {
+        transform: translate(0, 0) scale(1);
+    }
+    100% {
+        transform: translate(40px, -30px) scale(1.15);
+    }
 }
 
 .hero-content {
@@ -170,6 +216,7 @@ body::after {
     color: #ffffff;
     letter-spacing: -0.03em;
     line-height: 1.15;
+    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
 }
 
 .hero-text h1 .highlight {
@@ -177,22 +224,32 @@ body::after {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    text-shadow: none;
 }
 
 .hero-text p {
     color: #cbd5e1;
     font-size: 1.1rem;
+    margin-top: 6px;
     max-width: 560px;
+    text-shadow: 0 1px 10px rgba(0, 0, 0, 0.2);
 }
 
 .hero-stats {
     display: flex;
     gap: 40px;
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(255, 255, 255, 0.06);
     backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     padding: 16px 32px;
     border-radius: 60px;
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    flex-shrink: 0;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+}
+
+.hero-stats .stat {
+    text-align: center;
 }
 
 .hero-stats .stat .number {
@@ -200,20 +257,33 @@ body::after {
     font-weight: 700;
     color: #ffffff;
     display: block;
+    line-height: 1.2;
 }
+
 .hero-stats .stat .label {
     font-size: 0.75rem;
     text-transform: uppercase;
+    letter-spacing: 0.06em;
     color: #94a3b8;
     font-weight: 500;
 }
 
 /* ============================================================
-   SECTION HEADERS
+   SECTION TITLES
    ============================================================ */
+.section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
 .section-header h2 {
     font-size: 1.5rem;
     font-weight: 700;
+    letter-spacing: -0.02em;
     display: flex;
     align-items: center;
     gap: 10px;
@@ -222,6 +292,10 @@ body::after {
 
 .section-header h2 i {
     color: #818cf8;
+    font-size: 1.3rem;
+    background: rgba(99, 102, 241, 0.1);
+    padding: 8px;
+    border-radius: 12px;
 }
 
 .section-header .badge-count {
@@ -290,8 +364,13 @@ body::after {
     box-shadow: var(--shadow-md), var(--shadow-glow);
 }
 
+.week-card:active {
+    transform: scale(0.97);
+}
+
 .week-card .card-top {
     display: flex;
+    align-items: center;
     justify-content: space-between;
     margin-bottom: 8px;
 }
@@ -300,6 +379,7 @@ body::after {
     font-size: 0.7rem;
     font-weight: 700;
     text-transform: uppercase;
+    letter-spacing: 0.05em;
     color: #818cf8;
     background: rgba(99, 102, 241, 0.15);
     padding: 3px 14px;
@@ -318,8 +398,9 @@ body::after {
 .week-card h3 {
     font-size: 1.05rem;
     font-weight: 600;
-    color: #ffffff;
     margin: 6px 0 4px;
+    line-height: 1.3;
+    color: #ffffff;
 }
 
 .week-card .card-subtitle {
@@ -335,8 +416,8 @@ body::after {
 
 .week-card .card-footer {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
     margin-top: 12px;
     padding-top: 14px;
     border-top: 1px solid rgba(255, 255, 255, 0.06);
@@ -349,11 +430,17 @@ body::after {
     border-radius: 40px;
     background: rgba(59, 130, 246, 0.15);
     color: #60a5fa;
+    transition: var(--transition);
 }
 
 .week-card .card-footer .type-tag.quiz {
     background: rgba(236, 72, 153, 0.15);
     color: #f472b6;
+}
+
+.week-card .card-footer .type-tag.mcq {
+    background: rgba(59, 130, 246, 0.15);
+    color: #60a5fa;
 }
 
 .week-card .card-footer .start-arrow {
@@ -370,7 +457,9 @@ body::after {
     transform: translateX(4px);
 }
 
-/* ===== بطاقات الكويزات ===== */
+/* ============================================================
+   QUIZ CARD (slightly different styling)
+   ============================================================ */
 .week-card.quiz-card {
     border-left: 3px solid #ec4899;
 }
@@ -380,9 +469,67 @@ body::after {
     color: #f472b6;
 }
 
+.week-card.quiz-card::before {
+    background: linear-gradient(90deg, #ec4899, #f472b6);
+}
+
+/* ============================================================
+   EMPTY STATE
+   ============================================================ */
+.empty-state {
+    padding: 50px 20px;
+    text-align: center;
+    color: var(--text-muted);
+    background: var(--bg-card);
+    backdrop-filter: blur(16px);
+    border-radius: var(--radius-md);
+    border: 2px dashed rgba(255, 255, 255, 0.08);
+    transition: var(--transition);
+}
+
+.empty-state:hover {
+    border-color: rgba(99, 102, 241, 0.3);
+    background: var(--bg-card-hover);
+}
+
+.empty-state i {
+    font-size: 2.8rem;
+    color: var(--text-muted);
+    display: block;
+    margin-bottom: 12px;
+}
+
+.empty-state h4 {
+    font-weight: 600;
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+}
+
+.empty-state p {
+    font-size: 0.9rem;
+    margin-top: 4px;
+}
+
 /* ============================================================
    RESPONSIVE
    ============================================================ */
+@media (max-width: 1024px) {
+    .hero {
+        padding: 36px 32px 32px;
+        margin: 0 -24px 32px;
+    }
+    .hero-text h1 {
+        font-size: 2rem;
+    }
+    .hero-stats {
+        gap: 24px;
+        padding: 12px 24px;
+    }
+    .hero-stats .stat .number {
+        font-size: 1.3rem;
+    }
+}
+
 @media (max-width: 768px) {
     body {
         padding: 0 16px 40px;
@@ -393,204 +540,54 @@ body::after {
         margin: 0 -16px 28px;
         border-radius: 0 0 28px 28px;
     }
+
     .hero-text h1 {
         font-size: 1.6rem;
     }
+
+    .hero-text p {
+        font-size: 0.95rem;
+    }
+
     .hero-content {
         flex-direction: column;
         align-items: flex-start;
     }
+
     .hero-stats {
         width: 100%;
         justify-content: space-around;
-        padding: 12px 16px;
         gap: 12px;
+        padding: 12px 16px;
+        border-radius: 32px;
+    }
+
+    .hero-stats .stat .number {
+        font-size: 1.1rem;
     }
 
     .card-grid {
         grid-template-columns: 1fr;
     }
+
+    .section-header h2 {
+        font-size: 1.2rem;
+    }
+
+    .week-card {
+        padding: 18px 16px 16px;
+    }
 }
 
-/* ============================================================
-   QUIZZES PAGE (تنسيقات إضافية)
-   ============================================================ */
-.hero .back-btn {
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    color: #ffffff;
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.1rem;
-    cursor: pointer;
-    transition: var(--transition);
-    text-decoration: none;
-}
+@media (max-width: 480px) {
+    .hero-text h1 {
+        font-size: 1.3rem;
+    }
 
-.hero .back-btn:hover {
-    background: rgba(255, 255, 255, 0.12);
-    transform: scale(1.05);
-}
-
-.quiz-container {
-    background: rgba(255, 255, 255, 0.04);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    border-radius: var(--radius-md);
-    padding: 32px 36px 28px;
-    margin-bottom: 24px;
-    box-shadow: var(--shadow-sm);
-}
-
-.quiz-container .progress-fill {
-    background: var(--gradient-accent);
-    height: 6px;
-    border-radius: 40px;
-    transition: width 0.4s ease;
-}
-
-.option-btn {
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    color: #e2e8f0;
-    padding: 14px 18px;
-    border-radius: var(--radius-sm);
-    transition: var(--transition);
-    cursor: pointer;
-    width: 100%;
-    text-align: left;
-    display: flex;
-    align-items: center;
-    gap: 14px;
-}
-
-.option-btn:hover:not(.disabled) {
-    background: rgba(255, 255, 255, 0.08);
-    border-color: rgba(99, 102, 241, 0.4);
-    transform: translateX(4px);
-}
-
-.option-btn .letter {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.06);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 700;
-    font-size: 0.75rem;
-    color: var(--text-secondary);
-}
-
-.option-btn.selected {
-    border-color: #818cf8;
-    background: rgba(99, 102, 241, 0.15);
-}
-
-.option-btn.selected .letter {
-    background: #818cf8;
-    color: #ffffff;
-}
-
-.option-btn.correct {
-    border-color: #34d399;
-    background: rgba(52, 211, 153, 0.15);
-}
-
-.option-btn.correct .letter {
-    background: #34d399;
-    color: #ffffff;
-}
-
-.option-btn.wrong {
-    border-color: #f87171;
-    background: rgba(248, 113, 113, 0.15);
-}
-
-.option-btn.wrong .letter {
-    background: #f87171;
-    color: #ffffff;
-}
-
-/* ===== النتائج ===== */
-.results-card {
-    background: rgba(255, 255, 255, 0.04);
-    backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    border-radius: var(--radius-md);
-    padding: 40px 36px;
-    text-align: center;
-}
-
-.results-card .big-score {
-    font-size: 3.5rem;
-    font-weight: 800;
-    background: var(--gradient-accent);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
-/* ===== الأزرار ===== */
-.nav-btn {
-    padding: 10px 24px;
-    border: none;
-    border-radius: 40px;
-    font-weight: 600;
-    font-size: 0.85rem;
-    cursor: pointer;
-    transition: var(--transition);
-    background: rgba(255, 255, 255, 0.06);
-    color: #e2e8f0;
-}
-
-.nav-btn:hover:not(:disabled) {
-    background: rgba(255, 255, 255, 0.12);
-    transform: translateY(-2px);
-}
-
-.nav-btn.primary {
-    background: var(--gradient-accent);
-    color: #ffffff;
-}
-
-.nav-btn.primary:hover {
-    background: var(--gradient-accent-hover);
-    box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4);
-}
-
-.nav-btn.success {
-    background: var(--gradient-success);
-    color: #ffffff;
-}
-
-.nav-btn.danger {
-    background: var(--gradient-danger);
-    color: #ffffff;
-}
-
-.nav-btn:disabled {
-    opacity: 0.4;
-    cursor: not-allowed;
-}
-
-/* ============================================================
-   LOADING / ERROR
-   ============================================================ */
-.loading-state,
-.error-state {
-    text-align: center;
-    padding: 60px 20px;
-    color: var(--text-secondary);
-}
-
-.loading-state i {
-    color: #818cf8;
-    font-size: 2.6rem;
+    .hero-stats .stat .number {
+        font-size: 1rem;
+    }
+    .hero-stats .stat .label {
+        font-size: 0.6rem;
+    }
 }
