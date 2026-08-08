@@ -1,1 +1,466 @@
-
+{
+  "week": 7,
+  "title": "Deep Learning for Sequential Data - RNNs",
+  "questions": [
+    {
+      "id": 1,
+      "question": "Traditional MLPs and CNNs are examples of:",
+      "options": [
+        "Recurrent networks",
+        "Feed-forward networks",
+        "Recursive networks",
+        "Dynamic networks"
+      ],
+      "answer": 1,
+      "explanation": "In FNNs, inputs are processed layer by layer to produce a single result. MLPs and CNNs are feed-forward networks."
+    },
+    {
+      "id": 2,
+      "question": "Which of the following is a drawback of One-Hot Vectors for word representation?",
+      "options": [
+        "They are dense",
+        "Vectors are low-dimensional",
+        "They cannot capture relationships between words",
+        "They require a separate neural network to create"
+      ],
+      "answer": 2,
+      "explanation": "One-hot vectors are sparse and have no notion of similarity between words."
+    },
+    {
+      "id": 3,
+      "question": "In a Bag-of-Words (BoW) model, which information is explicitly captured?",
+      "options": [
+        "Word order",
+        "Word frequency counts",
+        "Syntactic relationships",
+        "Positional context"
+      ],
+      "answer": 1,
+      "explanation": "BoW counts word frequencies but loses word order and syntactic relationships."
+    },
+    {
+      "id": 4,
+      "question": "Word Embeddings represent words as:",
+      "options": [
+        "Sparse, binary vectors",
+        "Highly high-dimensional vectors",
+        "Continuous, dense, low-dimensional vectors",
+        "Integer indices"
+      ],
+      "answer": 2,
+      "explanation": "Word embeddings are dense, lower-dimensional vectors capturing syntactic/semantic properties."
+    },
+    {
+      "id": 5,
+      "question": "Sequential data is characterized by:",
+      "options": [
+        "Independently distributed samples",
+        "Data where order is crucial to meaning",
+        "Data that must be processed in parallel",
+        "Fixed-size inputs and outputs only"
+      ],
+      "answer": 1,
+      "explanation": "In sequential data, the ordering of elements matters significantly."
+    },
+    {
+      "id": 6,
+      "question": "Which of these tasks requires sequential modeling?",
+      "options": [
+        "Image classification",
+        "Tabular data regression",
+        "Text summarization",
+        "Object detection in a single photo"
+      ],
+      "answer": 2,
+      "explanation": "Text is sequential; other options are typically handled by feed-forward networks (MLPs/CNNs)."
+    },
+    {
+      "id": 7,
+      "question": "In the example 'The rabbit eats the man', a sequential model is needed because:",
+      "options": [
+        "It uses many words",
+        "The same words in a different order mean something else",
+        "'Rabbit' is a rare word",
+        "The words are not one-hot encoded"
+      ],
+      "answer": 1,
+      "explanation": "Understanding requires capturing the sequence structure. 'The man eats the rabbit' means something completely different."
+    },
+    {
+      "id": 8,
+      "question": "What is the key component that allows RNNs to handle memory?",
+      "options": [
+        "A dense layer at the output",
+        "A loop structure inside the cell",
+        "Large convolutional filters",
+        "Independent processing of inputs"
+      ],
+      "answer": 1,
+      "explanation": "The loop ensures information persists across time steps, allowing RNNs to maintain memory."
+    },
+    {
+      "id": 9,
+      "question": "In an RNN cell diagram, what does '$s_t$' usually represent?",
+      "options": [
+        "Input at time step t",
+        "Output at time step t",
+        "Hidden state at time step t",
+        "Error at time step t"
+      ],
+      "answer": 2,
+      "explanation": "s_t is the hidden state, representing the memory or context at time step t."
+    },
+    {
+      "id": 10,
+      "question": "What does 'unfolding an RNN in time' mean?",
+      "options": [
+        "Resetting the memory after each word",
+        "Drawing the network over the full sequence, showing steps explicitly",
+        "Speeding up the computation time",
+        "Removing the hidden state to simplify the model"
+      ],
+      "answer": 1,
+      "explanation": "Unfolding shows the computation for the entire input sequence step-by-step, revealing the temporal structure."
+    },
+    {
+      "id": 11,
+      "question": "The parameter matrices (U, W, V) in a standard RNN are:",
+      "options": [
+        "Different for every time step",
+        "Shared across all time steps",
+        "Only used in the first time step",
+        "Ignored during training"
+      ],
+      "answer": 1,
+      "explanation": "RNNs share parameters (U, W, V) across all time steps, ensuring consistent processing."
+    },
+    {
+      "id": 12,
+      "question": "The state update equation in a vanilla RNN ($s_t = f(Ux_t + Ws_{t-1})$) usually uses which non-linearity for '$f$'?",
+      "options": [
+        "Softmax",
+        "Sigmoid",
+        "tanh or ReLU",
+        "Linear activation"
+      ],
+      "answer": 2,
+      "explanation": "tanh or ReLU are typical choices for internal activations in RNN hidden states."
+    },
+    {
+      "id": 13,
+      "question": "The output at time step t ($o_t = g(Vs_t)$) usually uses which activation '$g$' for classification?",
+      "options": [
+        "tanh",
+        "Softmax",
+        "ReLU",
+        "Identity"
+      ],
+      "answer": 1,
+      "explanation": "Softmax is used to output class probabilities for classification tasks."
+    },
+    {
+      "id": 14,
+      "question": "What is a 'many-to-one' RNN architecture useful for?",
+      "options": [
+        "Machine translation",
+        "Image captioning",
+        "Sentiment classification",
+        "Text generation"
+      ],
+      "answer": 2,
+      "explanation": "A sequence of words (input) mapped to a single class label (output) - ideal for sentiment classification."
+    },
+    {
+      "id": 15,
+      "question": "What architecture is typically used for Machine Translation?",
+      "options": [
+        "One-to-many",
+        "Many-to-one",
+        "Synced many-to-many",
+        "Unsynced many-to-many (encoder-decoder)"
+      ],
+      "answer": 3,
+      "explanation": "Input sequence is encoded to a vector, then decoded to output sequence - the encoder-decoder architecture."
+    },
+    {
+      "id": 16,
+      "question": "What is the primary cause of the Vanishing Gradient problem in vanilla RNNs during Backpropagation Through Time (BPTT)?",
+      "options": [
+        "Learning rates being too high",
+        "Repeated matrix multiplications of small numbers over long sequences",
+        "Not having enough training data",
+        "Using the Softmax function at the final step"
+      ],
+      "answer": 1,
+      "explanation": "In long sequences, the gradient becomes extremely small after many multiplications, causing vanishing gradients."
+    },
+    {
+      "id": 17,
+      "question": "In the example sentence: 'The man who lives in France speaks ______', a vanilla RNN might fail to predict 'French' because of:",
+      "options": [
+        "Exploding gradients",
+        "Short-term memory",
+        "Lack of word embeddings",
+        "Parallel processing of words"
+      ],
+      "answer": 1,
+      "explanation": "Vanishing gradients mean information from 'France' (long-term context) is lost before predicting 'French'."
+    },
+    {
+      "id": 18,
+      "question": "What does LSTM stand for?",
+      "options": [
+        "Learning Systems in Time Series",
+        "Long Short-Term Memory",
+        "Lookback Standard in Temporal Modeling",
+        "Latent State for Time Mapping"
+      ],
+      "answer": 1,
+      "explanation": "LSTMs are specialized RNN cells designed for long-term dependencies."
+    },
+    {
+      "id": 19,
+      "question": "In addition to the hidden state ($h_t$), LSTMs introduce what new component to carry information?",
+      "options": [
+        "A convolution kernel",
+        "An input bias vector",
+        "The cell state ($C_t$)",
+        "An error state ($E_t$)"
+      ],
+      "answer": 2,
+      "explanation": "The cell state acts like a 'conveyor belt', allowing information to flow relatively untouched."
+    },
+    {
+      "id": 20,
+      "question": "Which structure is key to LSTM's ability to regulate information flow?",
+      "options": [
+        "Dense layers",
+        "Residual connections",
+        "Gates",
+        "Max-pooling"
+      ],
+      "answer": 2,
+      "explanation": "LSTMs use forget, input, and output gates to manage information flow."
+    },
+    {
+      "id": 21,
+      "question": "What is the role of the LSTM 'Forget Gate'?",
+      "options": [
+        "To reset the hidden state to zero",
+        "To decide what information to keep from the previous cell state",
+        "To block new information from the input",
+        "To determine which outputs to generate"
+      ],
+      "answer": 1,
+      "explanation": "It decides what to throw away from the past cell state."
+    },
+    {
+      "id": 22,
+      "question": "What is the standard Keras layer for implementing a vanilla RNN?",
+      "options": [
+        "LSTM",
+        "SimpleRNN",
+        "RNNCell",
+        "DenseRNN"
+      ],
+      "answer": 1,
+      "explanation": "SimpleRNN implements the vanilla RNN cell in Keras."
+    },
+    {
+      "id": 23,
+      "question": "When initializing LSTM in Keras, if you want the layer to return the entire output sequence, you must set:",
+      "options": [
+        "return_sequences=False",
+        "input_shape=(None, 1)",
+        "return_sequences=True",
+        "units=N"
+      ],
+      "answer": 2,
+      "explanation": "Set return_sequences=True to get outputs for all time steps."
+    },
+    {
+      "id": 24,
+      "question": "Deep RNNs are constructed by:",
+      "options": [
+        "Stacking recurrent layers on top of each other",
+        "Making the time sequence very long",
+        "Increasing the number of hidden units within a single cell",
+        "Combining MLPs with CNNs"
+      ],
+      "answer": 0,
+      "explanation": "Stacking layers allows for deeper representations of temporal data."
+    },
+    {
+      "id": 25,
+      "question": "Which of the following is a key application of RNNs according to the lecture?",
+      "options": [
+        "Object classification in images",
+        "Speech recognition",
+        "Static face detection",
+        "Analyzing tabular census data"
+      ],
+      "answer": 1,
+      "explanation": "Speech data is sequential (audio over time), making it a key RNN application."
+    },
+    {
+      "id": 26,
+      "question": "'Autocomplete' in messaging apps typically uses:",
+      "options": [
+        "Text generation models (RNNs)",
+        "Sentiment analysis (RNNs)",
+        "One-hot encoding of full phrases",
+        "A simple static dictionary look-up"
+      ],
+      "answer": 0,
+      "explanation": "The next word is generated based on previous context using text generation models."
+    },
+    {
+      "id": 27,
+      "question": "Identifying if a review is positive or negative is a ______ task.",
+      "options": [
+        "Text generation",
+        "Image captioning",
+        "Sentiment analysis",
+        "Speech recognition"
+      ],
+      "answer": 2,
+      "explanation": "A classification task based on textual input to determine sentiment."
+    },
+    {
+      "id": 28,
+      "question": "Which application combines CNNs and RNNs?",
+      "options": [
+        "Sentiment analysis of text",
+        "Autocomplete text generation",
+        "Image Captioning",
+        "Speech synthesis from text"
+      ],
+      "answer": 2,
+      "explanation": "CNN processes the image (input), RNN generates the sequence (caption output)."
+    },
+    {
+      "id": 29,
+      "question": "A standard FNN processes inputs independently because:",
+      "options": [
+        "Inputs are assumed not to be temporally related",
+        "The loss function prohibits it",
+        "It uses backward propagation through time",
+        "It doesn't have activation functions"
+      ],
+      "answer": 0,
+      "explanation": "FNNs are designed for static data where context isn't needed."
+    },
+    {
+      "id": 30,
+      "question": "Why do RNNs share parameters (U, W, V)?",
+      "options": [
+        "To increase the total number of parameters",
+        "Because the input size changes constantly",
+        "To ensure the same function is applied to each token in the sequence",
+        "To eliminate the need for an activation function"
+      ],
+      "answer": 2,
+      "explanation": "Parameters are shared so the model applies consistent logic across all timesteps."
+    },
+    {
+      "id": 31,
+      "question": "A standard Multilayer Perceptron (MLP) is a recurrent network.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 1,
+      "explanation": "False. MLP is a feed-forward network, not recurrent."
+    },
+    {
+      "id": 32,
+      "question": "In a bag-of-words model, the sentences 'I love you' and 'you love I' would produce different vectors.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 1,
+      "explanation": "False. BoW counts frequencies and doesn't consider order, so both sentences produce identical vectors."
+    },
+    {
+      "id": 33,
+      "question": "Word embeddings require a fixed vector space dimension (e.g., 50, 100, 200).",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 0,
+      "explanation": "True. The embedding dimension is a key hyperparameter that must be fixed."
+    },
+    {
+      "id": 34,
+      "question": "Sequential data inputs, such as audio, are always of fixed length.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 1,
+      "explanation": "False. The sequence length is dynamic and can vary sample to sample."
+    },
+    {
+      "id": 35,
+      "question": "An un-rolled RNN shows a separate model for each time step in the input sequence.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 0,
+      "explanation": "True. Although the parameters are shared, the computational graph is 'unfolded' for the sequence."
+    },
+    {
+      "id": 36,
+      "question": "In a synced many-to-many architecture, such as POS tagging, the output sequence has the same length as the input sequence.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 0,
+      "explanation": "True. Each input token has a corresponding output token."
+    },
+    {
+      "id": 37,
+      "question": "Exploding gradients in an RNN can cause training failure if learning rates are too low.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 1,
+      "explanation": "False. Low learning rates usually mitigate high gradients. Exploding gradients occur due to high matrix multipliers across deep/long sequences."
+    },
+    {
+      "id": 38,
+      "question": "An LSTM block can contain multiple forget, input, and output gates.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 1,
+      "explanation": "False. A single LSTM block contains exactly one forget gate, one input gate, and one output gate."
+    },
+    {
+      "id": 39,
+      "question": "A text generation model uses a 'many-to-one' RNN architecture.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 1,
+      "explanation": "False. Text generation typically uses synced many-to-many to predict the next word at each step."
+    },
+    {
+      "id": 40,
+      "question": "DNA sequencing analysis is listed as an application of RNNs.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 0,
+      "explanation": "True. DNA data is sequential and RNNs can be applied to DNA sequencing analysis."
+    }
+  ]
+}
