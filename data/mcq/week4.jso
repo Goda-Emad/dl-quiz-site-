@@ -1,1 +1,486 @@
-
+{
+  "week": 4,
+  "title": "Advanced Optimizers & Hyperparameter Tuning",
+  "questions": [
+    {
+      "id": 1,
+      "question": "What is a key limitation of standard Mini-Batch Gradient Descent?",
+      "options": [
+        "Noisy oscillations in loss landscape",
+        "Fixed learning rate for all parameters",
+        "May get trapped in local minima or plateaus",
+        "All of the above"
+      ],
+      "answer": 3,
+      "explanation": "Mini-Batch GD suffers from all these limitations: noisy oscillations, fixed learning rate per parameter, and difficulty escaping local minima or plateaus."
+    },
+    {
+      "id": 2,
+      "question": "Exponentially Weighted Averages (EWA) in advanced optimizers help to:",
+      "options": [
+        "Increase the learning rate adaptively",
+        "Smooth out noisy gradients and reveal underlying trend",
+        "Eliminate the need for bias correction",
+        "Only work with RMSProp"
+      ],
+      "answer": 1,
+      "explanation": "EWA smooths noisy gradients by giving more weight to recent gradients while still considering past values, revealing the underlying trend."
+    },
+    {
+      "id": 3,
+      "question": "In the Momentum algorithm, the update rule uses v_dw = β v_dw + (1-β) dW. What does β control?",
+      "options": [
+        "The learning rate decay",
+        "Weight given to past gradients (smoothing factor)",
+        "Second moment accumulation",
+        "Adaptive per-parameter scaling"
+      ],
+      "answer": 1,
+      "explanation": "β controls how much weight is given to past gradients. A higher β means more smoothing and more influence from previous gradients."
+    },
+    {
+      "id": 4,
+      "question": "What is a typical default value for the momentum term β (beta) in practice?",
+      "options": [
+        "0.5",
+        "0.99",
+        "0.9",
+        "0.999"
+      ],
+      "answer": 2,
+      "explanation": "β = 0.9 is the most common default value for momentum in practice, providing good smoothing without too much lag."
+    },
+    {
+      "id": 5,
+      "question": "RMSProp (Root Mean Square Propagation) adapts learning rates by maintaining:",
+      "options": [
+        "A moving average of raw gradients",
+        "A moving average of squared gradients",
+        "A moving average of weight updates",
+        "A single global learning rate schedule"
+      ],
+      "answer": 1,
+      "explanation": "RMSProp maintains a moving average of squared gradients (S_dw) to adapt learning rates per parameter based on gradient magnitude."
+    },
+    {
+      "id": 6,
+      "question": "In RMSProp, when a parameter has a consistently large gradient, the effective update step will:",
+      "options": [
+        "Become larger to escape plateau",
+        "Remain unchanged",
+        "Be scaled down (smaller step)",
+        "Oscillate heavily"
+      ],
+      "answer": 2,
+      "explanation": "When gradients are consistently large, the denominator sqrt(S_dw) becomes large, scaling down the effective update step to prevent oscillations."
+    },
+    {
+      "id": 7,
+      "question": "Which two optimization techniques does Adam combine to achieve robust performance?",
+      "options": [
+        "SGD + Mini-batch",
+        "Momentum + RMSProp",
+        "NAG + AdaGrad",
+        "EWA + gradient clipping"
+      ],
+      "answer": 1,
+      "explanation": "Adam combines Momentum (for accelerating convergence) and RMSProp (for adaptive learning rates) to achieve robust performance."
+    },
+    {
+      "id": 8,
+      "question": "In Adam, the first moment (v_dw) represents:",
+      "options": [
+        "The exponentially weighted average of gradients (mean)",
+        "The exponentially weighted average of squared gradients",
+        "The bias-corrected learning rate",
+        "The second raw moment"
+      ],
+      "answer": 0,
+      "explanation": "In Adam, the first moment (v_dw) represents the exponentially weighted average of gradients, essentially the mean of gradients."
+    },
+    {
+      "id": 9,
+      "question": "Why does Adam include a bias correction step?",
+      "options": [
+        "To increase learning rate after each epoch",
+        "To correct for initial zero initialization of moments",
+        "To prevent overfitting",
+        "To normalize input features"
+      ],
+      "answer": 1,
+      "explanation": "Adam includes bias correction because the moving averages are initialized at zero, causing them to be biased toward zero in the early iterations."
+    },
+    {
+      "id": 10,
+      "question": "According to practical recommendations, what is the best default optimizer when starting a new deep learning project?",
+      "options": [
+        "SGD with classical momentum",
+        "RMSProp",
+        "Adam",
+        "AdaGrad"
+      ],
+      "answer": 2,
+      "explanation": "Adam is recommended as the default optimizer for most deep learning projects due to its robustness, adaptive learning rates, and minimal hyperparameter tuning."
+    },
+    {
+      "id": 11,
+      "question": "Which of the following is true regarding Adam vs SGD with Momentum?",
+      "options": [
+        "Adam always generalizes better on every task",
+        "SGD with Momentum can sometimes generalize better when fine-tuned",
+        "Adam never requires learning rate tuning",
+        "Momentum is always faster than Adam"
+      ],
+      "answer": 1,
+      "explanation": "While Adam is a great default, SGD with Momentum can sometimes generalize better when properly fine-tuned, especially on certain tasks."
+    },
+    {
+      "id": 12,
+      "question": "The primary benefit of Momentum over vanilla GD is:",
+      "options": [
+        "It eliminates local minima entirely",
+        "It accelerates convergence and dampens oscillations",
+        "It automatically adjusts batch size",
+        "It works only with convex functions"
+      ],
+      "answer": 1,
+      "explanation": "Momentum accelerates convergence by building up velocity in consistent gradient directions and dampens oscillations in directions with high curvature."
+    },
+    {
+      "id": 13,
+      "question": "When framing hyperparameter tuning as optimizing a black-box function f(x), the output f(x) is typically:",
+      "options": [
+        "The number of model parameters",
+        "Validation accuracy or validation loss",
+        "Training accuracy only",
+        "Gradient norm"
+      ],
+      "answer": 1,
+      "explanation": "In hyperparameter tuning, f(x) typically represents validation accuracy (to maximize) or validation loss (to minimize), not training metrics."
+    },
+    {
+      "id": 14,
+      "question": "What is the 'curse of dimensionality' in the context of Grid Search?",
+      "options": [
+        "Models become too deep",
+        "The number of hyperparameter combinations grows exponentially with dimensions",
+        "Grid search uses random sampling",
+        "Overfitting due to too many features"
+      ],
+      "answer": 1,
+      "explanation": "Grid Search suffers from the curse of dimensionality because the number of combinations grows exponentially with each additional hyperparameter dimension."
+    },
+    {
+      "id": 15,
+      "question": "Compared to Grid Search, Random Search is often more efficient because:",
+      "options": [
+        "It tries every possible combination",
+        "It explores more distinct values for important hyperparameters without wasting runs",
+        "It uses gradient information",
+        "It requires fewer epochs per run"
+      ],
+      "answer": 1,
+      "explanation": "Random Search is more efficient because it doesn't waste runs on uninteresting hyperparameter combinations and explores more values for important parameters."
+    },
+    {
+      "id": 16,
+      "question": "Why is it recommended to sample hyperparameters like learning rate on a logarithmic scale (e.g., 10^{-4} to 10^{-1})?",
+      "options": [
+        "Because learning rates are always negative",
+        "Because the impact of changes is multiplicative, not linear",
+        "To reduce computational cost",
+        "Because grid search becomes feasible"
+      ],
+      "answer": 1,
+      "explanation": "Learning rates have multiplicative effects, so changes from 0.001 to 0.01 are more significant than 0.1 to 0.2, making logarithmic sampling more appropriate."
+    },
+    {
+      "id": 17,
+      "question": "Which regularization technique randomly deactivates neurons with a certain probability during training to improve generalization?",
+      "options": [
+        "L2 regularization",
+        "Dropout",
+        "Early stopping",
+        "Data augmentation"
+      ],
+      "answer": 1,
+      "explanation": "Dropout randomly deactivates neurons during training, preventing co-adaptation and improving generalization."
+    },
+    {
+      "id": 18,
+      "question": "L2 regularization (weight decay) works by:",
+      "options": [
+        "Adding penalty on absolute weights",
+        "Adding penalty on squared weights to the loss function",
+        "Randomly dropping connections",
+        "Stopping training early"
+      ],
+      "answer": 1,
+      "explanation": "L2 regularization adds a penalty on squared weights (sum of w_i²) to the loss function, encouraging smaller weights."
+    },
+    {
+      "id": 19,
+      "question": "Early stopping is a regularization strategy that:",
+      "options": [
+        "Stops training when validation performance stops improving",
+        "Stops after fixed number of epochs",
+        "Reduces learning rate to zero",
+        "Increases batch size"
+      ],
+      "answer": 0,
+      "explanation": "Early stopping monitors validation performance and stops training when it stops improving to prevent overfitting."
+    },
+    {
+      "id": 20,
+      "question": "Data augmentation improves model performance by:",
+      "options": [
+        "Increasing model size",
+        "Adding noise to labels",
+        "Creating modified versions of training samples to increase diversity",
+        "Doubling the learning rate"
+      ],
+      "answer": 2,
+      "explanation": "Data augmentation creates modified versions of training samples (rotations, flips, etc.) to increase data diversity and improve generalization."
+    },
+    {
+      "id": 21,
+      "question": "A higher β value (closer to 1) in Exponentially Weighted Averages leads to:",
+      "options": [
+        "More noisy moving average",
+        "Smoother moving average, more weight on past values",
+        "Faster adaptation to recent gradients",
+        "No effect"
+      ],
+      "answer": 1,
+      "explanation": "Higher β (closer to 1) gives more weight to past values, resulting in smoother but slower-adapting moving averages."
+    },
+    {
+      "id": 22,
+      "question": "In Momentum algorithm, the weight update formula is W = W - α * v_dw. v_dw is:",
+      "options": [
+        "Current gradient",
+        "Moving average of gradients",
+        "Squared gradient average",
+        "Bias-corrected second moment"
+      ],
+      "answer": 1,
+      "explanation": "In Momentum, v_dw is the exponentially weighted moving average of gradients, not the current gradient alone."
+    },
+    {
+      "id": 23,
+      "question": "RMSProp scales the learning rate by 1 / sqrt(S_dw + ε). Here S_dw is:",
+      "options": [
+        "Moving average of raw gradients",
+        "Moving average of squared gradients",
+        "Exponential decay of weights",
+        "Current loss value"
+      ],
+      "answer": 1,
+      "explanation": "S_dw is the moving average of squared gradients in RMSProp, used to adapt learning rates per parameter."
+    },
+    {
+      "id": 24,
+      "question": "The small epsilon (ε) in RMSProp and Adam is used to:",
+      "options": [
+        "Speed up convergence",
+        "Avoid division by zero and improve numerical stability",
+        "Increase momentum",
+        "Decay learning rate"
+      ],
+      "answer": 1,
+      "explanation": "Epsilon is a small constant (typically 1e-8) added to avoid division by zero and maintain numerical stability."
+    },
+    {
+      "id": 25,
+      "question": "What is the main goal of using advanced optimizers (Momentum, RMSProp, Adam) over standard GD?",
+      "options": [
+        "To reduce model size",
+        "To converge faster and more reliably across loss surfaces",
+        "To always escape all local minima",
+        "To remove regularization"
+      ],
+      "answer": 1,
+      "explanation": "Advanced optimizers aim to converge faster and more reliably across different loss surfaces, not to escape all local minima or reduce model size."
+    },
+    {
+      "id": 26,
+      "question": "Which of the following hyperparameters is NOT typically tuned during hyperparameter optimization?",
+      "options": [
+        "Learning rate",
+        "Number of hidden layers",
+        "Mini-batch size",
+        "The exact random seed of each training example (fixed after selection)"
+      ],
+      "answer": 3,
+      "explanation": "The random seed is typically fixed and not tuned during hyperparameter optimization, while learning rate, layers, and batch size are common tuning targets."
+    },
+    {
+      "id": 27,
+      "question": "When using Grid Search, if you have 4 hyperparameters each with 5 possible values, how many model training runs are required?",
+      "options": [
+        "20",
+        "125",
+        "625",
+        "1024"
+      ],
+      "answer": 2,
+      "explanation": "With 4 hyperparameters and 5 values each, Grid Search requires 5^4 = 625 runs (product of all combinations)."
+    },
+    {
+      "id": 28,
+      "question": "Random Search can be more efficient because not all hyperparameters are equally important. Which hyperparameter often has the strongest impact on performance?",
+      "options": [
+        "Number of epochs",
+        "Learning rate",
+        "Dropout rate (if small variation)",
+        "Activation function type (minor)"
+      ],
+      "answer": 1,
+      "explanation": "The learning rate often has the strongest impact on model performance and convergence, making it a critical hyperparameter to tune."
+    },
+    {
+      "id": 29,
+      "question": "Which component of the Adam optimizer accounts for adaptive per-parameter learning rates similar to RMSProp?",
+      "options": [
+        "First moment estimate",
+        "Second moment estimate (uncentered variance)",
+        "Bias correction factor",
+        "Momentum term only"
+      ],
+      "answer": 1,
+      "explanation": "The second moment estimate (S_dw) in Adam, similar to RMSProp, adapts learning rates per parameter based on squared gradients."
+    },
+    {
+      "id": 30,
+      "question": "On a loss plateau where gradients are very small, RMSProp and Adam help by:",
+      "options": [
+        "Increasing the effective step size because denominator sqrt(S_dw) is small",
+        "Reducing step size further",
+        "Switching to pure SGD",
+        "Stopping training"
+      ],
+      "answer": 0,
+      "explanation": "When gradients are very small on a plateau, sqrt(S_dw) becomes small, making the denominator small and increasing the effective step size."
+    },
+    {
+      "id": 31,
+      "question": "Which of the following statements about Exponentially Weighted Averages (EWA) is correct?",
+      "options": [
+        "EWA disregards recent gradients",
+        "EWA acts as a low-pass filter, smoothing fluctuations",
+        "EWA only works for squared gradients",
+        "EWA requires second-order derivatives"
+      ],
+      "answer": 1,
+      "explanation": "EWA acts as a low-pass filter by smoothing fluctuations and preserving the underlying trend in noisy gradient sequences."
+    },
+    {
+      "id": 32,
+      "question": "In deep learning, 'bias correction' in Adam is especially important in:",
+      "options": [
+        "The later stages of training",
+        "The initial iterations where moving averages are biased toward zero",
+        "Only for classification tasks",
+        "When using large batch sizes"
+      ],
+      "answer": 1,
+      "explanation": "Bias correction is especially important in early iterations when moving averages are initialized at zero and are biased toward zero."
+    },
+    {
+      "id": 33,
+      "question": "What type of regularization is performed by adding a penalty term λ * ||w||₁ to the loss function?",
+      "options": [
+        "L1 regularization (sparsity)",
+        "L2 regularization",
+        "Dropout",
+        "Early stopping"
+      ],
+      "answer": 0,
+      "explanation": "L1 regularization adds the sum of absolute weights (||w||₁) to the loss, promoting sparsity (many weights become zero)."
+    },
+    {
+      "id": 34,
+      "question": "Which optimizer accumulates an exponentially weighted average of both gradients and squared gradients and then applies bias correction?",
+      "options": [
+        "RMSProp",
+        "Momentum",
+        "Adam",
+        "AdaGrad"
+      ],
+      "answer": 2,
+      "explanation": "Adam maintains both first moment (gradient average) and second moment (squared gradient average) with bias correction for both."
+    },
+    {
+      "id": 35,
+      "question": "The recommended best practice for optimizer selection mentioned in the lecture is:",
+      "options": [
+        "Always use SGD with momentum, never Adam",
+        "Start with Adam, then for maximal performance try SGD with momentum + schedule",
+        "Only use RMSProp for CNNs",
+        "Never change default learning rate"
+      ],
+      "answer": 1,
+      "explanation": "The recommended approach is to start with Adam as a strong default, then fine-tune using SGD with momentum for potentially better generalization."
+    },
+    {
+      "id": 36,
+      "question": "What does the term 'plateaus' in loss surface refer to?",
+      "options": [
+        "Very steep slopes",
+        "Flat regions where gradients are near zero, slowing convergence",
+        "Sharp minima with high curvature",
+        "Regions with chaotic gradients"
+      ],
+      "answer": 1,
+      "explanation": "Plateaus are flat regions in the loss surface where gradients are near zero, causing very slow convergence in standard gradient descent."
+    },
+    {
+      "id": 37,
+      "question": "In the RMSProp update equation: W = W - α * (dW / sqrt(S_dw + ε)), the denominator causes:",
+      "options": [
+        "Smaller updates for frequently large gradients, larger updates for small gradients",
+        "Larger updates for all gradients",
+        "Constant step regardless of gradient",
+        "Only positive updates"
+      ],
+      "answer": 0,
+      "explanation": "The denominator scales updates inversely to gradient magnitude: large gradients get smaller updates, small gradients get larger updates."
+    },
+    {
+      "id": 38,
+      "question": "Suppose you are tuning regularization strength λ. Why sample λ on a logarithmic scale?",
+      "options": [
+        "Because λ is always between 0 and 1",
+        "Because the effect of λ is multiplicative (orders of magnitude matter)",
+        "It's required by grid search",
+        "To avoid negative values"
+      ],
+      "answer": 1,
+      "explanation": "Regularization strength λ has multiplicative effects, so sampling on logarithmic scale (e.g., 1e-4, 1e-3, 1e-2) is more appropriate."
+    },
+    {
+      "id": 39,
+      "question": "Which statement about the relationship between hyperparameter search and computational cost is true?",
+      "options": [
+        "Random search always requires more runs than grid search",
+        "Grid search suffers from combinatorial explosion",
+        "Only Bayesian optimization can tune hyperparameters",
+        "Grid search is optimal for all dimensions"
+      ],
+      "answer": 1,
+      "explanation": "Grid Search suffers from combinatorial explosion as the number of hyperparameters and their values increase, making it computationally expensive."
+    },
+    {
+      "id": 40,
+      "question": "According to the slides, which of the following offers a robust balance between convergence speed, adaptive learning rates, and little hyperparameter tuning, making it the most popular optimizer?",
+      "options": [
+        "SGD",
+        "Momentum",
+        "RMSProp",
+        "Adam"
+      ],
+      "answer": 3,
+      "explanation": "Adam offers the best balance of convergence speed, adaptive learning rates, and minimal hyperparameter tuning, making it the most popular optimizer."
+    }
+  ]
+}
