@@ -1,1 +1,249 @@
-
+{
+  "quiz": 1,
+  "title": "Quiz 1 — Foundations of Deep Learning (Weeks 1-2)",
+  "covers": "Weeks 1-2",
+  "total_questions": 20,
+  "type": "theoretical",
+  "questions": [
+    {
+      "id": 1,
+      "question": "The optimization problem for training a neural network is typically formulated as:",
+      "options": [
+        "max_θ L(f(x, θ), y)",
+        "max_θ f(x, θ)",
+        "min_θ L(f(x, θ), y)",
+        "min_θ f(x, θ)"
+      ],
+      "answer": 2,
+      "explanation": "We minimize the loss function L with respect to parameters θ to find the best model parameters."
+    },
+    {
+      "id": 2,
+      "question": "Which statement best describes the relationship between Artificial Intelligence (AI), Machine Learning (ML), and Deep Learning (DL)?",
+      "options": [
+        "Artificial Intelligence is a subset of Machine Learning, which is a subset of Deep Learning.",
+        "Deep Learning and AI are the same, while Machine Learning is unrelated.",
+        "Deep Learning is a subset of Machine Learning, which is a subset of Artificial Intelligence.",
+        "Machine Learning and Deep Learning are completely separate fields with no relationship to AI."
+      ],
+      "answer": 2,
+      "explanation": "The hierarchy is AI (broadest) → ML (subset of AI) → DL (subset of ML)."
+    },
+    {
+      "id": 3,
+      "question": "Which of the following is a key difference between GPU and TPU in terms of deployment?",
+      "options": [
+        "Both are only available on-premises.",
+        "GPUs can be used on-premises or in the cloud, while TPUs are cloud-native (Google Cloud).",
+        "Both are only available on Google Cloud.",
+        "TPUs can be used on-premises, while GPUs are cloud-only."
+      ],
+      "answer": 1,
+      "explanation": "GPUs are available both on-premises and in the cloud, while TPUs are Google Cloud-specific."
+    },
+    {
+      "id": 4,
+      "question": "Which type of data format is described as 'spreadsheet-friendly' and ideal for traditional statistics, with rigid schemas and SQL query support?",
+      "options": [
+        "Semi-structured data",
+        "Binary data",
+        "Unstructured data",
+        "Structured data"
+      ],
+      "answer": 3,
+      "explanation": "Structured data has rigid schemas, is stored in tables (CSV/SQL), and is ideal for traditional statistics."
+    },
+    {
+      "id": 5,
+      "question": "Which of the following best describes a neural network?",
+      "options": [
+        "A computational model built from interconnected neurons that learns to map inputs to outputs.",
+        "A simple decision tree.",
+        "A database query engine.",
+        "A linear regression model with no parameters."
+      ],
+      "answer": 0,
+      "explanation": "Neural networks are computational models with interconnected neurons that learn mappings from inputs to outputs."
+    },
+    {
+      "id": 6,
+      "question": "Which of the following is a typical batch size used in Mini-Batch Gradient Descent?",
+      "options": [
+        "0",
+        "The entire dataset size",
+        "1",
+        "32, 64, or 128"
+      ],
+      "answer": 3,
+      "explanation": "Common mini-batch sizes are 32, 64, 128, or 256 — powers of 2 for efficient GPU computation."
+    },
+    {
+      "id": 7,
+      "question": "What does the symbol θ represent in the neural network function ŷ = f(x, θ)?",
+      "options": [
+        "The network's prediction",
+        "The internal parameters (weights and biases) of the network",
+        "The loss function value",
+        "The input data"
+      ],
+      "answer": 1,
+      "explanation": "θ represents all the internal parameters (weights and biases) that the network learns during training."
+    },
+    {
+      "id": 8,
+      "question": "In traditional Machine Learning (non-deep), models are often more interpretable than Deep Learning models. Why?",
+      "options": [
+        "Traditional ML models are often transparent, allowing you to see which factors influenced the prediction.",
+        "Traditional ML models are black boxes by design.",
+        "Neither ML nor DL models can be interpreted.",
+        "Deep Learning models are always interpretable."
+      ],
+      "answer": 0,
+      "explanation": "Traditional ML models (decision trees, linear regression) are more transparent, showing which features influenced predictions."
+    },
+    {
+      "id": 9,
+      "question": "Which variation of gradient descent uses a single training example to perform a parameter update?",
+      "options": [
+        "Mini-Batch Gradient Descent (MBGD)",
+        "Gradient Descent with momentum",
+        "Batch Gradient Descent",
+        "Stochastic Gradient Descent (SGD)"
+      ],
+      "answer": 3,
+      "explanation": "SGD updates parameters after each single training example, making it fast but noisy."
+    },
+    {
+      "id": 10,
+      "question": "What is a key characteristic of Deep Learning regarding data volume?",
+      "options": [
+        "Deep Learning typically needs very large datasets to perform well.",
+        "Deep Learning does not depend on the size of the dataset.",
+        "Deep Learning works best with small to medium datasets.",
+        "Deep Learning requires no data at all to learn."
+      ],
+      "answer": 0,
+      "explanation": "Deep Learning models have many parameters and require large datasets to train effectively without overfitting."
+    },
+    {
+      "id": 11,
+      "question": "For extremely large-scale deep learning workloads on Google Cloud, which hardware is specifically designed for high throughput and efficiency?",
+      "options": [
+        "FPGA",
+        "GPU (Graphics Processing Unit)",
+        "CPU (Central Processing Unit)",
+        "TPU (Tensor Processing Unit)"
+      ],
+      "answer": 3,
+      "explanation": "TPUs are Google's custom ASICs designed specifically for high-throughput tensor operations in deep learning."
+    },
+    {
+      "id": 12,
+      "question": "What is the most common gradient descent method used in practice for training deep learning models?",
+      "options": [
+        "Mini-Batch Gradient Descent (MBGD)",
+        "Batch Gradient Descent",
+        "Stochastic Gradient Descent (SGD)",
+        "Newton's method"
+      ],
+      "answer": 0,
+      "explanation": "Mini-Batch GD is the practical standard, balancing computational efficiency with stable gradient estimates."
+    },
+    {
+      "id": 13,
+      "question": "What does a neural network learn from data?",
+      "options": [
+        "Patterns and hierarchical representations",
+        "Only linear relationships",
+        "A fixed mathematical formula without adjustments",
+        "Explicit human-coded rules"
+      ],
+      "answer": 0,
+      "explanation": "Neural networks learn patterns and hierarchical representations from data through the training process."
+    },
+    {
+      "id": 14,
+      "question": "What is the gradient descent update rule for parameters θ?",
+      "options": [
+        "θ_new = α · θ_old - ∇L(θ_old)",
+        "θ_new = θ_old - α · ∇L(θ_old)",
+        "θ_new = ∇L(θ_old) - α · θ_old",
+        "θ_new = θ_old + α · ∇L(θ_old)"
+      ],
+      "answer": 1,
+      "explanation": "We subtract α times the gradient from current parameters — moving in the direction opposite to the gradient."
+    },
+    {
+      "id": 15,
+      "question": "Which of the following is a disadvantage of Stochastic Gradient Descent (SGD)?",
+      "options": [
+        "It cannot be used with large datasets.",
+        "The path to the minimum is very 'noisy' and can be unstable.",
+        "It is extremely slow and computationally expensive.",
+        "It always overfits the data."
+      ],
+      "answer": 1,
+      "explanation": "SGD's gradient estimates are noisy because it updates using single examples, making convergence unstable."
+    },
+    {
+      "id": 16,
+      "question": "According to the lecture, how does Deep Learning differ from traditional Machine Learning in terms of feature engineering?",
+      "options": [
+        "Traditional ML automatically learns features, while Deep Learning needs manual feature design.",
+        "Deep Learning learns hierarchical representations directly from raw data, while traditional ML often requires hand-crafted features.",
+        "Both Deep Learning and traditional ML rely equally on manual feature engineering.",
+        "Deep Learning requires more hand-crafted features than traditional ML."
+      ],
+      "answer": 1,
+      "explanation": "DL automatically learns features from raw data through its layered architecture, eliminating manual feature engineering."
+    },
+    {
+      "id": 17,
+      "question": "According to the lecture, which type of data format is the most challenging to analyze at scale and requires advanced AI/ML to extract meaning?",
+      "options": [
+        "Unstructured data",
+        "Semi-structured data",
+        "Structured data",
+        "Tabular data"
+      ],
+      "answer": 0,
+      "explanation": "Unstructured data (images, text, audio) has no fixed schema and requires AI/ML to extract meaning."
+    },
+    {
+      "id": 18,
+      "question": "What is a major disadvantage of Batch Gradient Descent?",
+      "options": [
+        "It is extremely slow and computationally expensive for large datasets, as it uses the entire dataset for each update.",
+        "It always converges to a local minimum.",
+        "It cannot be used with neural networks.",
+        "It provides very noisy and unstable gradient estimates."
+      ],
+      "answer": 0,
+      "explanation": "Batch GD computes gradients over the entire dataset, making it memory-intensive and extremely slow for large datasets."
+    },
+    {
+      "id": 19,
+      "question": "In the gradient descent algorithm, the gradient vector points in the direction of:",
+      "options": [
+        "No change",
+        "Random direction",
+        "Steepest ascent",
+        "Steepest descent"
+      ],
+      "answer": 2,
+      "explanation": "The gradient ∇L(θ) points in the direction of steepest ascent. We move opposite to it to minimize loss."
+    },
+    {
+      "id": 20,
+      "question": "In the gradient descent algorithm, what does the gradient ∇L(θ) represent?",
+      "options": [
+        "The value of the loss function.",
+        "The direction of steepest ascent of the loss function.",
+        "The learning rate.",
+        "The direction of steepest descent of the loss function."
+      ],
+      "answer": 1,
+      "explanation": "The gradient vector points in the direction of steepest increase of the loss function."
+    }
+  ]
+}
